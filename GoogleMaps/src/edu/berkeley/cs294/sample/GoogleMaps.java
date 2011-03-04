@@ -1,7 +1,7 @@
 /*
  * 
  * Demonstrate some functionalities of the google maps api (ie: Pointing your map to a certain
- * location, adding stuffs to the map and binding some keys to zooming in and out )
+ * location, adding stuffs to the map and binding some keys to zooming in and out)
  * 
  */
 
@@ -115,5 +115,4 @@ public class GoogleMaps extends MapActivity {
     		
     	return super.onKeyDown(keyCode, event);
     }
- 
 }

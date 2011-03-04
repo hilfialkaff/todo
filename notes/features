@@ -10,3 +10,4 @@ Optional
 - Don't assume there's internet (sms, etc)
 - Portability across android tablet, etc
 - Display TODOs based on un-specific location (eg: supermarket)
+- Travelling salesman algorithm? (lol)
