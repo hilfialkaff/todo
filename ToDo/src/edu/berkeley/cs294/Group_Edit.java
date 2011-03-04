@@ -9,7 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow.LayoutParams;
-public class ToDo extends Activity implements OnClickListener {
+
+public class Group_Edit extends Activity implements OnClickListener {
 	/** Called when the activity is first created. */
 
 	//initialize a button and a counter
@@ -43,7 +44,7 @@ public class ToDo extends Activity implements OnClickListener {
 
 		// create a button
 		Button b = new Button(this);
-		b.setText("ToDo " + counter + "                               " + "sender" + "     " + "status" + "     >");
+		b.setText("person" + counter);
 		b.setTextColor(Color.WHITE);
 		b.setBackgroundColor(Color.BLACK);
 
@@ -57,16 +58,7 @@ public class ToDo extends Activity implements OnClickListener {
 				startActivityForResult(intent, 0);
 			}
 		});
-
-		Button buttonGroup = (Button) findViewById(R.id.ButtonGroup);
-
-		buttonGroup.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v){
-				Intent intent = new Intent(v.getContext(), Group_Edit.class);
-				startActivityForResult(intent, 0);
-			}
-		});
+		
 		//        b.setOnClickListener(new View.OnClickListener() {
 		//			public void onClick(View view) {
 		//				Intent myIntent = new Intent(view.getContext(), ToDo_Edit.class);
