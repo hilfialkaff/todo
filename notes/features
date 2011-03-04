@@ -1,11 +1,12 @@
 Required
-- Display TODOs based on location
+- Display TODOs based on specific location
 - Share specific TODOs with specific groups
 
 Optional
-- Search TODOs
+- Search for TODOs
 - Task Deadline
 - Sort TODOs based on some sort of heuristic that utilizes group's priority, deadline, etc
 - Repeating events, etc
 - Don't assume there's internet (sms, etc)
 - Portability across android tablet, etc
+- Display TODOs based on un-specific location (eg: supermarket)
