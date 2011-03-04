@@ -4,14 +4,15 @@ http://huuah.com/using-tablelayout-on-android/
 - load image to layout:
 http://www.androidpeople.com/android-load-image-from-url-example/
 
+- Introduction to Android Layout:
 http://mobiforge.com/designing/story/understanding-user-interface-android-part-1-layouts
 
+- Different Type of Listener Implementation (A function that is called when a certain event happen on the widget, ie: button click):
 http://tseng-blog.nge-web.net/blog/2009/02/14/implementing-listeners-in-your-android-java-application/
 
+- A tutorial for Canvas Application using multiple Thread:
 http://www.droidnova.com/playing-with-graphics-in-android-part-i,147.html
-
 http://www.tutorialforandroid.com/2010/11/drawing-with-canvas-in-android-renewed.html
 
-http://www.tutorialforandroid.com/2010/11/drawing-with-canvas-in-android-renewed.html
-
+- Android Menu Tutorial (option and context):
 http://www.tutorialforandroid.com/2009/01/options-menu-in-android-code.html
