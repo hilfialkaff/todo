@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TableLayout android:id="@+id/Header_grouplist"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:stretchColumns="0">
+
+		<TableRow android:id="@+id/Header" android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<TextView android:id="@+id/Logo" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="@string/app_name">
+			</TextView>
+
+			<Button android:id="@+id/AddToDo" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="+">
+			</Button>
+
+			<ImageButton android:id="@+id/searchButton"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></ImageButton>
+		</TableRow>
+	</TableLayout>
+
+	<TableLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:stretchColumns="0">
+
+		<TableLayout android:layout_width="fill_parent"
+			android:layout_height="1dip" android:background="#FFFFFFFF">
+		</TableLayout>
+
+		<TableLayout android:layout_width="fill_parent"
+			android:layout_height="1dip" android:background="#00000000">
+		</TableLayout>
+
+	</TableLayout>
+
+	<TableLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:stretchColumns="0">
+
+		<ScrollView android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<TableLayout android:id="@+id/Content_groupedit_editMembers"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:stretchColumns="0">
+
+				<TableRow android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+					<TextView android:layout_width="fill_parent"
+						android:layout_height="wrap_content" android:text="Groups">
+					</TextView>
+					<Button android:text="@string/label_addgroup" android:id="@+id/AddGroup"
+						android:layout_width="wrap_content" android:layout_height="wrap_content">
+					</Button>
+				</TableRow>
+
+				<TableRow android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+					<TextView android:layout_width="fill_parent"
+						android:layout_height="wrap_content" android:text="Contacts">
+					</TextView>
+					<Button android:text="@string/label_addgroup" android:id="@+id/AddContact"
+						android:layout_width="wrap_content" android:layout_height="wrap_content">
+					</Button>
+				</TableRow>
+
+			</TableLayout>
+
+		</ScrollView>
+	</TableLayout>
+
+</TableLayout>
+
