@@ -2,19 +2,16 @@ package edu.berkeley.cs294;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TableLayout;
-import android.widget.TableRow.LayoutParams;
-public class ToDo extends Activity implements OnClickListener {
+
+public class ToDo extends Activity {
 	/** Called when the activity is first created. */
 
 	//initialize a button and a counter
-	Button btn;
-	int counter = 0;
+	Button mapBtn, toDoListBtn, groupBtn;
+	Button addToDo;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,62 +20,40 @@ public class ToDo extends Activity implements OnClickListener {
 		// setup the layout
 		setContentView(R.layout.main);
 
-		// add a click-listener on the button
-		btn = (Button) findViewById(R.id.Button01);
-		btn.setOnClickListener(this);        
-
-	}
-
-	// run when the button is clicked
-	public void onClick(View view) {
-
-		// get a reference for the TableLayout
-		TableLayout table = (TableLayout) findViewById(R.id.TableLayout03);
-
-		// create a new TableRow
-		//TableRow row = new TableRow(this);
-
-		// count the counter up by one
-		counter++;
-
-		// create a button
-		Button b = new Button(this);
-		b.setText("ToDo " + counter + "                               " + "sender" + "     " + "status" + "     >");
-		b.setTextColor(Color.WHITE);
-		b.setBackgroundColor(Color.BLACK);
-
-
-		b.setOnClickListener(new View.OnClickListener() {
-
+		mapBtn = (Button) findViewById(R.id.MapButton);
+		mapBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(v.getContext(), ToDo_Edit.class);
-				startActivityForResult(intent, 0);
+			public void onClick(View view) {
+				Intent seeMap = new Intent(view.getContext(), ToDo_Edit.class);
+				startActivityForResult(seeMap, 0);
 			}
 		});
-
-		Button buttonGroup = (Button) findViewById(R.id.ButtonGroup);
-
-		buttonGroup.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v){
-				Intent intent = new Intent(v.getContext(), Group_Edit.class);
-				startActivityForResult(intent, 0);
+		
+		toDoListBtn = (Button) findViewById(R.id.ToDoListButton);
+		toDoListBtn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View view) {
+				Intent seeList = new Intent(view.getContext(), ToDoList.class);
+				startActivityForResult(seeList, 0);
 			}
 		});
-		//        b.setOnClickListener(new View.OnClickListener() {
-		//			public void onClick(View view) {
-		//				Intent myIntent = new Intent(view.getContext(), ToDo_Edit.class);
-		//                startActivityForResult(myIntent, 0);
-		//			}
-		//
-		//		});
-		// add the TextView and the CheckBox to the new TableRow
-		//row.addView(b);
-
-		// add the TableRow to the TableLayout
-		table.addView(b,new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		
+		groupBtn = (Button) findViewById(R.id.GroupButton);
+		groupBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent seeGroups = new Intent(view.getContext(), GroupList.class);
+				startActivityForResult(seeGroups, 0);
+			}
+		});
+		
+		addToDo = (Button) findViewById(R.id.AddToDoButton);
+		addToDo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent addNewToDo = new Intent(view.getContext(), AddToDo.class);
+				startActivityForResult(addNewToDo, 0);
+			}
+		});
 
 	}
 }

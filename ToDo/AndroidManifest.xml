@@ -13,6 +13,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+		<activity android:name=".ToDo_Edit"></activity>
+		<activity android:name=".Group_Edit"></activity>
+		<activity android:name=".GroupList"></activity>
+		<activity android:name=".ToDoList"></activity>
+		<activity android:name=".AddToDo"></activity>
+		<activity android:name=".AddContact"></activity>
+		<activity android:name=".AddMember"></activity>
     </application>
 </manifest>
