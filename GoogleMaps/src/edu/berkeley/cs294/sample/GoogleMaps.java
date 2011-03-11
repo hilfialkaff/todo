@@ -8,23 +8,29 @@
 
 package edu.berkeley.cs294.sample;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
-import com.google.android.maps.MapView.LayoutParams;
-import com.google.android.maps.MapController;
-import com.google.android.maps.GeoPoint;
-import com.google.android.maps.Overlay;
-
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.MapView.LayoutParams;
 
 public class GoogleMaps extends MapActivity {
 	
@@ -34,6 +40,41 @@ public class GoogleMaps extends MapActivity {
 
     class MapOverlay extends com.google.android.maps.Overlay
     {
+    	@Override
+        public boolean onTouchEvent(MotionEvent event, MapView mapView) 
+        {   
+            //---when user lifts his finger---
+            if (event.getAction() == 1) {                
+                GeoPoint p = mapView.getProjection().fromPixels(
+                    (int) event.getX(),
+                    (int) event.getY());
+ 
+                Geocoder geoCoder = new Geocoder(
+                    getBaseContext(), Locale.getDefault());
+                try {
+                    List<Address> addresses = geoCoder.getFromLocation(
+                        p.getLatitudeE6()  / 1E6, 
+                        p.getLongitudeE6() / 1E6, 1);
+ 
+                    String add = "";
+                    if (addresses.size() > 0) 
+                    {
+                        for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
+                             i++)
+                           add += addresses.get(0).getAddressLine(i) + "\n";
+                    }
+ 
+                    Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
+                }
+                catch (IOException e) {                
+                    e.printStackTrace();
+                }   
+                return true;
+            }
+            else                
+                return false;
+        }        
+
         @Override
         public boolean draw(Canvas canvas, MapView mapView, 
         boolean shadow, long when) 
@@ -74,15 +115,24 @@ public class GoogleMaps extends MapActivity {
         
         // Where to point the map to (langitude & latitude)
         mc = mapView.getController();
-        String coordinates[] = {"1.352566007", "103.78921587"};
-        double lat = Double.parseDouble(coordinates[0]);
-        double lng = Double.parseDouble(coordinates[1]);
+		Geocoder geoCoder = new Geocoder(this, Locale.getDefault());    
+        try {
+            List<Address> addresses = geoCoder.getFromLocationName(
+                "empire state building", 5);
+            String add = "";
+            if (addresses.size() > 0) {
+                p = new GeoPoint(
+                        (int) (addresses.get(0).getLatitude() * 1E6), 
+                        (int) (addresses.get(0).getLongitude() * 1E6));
 
-        p = new GeoPoint ((int) (lat * 1E6), (int) (lng * 1E6));
-        
-        // Changing the map
-        mc.animateTo(p);
-        mc.setZoom(17);
+                // Changing the map
+                mc.animateTo(p);
+                mc.setZoom(17);
+                mapView.invalidate();
+            }    
+        } catch(IOException err) {
+            err.printStackTrace();
+        }        
         
         // Add extra stuffs to the map
         MapOverlay mapOverlay = new MapOverlay();
@@ -112,7 +162,7 @@ public class GoogleMaps extends MapActivity {
     		mc.zoomOut();
     		break;
     	}
-    		
+    	
     	return super.onKeyDown(keyCode, event);
     }
 }
