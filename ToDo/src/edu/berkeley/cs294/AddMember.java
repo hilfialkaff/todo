@@ -1,15 +1,15 @@
 package edu.berkeley.cs294;
 
 import android.app.Activity;
-
 import android.os.Bundle;
 
-public class ToDo_Edit extends Activity{
-	@Override
+public class AddMember extends Activity{
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.todo_edit);
+
+		// setup the layout
+		setContentView(R.layout.member_edit);       
+
 	}
-	
-	
 }

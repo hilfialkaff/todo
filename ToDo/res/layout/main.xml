@@ -3,24 +3,27 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
-	<TableLayout android:id="@+id/TableLayout01"
+	<TableLayout android:id="@+id/Header_main"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:stretchColumns="0">
 
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
+		<TableRow android:id="@+id/Header" android:layout_width="wrap_content"
 			android:layout_height="wrap_content">
-			<TextView android:id="@+id/PlaceName" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="Place Name"
-				android:textSize="20px">
+			<TextView android:id="@+id/Logo" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="@string/app_name">
 			</TextView>
 
-			<Button android:id="@+id/Button01" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="Add ToDo">
+			<Button android:id="@+id/AddToDoButton" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="+">
 			</Button>
+
+			<ImageButton android:id="@+id/SearchButton"
+				android:layout_width="wrap_content" android:layout_height="wrap_content">
+			</ImageButton>
 		</TableRow>
 	</TableLayout>
 
-	<TableLayout android:id="@+id/TableLayout02"
+	<TableLayout android:id="@+id/Lines_main"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:stretchColumns="0">
 
@@ -36,19 +39,21 @@
 
 	</TableLayout>
 
-	<ScrollView android:id="@+id/ScrollView01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content">
+	<TableLayout android:id="@+id/Content_main"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-		<TableLayout android:id="@+id/TableLayout03"
-			android:layout_width="fill_parent" android:layout_height="wrap_content">
-		</TableLayout>
-	</ScrollView>
-
-	<TableLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<Button android:id="@+id/ButtonGroup" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="Group">
+		<Button android:id="@+id/MapButton" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Map">
 		</Button>
+
+		<Button android:id="@+id/ToDoListButton" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="ToDo List">
+		</Button>
+
+		<Button android:id="@+id/GroupButton" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Groups">
+		</Button>
+
 	</TableLayout>
 
 </LinearLayout>

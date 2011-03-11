@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TableLayout android:id="@+id/Header_todolist"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:stretchColumns="0">
+
+		<TableRow android:id="@+id/Header" android:layout_width="wrap_content"
+			android:layout_height="wrap_content">
+			<TextView android:id="@+id/Logo" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="ToDo">
+			</TextView>
+
+			<Button android:id="@+id/AddToDoButton" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="+">
+			</Button>
+			<ImageButton android:id="@+id/SearchButton"
+				android:layout_width="wrap_content" android:layout_height="wrap_content">
+			</ImageButton>
+		</TableRow>
+	</TableLayout>
+
+	<TableLayout android:id="@+id/Content_todolist"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_below="@+id/Header_todolist">
+
+		<ScrollView android:layout_width="wrap_content"
+			android:layout_height="fill_parent">
+
+			<TableRow android:id="@+id/todoScroll" android:layout_width="wrap_content"
+				android:layout_height="fill_parent">
+			</TableRow>
+		</ScrollView>
+	</TableLayout>
+
+	<TableLayout android:id="@+id/sorter"
+		android:layout_alignParentBottom="true" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:stretchColumns="1">
+		<TableRow>
+			<Button android:id="@+id/SortBy_ToDo" android:text="ToDo"></Button>
+			<Button android:id="@+id/SortBy_Place" android:gravity="center"
+				android:text="Place"></Button>
+			<Button android:id="@+id/SortBy_Sender" android:gravity="right"
+				android:text="Sender"></Button>
+		</TableRow>
+	</TableLayout>
+
+
+</RelativeLayout>	

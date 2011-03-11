@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 
 	<TableLayout android:id="@+id/TableLayout01"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:stretchColumns="0">
+		android:stretchColumns="0" android:layout_alignParentTop="true">
 
-		<TableRow android:id="@+id/TableRow01" android:layout_width="wrap_content"
-			android:layout_height="wrap_content">
-			<TextView android:id="@+id/PlaceName" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="Group Name"
-				android:textSize="20px">
+		<TableRow>
+			<TextView android:id="@+id/Logo" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="@string/app_name">
 			</TextView>
 
-			<Button android:id="@+id/Button01" android:layout_width="wrap_content"
+			<Button android:id="@+id/AddToDo" android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:text="+">
 			</Button>
 		</TableRow>
@@ -22,27 +20,58 @@
 
 	<TableLayout android:id="@+id/TableLayout02"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:stretchColumns="0">
+		android:layout_below="@+id/TableLayout01">
 
-		<TableLayout android:id="@+id/Line01"
-			android:layout_width="fill_parent" android:layout_height="1dip"
-			android:background="#FFFFFFFF">
+		<TableLayout android:layout_width="fill_parent"
+			android:layout_height="1dip" android:background="#FFFFFFFF">
 		</TableLayout>
 
-		<TableLayout android:id="@+id/Line02"
-			android:layout_width="fill_parent" android:layout_height="1dip"
-			android:background="#00000000">
+		<TableLayout android:layout_width="fill_parent"
+			android:layout_height="1dip" android:background="#00000000">
 		</TableLayout>
 
 	</TableLayout>
 
-	<ScrollView android:id="@+id/ScrollView01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content">
+	<TableLayout android:id="@+id/Content_groupedit"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:stretchColumns="0" android:layout_below="@+id/TableLayout02">
 
-		<TableLayout android:id="@+id/TableLayout03"
-			android:layout_width="fill_parent" android:layout_height="wrap_content">
-		</TableLayout>
-	</ScrollView>
+		<TextView android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:text="Group Name">
+		</TextView>
 
-</LinearLayout>
+		<EditText android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:text="Enter group name"
+			android:maxLines="2">
+		</EditText>
+
+		<TableRow>
+			<TextView android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:text="Members">
+			</TextView>
+
+			<Button android:id="@+id/AddMember" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="+">
+			</Button>
+		</TableRow>
+
+		<ScrollView>
+			<TableLayout android:id="@+id/Content_groupedit_editMembers"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:stretchColumns="0">
+			</TableLayout>
+		</ScrollView>
+	</TableLayout>
+
+	<TableLayout android:layout_alignParentBottom="true"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:stretchColumns="1">
+		<TableRow>
+			<Button android:id="@+id/CancelButton" android:text="Cancel"></Button>
+			<Button android:id="@+id/SaveButton" android:gravity="right"
+				android:text="Save"></Button>
+		</TableRow>
+	</TableLayout>
+
+</RelativeLayout>
 

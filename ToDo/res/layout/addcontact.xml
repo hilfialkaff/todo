@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Name"></TextView>
+	<EditText android:id="@+id/ContactName" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Enter name"
+		android:maxLines="3"></EditText>
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Email"></TextView>
+	<EditText android:id="@+id/ContactEmail" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Enter email address"
+		android:maxLines="3"></EditText>
+	<TextView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:text="Phone Number"></TextView>
+	<EditText android:id="@+id/ContactNumber"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="Enter phone number" android:maxLines="3"></EditText>
+	</TableLayout>
+
+	<TableLayout android:layout_alignParentBottom="true"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:stretchColumns="1">
+		<TableRow>
+			<Button android:id="@+id/CancelButton_contact" android:text="Cancel"></Button>
+			<Button android:id="@+id/SaveButton_contact" android:gravity="right"
+				android:text="Save"></Button>
+		</TableRow>
+	</TableLayout>
+</RelativeLayout>
