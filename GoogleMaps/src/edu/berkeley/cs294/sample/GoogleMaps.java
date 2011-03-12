@@ -40,6 +40,7 @@ public class GoogleMaps extends MapActivity {
 
     class MapOverlay extends com.google.android.maps.Overlay
     {
+    	/*
     	@Override
         public boolean onTouchEvent(MotionEvent event, MapView mapView) 
         {   
@@ -73,7 +74,7 @@ public class GoogleMaps extends MapActivity {
             }
             else                
                 return false;
-        }        
+        } */       
 
         @Override
         public boolean draw(Canvas canvas, MapView mapView, 
@@ -112,7 +113,8 @@ public class GoogleMaps extends MapActivity {
         // Toggle between satellite & street view 
         // mapView.setSatellite(true);
         mapView.setStreetView(true);
-        
+
+        /*
         // Where to point the map to (langitude & latitude)
         mc = mapView.getController();
 		Geocoder geoCoder = new Geocoder(this, Locale.getDefault());    
@@ -132,8 +134,20 @@ public class GoogleMaps extends MapActivity {
             }    
         } catch(IOException err) {
             err.printStackTrace();
-        }        
+        } */       
         
+        mc = mapView.getController();
+        String coordinates[] = {"1.352566007", "103.78921587"};
+        double lat = Double.parseDouble(coordinates[0]);
+        double lng = Double.parseDouble(coordinates[1]);
+ 
+        p = new GeoPoint(
+            (int) (lat * 1E6), 
+            (int) (lng * 1E6));
+ 
+        mc.animateTo(p);
+        mc.setZoom(17); 
+       
         // Add extra stuffs to the map
         MapOverlay mapOverlay = new MapOverlay();
         List<Overlay> listOfOverlays = mapView.getOverlays();
