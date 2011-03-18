@@ -3947,3 +3947,21 @@ java.lang.NullPointerException
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:34:59.197
 !MESSAGE AndroidManifest: Ignoring unknown '!' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:44:21.631
+!MESSAGE AndroidManifest: Ignoring unknown 'ATextView' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:44:49.500
+!MESSAGE AndroidManifest: Ignoring unknown 'TextView' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:44:49.827
+!MESSAGE AndroidManifest: Ignoring unknown 'TextView' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:45:02.551
+!MESSAGE AndroidManifest: Ignoring unknown 'A' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:54:27.390
+!MESSAGE AndroidManifest: Ignoring unknown 'Bu' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 18:54:56.020
+!MESSAGE AndroidManifest: Ignoring unknown 'Bu' XML element

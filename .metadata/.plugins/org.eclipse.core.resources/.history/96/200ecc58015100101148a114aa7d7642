@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+<ScrollView
+android:id="@+id/sc_timeline"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:scrollbars="vertical"
+>
+<TableLayout
+	android:id="@+id/tl_add"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+	<TableRow
+		android:id="@+id/tr_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Title"
+			android:textSize="20px">
+		</TextView>
+		<EditText
+			android:id="@+id/et_title"
+			android:layout_width="350px"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the title"
+			android:textSize="20px">
+		</EditText>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_place"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_place"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Place"
+			android:textSize="20px">
+		</TextView>
+		<EditText
+			android:id="@+id/et_place"
+			android:layout_width="350px"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the place"
+			android:textSize="20px">
+		</EditText>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_tag"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<AutoCompleteTextView
+			android:id="@+id/actv_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Tag"
+			android:textSize="20px">
+		</AutoCompleteTextView>
+		<Spinner
+			android:id="@+id/s_tag"
+			android:layout_width="350px"
+			android:layout_height="wrap_content">
+		</Spinner>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_status"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<TextView
+			android:id="@+id/tv_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Status"
+			android:textSize="20px">
+		</TextView>
+		<Spinner
+			android:id="@+id/s_status"
+			android:layout_width="350px"
+			android:layout_height="wrap_content">
+		</Spinner>
+	</TableRow>
+</TableLayout>
+</ScrollView>
+</LinearLayout>

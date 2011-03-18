@@ -14,25 +14,31 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int Line01=0x7f060005;
-        public static final int Line02=0x7f060006;
-        public static final int PlaceName=0x7f060002;
-        public static final int TableRow01=0x7f060001;
-        public static final int b_save=0x7f06000e;
-        public static final int et_notes=0x7f06000c;
-        public static final int et_tags=0x7f06000a;
-        public static final int et_todo=0x7f060008;
-        public static final int ib_custom_add=0x7f060011;
-        public static final int ib_custom_search=0x7f060010;
-        public static final int iv_background=0x7f060012;
-        public static final int notes=0x7f06000b;
-        public static final int status=0x7f060003;
-        public static final int tags=0x7f060009;
-        public static final int tl_button=0x7f06000d;
-        public static final int tl_edit=0x7f060000;
-        public static final int tl_info=0x7f060004;
-        public static final int todo=0x7f060007;
-        public static final int tv_custom_title=0x7f06000f;
+        public static final int actv_note=0x7f06000d;
+        public static final int actv_tag=0x7f06000a;
+        public static final int b_submit=0x7f060014;
+        public static final int et_place=0x7f060007;
+        public static final int et_title=0x7f060004;
+        public static final int ib_custom_add=0x7f060017;
+        public static final int ib_custom_search=0x7f060016;
+        public static final int iv_background=0x7f060018;
+        public static final int s_group=0x7f060010;
+        public static final int s_status=0x7f060012;
+        public static final int sc_timeline=0x7f060000;
+        public static final int tl_add=0x7f060001;
+        public static final int tr_group=0x7f06000e;
+        public static final int tr_note=0x7f06000b;
+        public static final int tr_place=0x7f060005;
+        public static final int tr_status=0x7f060011;
+        public static final int tr_submit=0x7f060013;
+        public static final int tr_tag=0x7f060008;
+        public static final int tr_title=0x7f060002;
+        public static final int tv_custom_title=0x7f060015;
+        public static final int tv_group=0x7f06000f;
+        public static final int tv_note=0x7f06000c;
+        public static final int tv_place=0x7f060006;
+        public static final int tv_status=0x7f060009;
+        public static final int tv_title=0x7f060003;
     }
     public static final class layout {
         public static final int add=0x7f030000;
