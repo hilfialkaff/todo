@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="17" version="2.0">
+<workbench progressCount="10" version="2.0">
 <workbenchAdvisor/>
-<window height="774" maximized="true" width="1280" x="37" y="22">
+<window height="774" maximized="true" width="1280" x="195" y="22">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -49,7 +49,7 @@
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
-<category IMemento.internal.id="Warnings (4 items)"/>
+<category IMemento.internal.id="Warnings (6 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -189,7 +189,7 @@
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.15602838" ratioLeft="198" ratioRight="1071" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.8323615" ratioLeft="571" ratioRight="115" relationship="4" relative="org.eclipse.ui.editorss">
+<info folder="true" part="bottom" ratio="0.77259475" ratioLeft="530" ratioRight="156" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -338,50 +338,50 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="add.xml" tooltip="ToDo_Replica/res/layout/add.xml">
+<persistable path="/ToDo_Replica/res/layout/add.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Add.java">
+<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Add.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/DatabaseHelper.java">
+<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/DatabaseHelper.java"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="ToDo_Replica/AndroidManifest.xml">
 <persistable path="/ToDo_Replica/AndroidManifest.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Replica.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Replica.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Replica.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="ToDo/res/layout/main.xml">
-<persistable path="/ToDo/res/layout/main.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="ToDo_Replica/res/layout/main.xml">
 <persistable path="/ToDo_Replica/res/layout/main.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo.java" tooltip="ToDo/src/edu/berkeley/cs294/ToDo.java">
-<persistable path="/ToDo/src/edu/berkeley/cs294/ToDo.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="custom_title.xml" tooltip="ToDo_Replica/res/layout/custom_title.xml">
+<persistable path="/ToDo_Replica/res/layout/custom_title.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="ToDo/AndroidManifest.xml">
-<persistable path="/ToDo/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="custom_style.xml" tooltip="ToDo_Replica/res/values/custom_style.xml">
+<persistable path="/ToDo_Replica/res/values/custom_style.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="ToDo/src/edu/berkeley/cs294/DatabaseHelper.java">
-<persistable path="/ToDo/src/edu/berkeley/cs294/DatabaseHelper.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Edit.java" tooltip="ToDo/src/edu/berkeley/cs294/ToDo_Edit.java">
-<persistable path="/ToDo/src/edu/berkeley/cs294/ToDo_Edit.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="custom_style.xml" tooltip="ToDo_Replica/res/layout/custom_style.xml">
+<persistable path="/ToDo_Replica/res/layout/custom_style.xml"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="todo_edit.xml" tooltip="ToDo/res/layout/todo_edit.xml">
 <persistable path="/ToDo/res/layout/todo_edit.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ShowLocation.java" tooltip="Location_test/src/edu/berkeley/cs294/sample/ShowLocation.java">
-<persistable path="/Location_test/src/edu/berkeley/cs294/sample/ShowLocation.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Edit.java" tooltip="ToDo/src/edu/berkeley/cs294/ToDo_Edit.java">
+<persistable path="/ToDo/src/edu/berkeley/cs294/ToDo_Edit.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="R.java" tooltip="Location_test/gen/edu/berkeley/cs294/sample/R.java">
-<persistable path="/Location_test/gen/edu/berkeley/cs294/sample/R.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AddToDo.java" tooltip="ToDo/src/edu/berkeley/cs294/AddToDo.java">
+<persistable path="/ToDo/src/edu/berkeley/cs294/AddToDo.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GoogleMaps.java" tooltip="GoogleMaps/src/edu/berkeley/cs294/sample/GoogleMaps.java">
-<persistable path="/GoogleMaps/src/edu/berkeley/cs294/sample/GoogleMaps.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Maps.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Maps.java">
+<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Maps.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="GoogleMaps/AndroidManifest.xml">
-<persistable path="/GoogleMaps/AndroidManifest.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="ToDo_Replica/src/Add.java">
+<persistable path="/ToDo_Replica/src/Add.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Group_Edit.java" tooltip="ToDo/src/edu/berkeley/cs294/Group_Edit.java">
-<persistable path="/ToDo/src/edu/berkeley/cs294/Group_Edit.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Lists.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Lists.java">
+<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Lists.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="group_edit.xml" tooltip="ToDo/res/layout/group_edit.xml">
-<persistable path="/ToDo/res/layout/group_edit.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Groups.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Groups.java">
+<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Groups.java"/>
 </file>
 </mruList>
 </workbench>
