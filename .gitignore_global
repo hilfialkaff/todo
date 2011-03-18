@@ -1,3 +1,4 @@
 */bin/*.apk
 */bin/*ap_
 */bin/*dex
+./.metadata/
