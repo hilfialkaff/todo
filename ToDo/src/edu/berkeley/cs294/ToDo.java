@@ -55,7 +55,8 @@ public class ToDo extends Activity {
 		addToDo.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent addNewToDo = new Intent(view.getContext(), AddToDo.class);
+				Intent addNewToDo = new Intent(view.getContext(), ToDo_Edit.class);
+				addNewToDo.putExtra("mode", "add");
 				startActivityForResult(addNewToDo, 0);
 			}
 		});

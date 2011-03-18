@@ -21,7 +21,7 @@ public final class R {
         public static final int AddToDoButton=0x7f050023;
         public static final int Button01=0x7f05001c;
         public static final int Button03=0x7f050021;
-        public static final int CancelButton=0x7f05000c;
+       public static final int CancelButton=0x7f05000c;
         public static final int CancelButton_contact=0x7f050003;
         public static final int ContactEmail=0x7f050001;
         public static final int ContactName=0x7f050000;
@@ -57,6 +57,7 @@ public final class R {
         public static final int searchButton=0x7f050010;
         public static final int sorter=0x7f050027;
         public static final int todoScroll=0x7f050026;
+
     }
     public static final class layout {
         public static final int addcontact=0x7f030000;

@@ -6,7 +6,7 @@
     >
  
 <TableLayout
-	android:id="@+id/TableLayout01"
+	android:id="@+id/tl_edit"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
@@ -24,16 +24,16 @@
 	</TextView>
 
 	<Button
-		android:id="@+id/Button01"
+		android:id="@+id/status"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="should be list view of status">
+		android:text="status">
 	</Button>
 </TableRow>
 </TableLayout>
 
 <TableLayout
-	android:id="@+id/TableLayout02"
+	android:id="@+id/tl_info"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
@@ -53,7 +53,7 @@
 </TableLayout>
 	
 <TableRow
-	android:id="@+id/TableRow02"
+	android:id="@+id/todo"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content">
 	<TextView
@@ -62,14 +62,15 @@
 		android:text="ToDo	: ">
 	</TextView>
 	<EditText
+		android:id="@+id/et_todo"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="ToDo">
+		android:text="">
 	</EditText>
 </TableRow>
 
 <TableRow
-	android:id="@+id/TableRow03"
+	android:id="@+id/tags"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content">
 	<TextView
@@ -78,14 +79,15 @@
 		android:text="Tags	: ">
 	</TextView>
 	<EditText
+		android:id="@+id/et_tags"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Should be a listview">
+		android:text="">
 	</EditText>
 </TableRow>
 
 <TableRow
-	android:id="@+id/TableRow04"
+	android:id="@+id/notes"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content">
 	<TextView
@@ -94,6 +96,7 @@
 		android:text="Notes	: ">
 	</TextView>
 	<EditText
+		android:id="@+id/et_notes"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
 	</EditText>
@@ -102,11 +105,11 @@
 </TableLayout>
  
 <TableLayout
-	android:id="@+id/TableLayoutSave"
+	android:id="@+id/tl_button"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 	<Button
-		android:id="@+id/Button03"
+		android:id="@+id/b_save"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Save">
