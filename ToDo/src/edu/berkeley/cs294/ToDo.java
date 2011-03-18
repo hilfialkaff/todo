@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class ToDo extends Activity {
@@ -18,8 +19,12 @@ public class ToDo extends Activity {
 		super.onCreate(savedInstanceState);
 
 		// setup the layout
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		
 		setContentView(R.layout.main);
 
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		
 		mapBtn = (Button) findViewById(R.id.MapButton);
 		mapBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
