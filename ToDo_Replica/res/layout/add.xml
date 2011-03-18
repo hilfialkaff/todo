@@ -51,6 +51,26 @@
 		</EditText>
 	</TableRow>
 	<TableRow
+		android:id="@+id/tr_note"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<TextView
+			android:id="@+id/tv_note"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Note"
+			android:textSize="20px">
+		</TextView>
+		<EditText
+			android:id="@+id/et_note"
+			android:layout_width="350px"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the note"
+			android:textSize="20px">
+		</EditText>
+	</TableRow>
+	<TableRow
 		android:id="@+id/tr_tag"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -67,26 +87,6 @@
 			android:layout_width="350px"
 			android:layout_height="wrap_content"
 			android:hint="Touch here to edit the tag"
-			android:textSize="20px">
-		</AutoCompleteTextView>
-	</TableRow>
-	<TableRow
-		android:id="@+id/tr_note"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-		<TextView
-			android:id="@+id/tv_note"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Note"
-			android:textSize="20px">
-		</TextView>
-		<AutoCompleteTextView
-			android:id="@+id/actv_note"
-			android:layout_width="350px"
-			android:layout_height="wrap_content"
-			android:hint="Touch here to edit the note"
 			android:textSize="20px">
 		</AutoCompleteTextView>
 	</TableRow>
