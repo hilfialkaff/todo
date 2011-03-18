@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+ 
+<TableLayout
+	android:id="@+id/TableLayout01"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+
+<TableRow
+	android:id="@+id/TableRow01"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+	<TextView
+		android:id="@+id/PlaceName"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Place Name"
+		android:textSize="20px">
+	</TextView>
+
+	<Button
+		android:id="@+id/Button01"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="should be list view of status">
+	</Button>
+</TableRow>
+</TableLayout>
+
+<TableLayout
+	android:id="@+id/tl_edit"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+ 
+<TableLayout
+	android:id="@+id/Line01"
+	android:layout_width="fill_parent"
+	android:layout_height="1dip"
+	android:background="#FFFFFFFF">
+</TableLayout>
+
+<TableLayout
+	android:id="@+id/Line02"
+	android:layout_width="fill_parent"
+	android:layout_height="1dip"
+	android:background="#00000000">
+</TableLayout>
+	
+<TableRow
+	android:id="@+id/todo"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="ToDo	: ">
+	</TextView>
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="">
+	</EditText>
+</TableRow>
+
+<TableRow
+	android:id="@+id/tags"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Tags	: ">
+	</TextView>
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="">
+	</EditText>
+</TableRow>
+
+<TableRow
+	android:id="@+id/notes"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:text="Notes	: ">
+	</TextView>
+	<EditText
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+	</EditText>
+</TableRow>
+	
+</TableLayout>
+ 
+<TableLayout
+	android:id="@+id/TableLayoutSave"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	<Button
+		android:id="@+id/Button03"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Save">
+	</Button>
+</TableLayout>
+</LinearLayout>

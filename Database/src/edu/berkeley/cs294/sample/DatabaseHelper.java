@@ -18,7 +18,7 @@ public class DatabaseHelper {
 	
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
-	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, g_id, name, place, tag, description) values (?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, g_id, name, place, tag, description, status) values (?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (?, ?, ?)";
 	
 	private Context context;
@@ -33,7 +33,7 @@ public class DatabaseHelper {
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
 	}
 
-	public long insert_to_do(int td_id, int g_id, String name, String place, String tag, String description) {
+	public long insert_to_do(int td_id, int g_id, String name, String place, String tag, String description, int status) {
 		this.insertStmt_to_do.clearBindings();
 		this.insertStmt_to_do.bindString(1, Integer.toString(td_id));
 		this.insertStmt_to_do.bindString(2, Integer.toString(g_id));
@@ -41,6 +41,7 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(4, place);
 		this.insertStmt_to_do.bindString(5, tag);
 		this.insertStmt_to_do.bindString(6, description);
+		this.insertStmt_to_do.bindString(7, Integer.toString(status));
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
@@ -95,7 +96,7 @@ public class DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, g_id INTEGER, name TEXT, place TEXT, tag TEXT, description TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, g_id INTEGER, name TEXT, place TEXT, tag TEXT, description TEXT, status INTEGER)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, member TEXT)");
 		}
 
