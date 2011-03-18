@@ -1,9 +1,0 @@
-INDEX VERSION 1.126+/Users/syjxxii/ToDo/.metadata/.plugins/org.eclipse.jdt.core
-1460200243.index
-3410996712.index
-2828305420.index
-2904940016.index
-2923066322.index
-775493558.index
-4177901813.index
-3997622989.index

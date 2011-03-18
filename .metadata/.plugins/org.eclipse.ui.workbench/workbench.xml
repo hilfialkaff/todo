@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="10" version="2.0">
+<workbench progressCount="13" version="2.0">
 <workbenchAdvisor/>
-<window height="774" maximized="true" width="1280" x="195" y="22">
+<window height="774" maximized="true" width="1280" x="37" y="22">
 <fastViewData fastViewLocation="1024"/>
+<intro standby="false"/>
 <perspectiveBar>
 <itemSize x="160"/>
 </perspectiveBar>
 <coolbarLayout locked="0">
 <coolItem id="group.file" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="106" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.file" itemType="typeToolBarContribution" x="100" y="34"/>
 <coolItem id="additions" itemType="typeGroupMarker"/>
-<coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="32" y="22"/>
-<coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="76" y="22"/>
-<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="100" y="22"/>
-<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="62" y="22"/>
-<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="84" y="22"/>
-<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="adt.actionSet.avdManager" itemType="typeToolBarContribution" x="44" y="34"/>
+<coolItem id="adt.actionSet.wizards" itemType="typeToolBarContribution" x="92" y="34"/>
+<coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="116" y="34"/>
+<coolItem id="org.eclipse.jdt.ui.JavaElementCreationActionSet" itemType="typeToolBarContribution" x="76" y="34"/>
+<coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="76" y="34"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="116" y="34"/>
 <coolItem id="org.eclipse.wst.xml.ui.perspective.NewFileToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="54" y="22"/>
+<coolItem id="org.eclipse.wst.xml.ui.design.DesignToolBar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="152" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="172" y="34"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.browser.editor" itemType="typePlaceholder" x="-1" y="-1"/>
@@ -33,25 +34,32 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
 </editors>
 <views>
-<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
-<viewState/>
-</view>
+<view id="org.eclipse.jdt.callhierarchy.view" partName="Call Hierarchy"/>
 <view id="org.eclipse.debug.ui.DebugView" partName="Debug">
 <viewState/>
 </view>
-<view id="org.eclipse.jdt.callhierarchy.view" partName="Call Hierarchy"/>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline"/>
+<view id="com.android.ide.eclipse.ddms.views.LogCatView" partName="LogCat">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings (6 items)"/>
-</expanded>
-<columnWidths org.eclipse.ui.ide.locationField="0" org.eclipse.ui.ide.markerType="0" org.eclipse.ui.ide.pathField="0" org.eclipse.ui.ide.resourceField="0" org.eclipse.ui.ide.severityAndDescriptionField="0"/>
+<columnWidths org.eclipse.ui.ide.locationField="73" org.eclipse.ui.ide.markerType="108" org.eclipse.ui.ide.pathField="143" org.eclipse.ui.ide.resourceField="108" org.eclipse.ui.ide.severityAndDescriptionField="999"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.pathField"/>
@@ -59,16 +67,14 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
-<viewState/>
-</view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
-<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
+<viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1298779448316">
 <customFilters userDefinedPatternsEnabled="false">
 <xmlDefinedFilters>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
+<child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter" isEnabled="false"/>
@@ -84,29 +90,27 @@
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*" isEnabled="true"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter" isEnabled="true"/>
+<child filterId="org.eclipse.pde.ui.BinaryProjectFilter1" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter" isEnabled="true"/>
-<child filterId="org.eclipse.mylyn.java.ui.MembersFilter" isEnabled="false"/>
 </xmlDefinedFilters>
 </customFilters>
 </viewState>
 </view>
-<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
 </view>
-<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
-<viewState/>
+<view id="org.eclipse.ui.internal.introview" partName="Welcome">
+<viewState>
+<presentation currentPage="root" restore="true"/>
+<standbyPart/>
+</viewState>
 </view>
-<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
-<view id="org.eclipse.ui.views.ContentOutline" partName="Outline"/>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.ui.internal.introview" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
-<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
-<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
-<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
 <alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
@@ -165,6 +169,7 @@
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.jdt.callhierarchy.view"/>
+<view id="org.eclipse.ui.internal.introview"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -181,16 +186,18 @@
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@248523a0" ratio="0.75" ratioLeft="762" ratioRight="254" relationship="2" relative="left">
-<folder appearance="2" expanded="2">
+<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="1">
+<page content="org.eclipse.ui.internal.introview" label="Welcome"/>
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
-<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.15602838" ratioLeft="198" ratioRight="1071" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.77259475" ratioLeft="530" ratioRight="156" relationship="4" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<info folder="true" part="bottom" ratio="0.5444079" ratioLeft="331" ratioRight="277" relationship="4" relative="org.eclipse.ui.editorss">
+<folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
 <page content="org.eclipse.jdt.ui.SourceView" label="Declaration"/>
@@ -327,9 +334,6 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="128">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
-</trimArea>
 <trimArea IMemento.internal.id="1024">
 <trimItem IMemento.internal.id="org.eclise.ui.internal.FastViewBar"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
@@ -338,50 +342,47 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="add.xml" tooltip="ToDo_Replica/res/layout/add.xml">
-<persistable path="/ToDo_Replica/res/layout/add.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Add.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Add.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/DatabaseHelper.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/DatabaseHelper.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="HelloAndroid.java" tooltip="HelloWorld/src/com/example/helloandroid/HelloAndroid.java">
+<persistable path="/HelloWorld/src/com/example/helloandroid/HelloAndroid.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="ToDo_Replica/AndroidManifest.xml">
 <persistable path="/ToDo_Replica/AndroidManifest.xml"/>
 </file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="ToDo/res/layout/main.xml">
+<persistable path="/ToDo/res/layout/main.xml"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="main.xml" tooltip="ToDo_Replica/res/layout/main.xml">
 <persistable path="/ToDo_Replica/res/layout/main.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="custom_title.xml" tooltip="ToDo_Replica/res/layout/custom_title.xml">
-<persistable path="/ToDo_Replica/res/layout/custom_title.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo.java" tooltip="ToDo/src/edu/berkeley/cs294/ToDo.java">
+<persistable path="/ToDo/src/edu/berkeley/cs294/ToDo.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.resources.ResourcesEditor" name="custom_style.xml" tooltip="ToDo_Replica/res/values/custom_style.xml">
-<persistable path="/ToDo_Replica/res/values/custom_style.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="ToDo/AndroidManifest.xml">
+<persistable path="/ToDo/AndroidManifest.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="custom_style.xml" tooltip="ToDo_Replica/res/layout/custom_style.xml">
-<persistable path="/ToDo_Replica/res/layout/custom_style.xml"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="todo_edit.xml" tooltip="ToDo/res/layout/todo_edit.xml">
-<persistable path="/ToDo/res/layout/todo_edit.xml"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="DatabaseHelper.java" tooltip="ToDo/src/edu/berkeley/cs294/DatabaseHelper.java">
+<persistable path="/ToDo/src/edu/berkeley/cs294/DatabaseHelper.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Edit.java" tooltip="ToDo/src/edu/berkeley/cs294/ToDo_Edit.java">
 <persistable path="/ToDo/src/edu/berkeley/cs294/ToDo_Edit.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AddToDo.java" tooltip="ToDo/src/edu/berkeley/cs294/AddToDo.java">
-<persistable path="/ToDo/src/edu/berkeley/cs294/AddToDo.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.layout.LayoutEditor" name="todo_edit.xml" tooltip="ToDo/res/layout/todo_edit.xml">
+<persistable path="/ToDo/res/layout/todo_edit.xml"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Maps.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Maps.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Maps.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ShowLocation.java" tooltip="Location_test/src/edu/berkeley/cs294/sample/ShowLocation.java">
+<persistable path="/Location_test/src/edu/berkeley/cs294/sample/ShowLocation.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="ToDo_Replica/src/Add.java">
-<persistable path="/ToDo_Replica/src/Add.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="R.java" tooltip="Location_test/gen/edu/berkeley/cs294/sample/R.java">
+<persistable path="/Location_test/gen/edu/berkeley/cs294/sample/R.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ToDo_Lists.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Lists.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/ToDo_Lists.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="GoogleMaps.java" tooltip="GoogleMaps/src/edu/berkeley/cs294/sample/GoogleMaps.java">
+<persistable path="/GoogleMaps/src/edu/berkeley/cs294/sample/GoogleMaps.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Groups.java" tooltip="ToDo_Replica/src/eecs/berkeley/edu/cs294/Groups.java">
-<persistable path="/ToDo_Replica/src/eecs/berkeley/edu/cs294/Groups.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.android.ide.eclipse.editors.manifest.ManifestEditor" name="AndroidManifest.xml" tooltip="GoogleMaps/AndroidManifest.xml">
+<persistable path="/GoogleMaps/AndroidManifest.xml"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Group_Edit.java" tooltip="ToDo/src/edu/berkeley/cs294/Group_Edit.java">
+<persistable path="/ToDo/src/edu/berkeley/cs294/Group_Edit.java"/>
 </file>
 </mruList>
 </workbench>
