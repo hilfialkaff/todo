@@ -96,7 +96,8 @@ public class ToDo_Replica extends Activity {
 			Toast.makeText(this, "Maps Selected", Toast.LENGTH_SHORT).show();
 			return true;
 		case Menu.FIRST + 1:
-			Toast.makeText(this, "ToDo Lists Selected", Toast.LENGTH_SHORT).show();
+			Intent intent = new Intent(ToDo_Replica.this, ToDo_Lists.class);
+			startActivityForResult(intent, 1);
 			return true;
 		case Menu.FIRST + 2:
 			Toast.makeText(this, "Groups Selected", Toast.LENGTH_SHORT).show();
