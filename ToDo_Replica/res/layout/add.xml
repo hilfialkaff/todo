@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
- 
+    android:layout_height="fill_parent">
 <TableLayout
 	android:id="@+id/tl_edit"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
-
-<TableRow
-	android:id="@+id/TableRow01"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content">
-	<TextView
-		android:id="@+id/PlaceName"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="Place Name"
-		android:textSize="20px">
-	</TextView>
+	<TableRow
+		android:id="@+id/TableRow01"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/PlaceName"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="Place Name"
+			android:textSize="20px">
+		</TextView>
 
 	<Button
 		android:id="@+id/status"

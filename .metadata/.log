@@ -3890,3 +3890,60 @@ java.lang.NullPointerException
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 15:42:31.694
 !MESSAGE AndroidManifest: Ignoring unknown 'stylename' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:38.372
+!MESSAGE AndroidManifest: Ignoring unknown 'RLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:40.553
+!MESSAGE AndroidManifest: Ignoring unknown 'RELLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:40.817
+!MESSAGE AndroidManifest: Ignoring unknown 'RELATLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:41.153
+!MESSAGE AndroidManifest: Ignoring unknown 'RELATIVLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:41.722
+!MESSAGE AndroidManifest: Ignoring unknown 'RELATLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:42.041
+!MESSAGE AndroidManifest: Ignoring unknown 'RELLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:42.361
+!MESSAGE AndroidManifest: Ignoring unknown 'RLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:42.681
+!MESSAGE AndroidManifest: Ignoring unknown 'RelLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:42.897
+!MESSAGE AndroidManifest: Ignoring unknown 'RelatLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:43.753
+!MESSAGE AndroidManifest: Ignoring unknown 'RelateiLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:44.106
+!MESSAGE AndroidManifest: Ignoring unknown 'RelateiLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:44.481
+!MESSAGE AndroidManifest: Ignoring unknown 'RelatLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:44.833
+!MESSAGE AndroidManifest: Ignoring unknown 'RelativLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:47.521
+!MESSAGE AndroidManifest: Ignoring unknown 'RLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:47.977
+!MESSAGE AndroidManifest: Ignoring unknown 'RelLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:48.649
+!MESSAGE AndroidManifest: Ignoring unknown 'RelatLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:20:48.905
+!MESSAGE AndroidManifest: Ignoring unknown 'RelativLayout' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:34:29.608
+!MESSAGE AndroidManifest: Ignoring unknown '!' XML element
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2011-03-17 16:34:59.197
+!MESSAGE AndroidManifest: Ignoring unknown '!' XML element
