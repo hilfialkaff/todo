@@ -43,7 +43,7 @@ public class ToDo_Replica extends Activity {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), Add.class);
+					Intent intent = new Intent(v.getContext(), View.class);
 					startActivityForResult(intent, 0);
 				}
 			});
