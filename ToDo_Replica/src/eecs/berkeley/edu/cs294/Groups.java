@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -37,6 +38,14 @@ public class Groups extends Activity {
 				}
 			});
 		}
+		
+		Button addGroup = (Button) findViewById(R.id.addGroup);
+		addGroup.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), AddGroup.class);
+				startActivityForResult(intent, 1);
+			}
+		});
 		
 		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 		this.dh = new DatabaseHelper(this);
