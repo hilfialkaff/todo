@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
 	@Override
@@ -91,13 +92,18 @@ public class ToDo_Replica extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		
 		switch(item.getItemId()){
 		case Menu.FIRST:
-			Toast.makeText(this, "Maps Selected", Toast.LENGTH_SHORT).show();
+			intent = new Intent(ToDo_Replica.this, Maps.class);
+			startActivityForResult(intent, 1);
+			
 			return true;
 		case Menu.FIRST + 1:
-			Intent intent = new Intent(ToDo_Replica.this, ToDo_Lists.class);
-			startActivityForResult(intent, 1);
+			intent = new Intent(ToDo_Replica.this, ToDo_Lists.class);
+			startActivityForResult(intent, 2);
+			
 			return true;
 		case Menu.FIRST + 2:
 			Toast.makeText(this, "Groups Selected", Toast.LENGTH_SHORT).show();
