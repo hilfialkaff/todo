@@ -105,7 +105,8 @@ public class ToDo_Replica extends Activity {
 			
 			return true;
 		case Menu.FIRST + 2:
-			Toast.makeText(this, "Groups Selected", Toast.LENGTH_SHORT).show();
+			intent = new Intent(ToDo_Replica.this, Groups.class);
+			startActivityForResult(intent, 3);
 			return true;
 		}
 		return false;
