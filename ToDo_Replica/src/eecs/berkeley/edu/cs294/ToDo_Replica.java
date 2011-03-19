@@ -17,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
 	@Override

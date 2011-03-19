@@ -39,16 +39,17 @@ public class ToDo_Lists extends Activity {
 			tv_title.setTextSize(40);
 			
 			row.addView(tv_title);
+			row.setContentDescription((CharSequence) tv_title);
 			row.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), Add.class);
+					Intent intent = new Intent(v.getContext(), View.class);
+					intent.putExtra("title_select", v.getContentDescription());
 					startActivityForResult(intent, 2);
 				}
 			});
 			
 			tl_todo_lists.addView(row);
 		}
-		
 	}
 }
