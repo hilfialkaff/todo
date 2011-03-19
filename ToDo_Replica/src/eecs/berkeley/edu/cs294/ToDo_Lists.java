@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -21,7 +23,20 @@ public class ToDo_Lists extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.todo_lists);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+		
+		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
+		if (ib_custom_add != null) {
+			ib_custom_add.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), Add.class);
+					startActivityForResult(intent, 0);
+				}
+			});
+		}
 		
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
 		this.dh = new DatabaseHelper(this);	
