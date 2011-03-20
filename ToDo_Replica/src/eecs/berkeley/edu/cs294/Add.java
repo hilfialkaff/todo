@@ -1,6 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import eecs.berkeley.edu.cs294.DatabaseHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 
 public class Add extends Activity {
 	/** Called when the activity is first created. */
@@ -23,6 +23,7 @@ public class Add extends Activity {
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_status;
 	Button b_submit;
+	TableLayout tl_todo_lists;
 	
 	private DatabaseHelper dh;
 	
@@ -30,6 +31,8 @@ public class Add extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add);
+		
+		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
 		this.dh = new DatabaseHelper(this);
 		
 		array_spinner_group = new String[4];
@@ -91,6 +94,7 @@ public class Add extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				dh.insert_to_do(title, place, note, tag, group, status);
+				setResult(RESULT_OK);
 				finish();
 			}
 		});

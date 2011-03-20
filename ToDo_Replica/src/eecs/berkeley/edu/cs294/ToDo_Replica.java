@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
@@ -43,7 +42,7 @@ public class ToDo_Replica extends Activity {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), View.class);
+					Intent intent = new Intent(v.getContext(), Add.class);
 					startActivityForResult(intent, 0);
 				}
 			});

@@ -5,6 +5,7 @@ package eecs.berkeley.edu.cs294;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,6 +45,18 @@ public class DatabaseHelper {
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
+	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status) {
+		ContentValues cv = new ContentValues();
+		cv.put("title", title);
+		cv.put("place", place);
+		cv.put("note", note);
+		cv.put("tag", tag);
+		cv.put("assembly", assembly);
+		cv.put("status", status);
+		String selection = "td_id = ?";
+		return db.update(TABLE_NAME_TO_DO, cv, selection, new String[] {Integer.toString(pk)});
+	}
+	
 	public long insert_group(String name, String member) {
 		this.insertStmt_group.clearBindings();
 		this.insertStmt_group.bindString(1, name);
@@ -55,22 +68,82 @@ public class DatabaseHelper {
 		this.db.delete(TABLE_NAME_TO_DO, null, null);
 	}
 	
+	public void delete_to_do(int pk) {
+		String selection = "td_id = ?";
+		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {Integer.toString(pk)});
+	}
+	
 	public void deleteAll_group() {
 		this.db.delete(TABLE_NAME_GROUP, null, null);
 	}
 
 	public List<String> selectAll_to_do_title() {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, new String[] {"title"}, null, null, null, null, "title desc");
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, new String[] {"title"}, null, null, null, null, "td_id asc");
 		if (cursor.moveToFirst()) {
 			do {
-				list.add(cursor.getString(0));
+				list.add(cursor.getString(cursor.getColumnIndex("title")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
 			cursor.close();
 		}
 		return list;
+	}
+	
+	public List<String> select_to_do(String title) {
+		List<String> list = new ArrayList<String>();
+		String selection = "title" + " = '" + title + "'";
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("title")));
+				list.add(cursor.getString(cursor.getColumnIndex("place")));
+				list.add(cursor.getString(cursor.getColumnIndex("note")));
+				list.add(cursor.getString(cursor.getColumnIndex("tag")));
+				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("status")));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+	
+	public List<String> select_to_do(int pk) {
+		List<String> list = new ArrayList<String>();
+		String selection = "td_id = " + pk;
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("title")));
+				list.add(cursor.getString(cursor.getColumnIndex("place")));
+				list.add(cursor.getString(cursor.getColumnIndex("note")));
+				list.add(cursor.getString(cursor.getColumnIndex("tag")));
+				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("status")));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+	
+	public int select_primary_key(String title) {
+		int pk = -1;
+		String selection = "title" + " = '" + title + "'";
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				pk = cursor.getInt(cursor.getColumnIndex("td_id"));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return pk;
 	}
 	
 	public List<String> selectAll_group_name() {

@@ -18,8 +18,9 @@
 		<activity android:name=".ToDo_Lists"> </activity>
 		<activity android:name=".Groups"> </activity>
 		<activity android:name=".Add"> </activity>
-		<activity android:name=".View"> </activity>
+		<activity android:name=".Preview"> </activity>
 		<activity android:name=".AddGroup"> </activity>
+		<activity android:name=".Edit"> </activity>
 		
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
