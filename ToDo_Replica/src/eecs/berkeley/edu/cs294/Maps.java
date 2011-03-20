@@ -1,37 +1,20 @@
 package eecs.berkeley.edu.cs294;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Point;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
-import com.google.android.maps.MapView.LayoutParams;
-import com.google.android.maps.Overlay;
 
 public class Maps extends MapActivity {
-	
 	MapView mapView;
 	MapController mc;
 	GeoPoint p;
 
+	/*
     class MapOverlay extends com.google.android.maps.Overlay
-    {
-    	
+    {   	
     	@Override
         public boolean onTouchEvent(MotionEvent event, MapView mapView) 
         {   
@@ -83,14 +66,15 @@ public class Maps extends MapActivity {
             canvas.drawBitmap(bmp, screenPts.x, screenPts.y-50, null) ;
             return true;
         }
-    }
+    }*/
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map);
+        setContentView(R.layout.todo_lists);
         
+        /*
         mapView = (MapView) findViewById(R.id.mapView);
         LinearLayout zoomLayout = (LinearLayout)findViewById(R.id.zoom);  
         View zoomView = mapView.getZoomControls(); 
@@ -125,7 +109,8 @@ public class Maps extends MapActivity {
             }    
         } catch(IOException err) {
             err.printStackTrace();
-        }       
+        }
+        
         /*
         mc = mapView.getController();
         String coordinates[] = {"1.352566007", "103.78921587"};
@@ -140,12 +125,14 @@ public class Maps extends MapActivity {
         mc.setZoom(17); 
        */
         // Add extra stuffs to the map
+        
+        /*
         MapOverlay mapOverlay = new MapOverlay();
         List<Overlay> listOfOverlays = mapView.getOverlays();
         listOfOverlays.clear();
-        listOfOverlays.add(mapOverlay);        
+        listOfOverlays.add(mapOverlay);*/        
  
-        mapView.invalidate();
+        /*mapView.invalidate();*/
     }
 
     @Override
