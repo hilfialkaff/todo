@@ -108,7 +108,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
 		<TextView
-			android:id="@+id/tv_place_preview1"
+			android:id="@+id/tv_status_preview1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Status"
@@ -116,6 +116,24 @@
 		</TextView>
 		<TextView
 			android:id="@+id/tv_status_preview2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20px">
+		</TextView>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_priority_preview"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_priority_preview1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Priority"
+			android:textSize="20px">
+		</TextView>
+		<TextView
+			android:id="@+id/tv_priority_preview2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textSize="20px">

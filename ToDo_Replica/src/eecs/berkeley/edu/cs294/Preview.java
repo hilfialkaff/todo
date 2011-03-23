@@ -15,6 +15,7 @@ public class Preview extends Activity {
 	TextView tv_tag_preview2;
 	TextView tv_group_preview2;
 	TextView tv_status_preview2;
+	TextView tv_priority_preview2;
 	
 	private DatabaseHelper dh;
 	
@@ -30,6 +31,7 @@ public class Preview extends Activity {
 		tv_tag_preview2 = (TextView) findViewById(R.id.tv_tag_preview2);
 		tv_group_preview2 = (TextView) findViewById(R.id.tv_group_preview2);
 		tv_status_preview2 = (TextView) findViewById(R.id.tv_status_preview2);
+		tv_priority_preview2 = (TextView) findViewById(R.id.tv_priority_preview2);
 		
 		Bundle extras = getIntent().getExtras();
 		if (extras == null) {
@@ -46,5 +48,6 @@ public class Preview extends Activity {
 		tv_tag_preview2.setText(row.get(3));
 		tv_group_preview2.setText(row.get(4));
 		tv_status_preview2.setText(row.get(5));
+		tv_priority_preview2.setText(row.get(6));
 	}
 }

@@ -22,12 +22,9 @@
 		<activity android:name=".ToDo_Lists"> </activity>
 		<activity android:name=".Groups"> </activity>
 		<activity android:name=".Add"> </activity>
-<<<<<<< HEAD
 		<activity android:name=".Preview"> </activity>
 		<activity android:name=".AddGroup"> </activity>
 		<activity android:name=".Edit"> </activity>
-=======
->>>>>>> e1bec72375cdcadd8185eeee081ecb959a3063e4
 		
     </application>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

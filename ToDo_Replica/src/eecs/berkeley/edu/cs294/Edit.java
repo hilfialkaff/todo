@@ -18,13 +18,13 @@ import android.widget.TableLayout;
 
 public class Edit extends Activity {
 	/** Called when the activity is first created. */
-	private String title, place, note, tag, group, status;
-	private String array_spinner_group[], array_spinner_status[];
+	private String title, place, note, tag, group, status, priority;
+	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
 	ArrayAdapter<String> adapter;
 	
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
-	Spinner s_group, s_status;
+	Spinner s_group, s_status, s_priority;
 	Button b_submit;
 	TableLayout tl_todo_lists;
 	
@@ -59,8 +59,13 @@ public class Edit extends Activity {
 		
 		array_spinner_status = new String[3];
 		array_spinner_status[0] = "Incomplete";
-		array_spinner_status[1] = "On Progress";
+		array_spinner_status[1] = "In Progress";
 		array_spinner_status[2] = "Complete";
+		
+		array_spinner_priority = new String[3];
+		array_spinner_priority[0] = "Low";
+		array_spinner_priority[1] = "Medium";
+		array_spinner_priority[2] = "High";
 		
 		et_title = (EditText) findViewById(R.id.et_title);
 		et_title.setText(row.get(0));
@@ -104,7 +109,6 @@ public class Edit extends Activity {
 				// do nothing
 			}
 		});
-		Log.w("debug", "spinner1 = " + group);
 		
 		s_status = (Spinner) findViewById(R.id.s_status);
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_status);
@@ -115,9 +119,9 @@ public class Edit extends Activity {
 			s_status.setSelection(0);
 			status = "Incomplete";
 		}
-		else if (row.get(5).equalsIgnoreCase("On Progress")) {
+		else if (row.get(5).equalsIgnoreCase("In Progress")) {
 			s_status.setSelection(1);
-			status = "On Progress";
+			status = "In Progress";
 		}
 		else {
 			s_status.setSelection(2);
@@ -135,7 +139,36 @@ public class Edit extends Activity {
 				// do nothing
 			}
 		});
-		Log.w("debug", "spinner2 = " + status);
+		
+		s_priority = (Spinner) findViewById(R.id.s_priority);
+		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_priority);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		s_priority.setAdapter(adapter);
+		
+		if (row.get(6).equalsIgnoreCase("Low")) {		
+			s_priority.setSelection(0);
+			priority = "Low";
+		}
+		else if (row.get(6).equalsIgnoreCase("Medium")) {
+			s_priority.setSelection(1);
+			priority = "Medium";
+		}
+		else {
+			s_priority.setSelection(2);
+			priority = "High";
+		}
+		
+		s_priority.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+				priority =  parent.getItemAtPosition(pos).toString();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// do nothing
+			}
+		});
 		
 		b_submit = (Button) findViewById(R.id.b_submit);
 		
@@ -146,7 +179,7 @@ public class Edit extends Activity {
 				place = et_place.getText().toString();
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
-				dh.update_to_do(pk, title, place, note, tag, group, status);
+				dh.update_to_do(pk, title, place, note, tag, group, status, priority);
 				setResult(RESULT_OK);
 				finish();
 			}
