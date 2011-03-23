@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TabHost.TabSpec;
+import android.widget.AnalogClock;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TableLayout;
 
 public class Edit extends Activity {
@@ -26,6 +29,7 @@ public class Edit extends Activity {
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_status, s_priority;
 	Button b_submit;
+	TabHost th_add;
 	TableLayout tl_todo_lists;
 	
 	private DatabaseHelper dh;
@@ -45,6 +49,25 @@ public class Edit extends Activity {
 		this.dh = new DatabaseHelper(this);	
 		List<String> row = this.dh.select_to_do(pk);
 
+		th_add = (TabHost) findViewById(R.id.th_add);
+		th_add.setup();
+
+		TabSpec tab_one = th_add.newTabSpec("tab_one_btn_tab");
+		tab_one.setContent(R.id.tl_add);
+		tab_one.setIndicator("Basic");
+		th_add.addTab(tab_one);
+		
+		TabSpec tab_two = th_add.newTabSpec("tab_two_btn_tab");
+		tab_two.setContent(new TabHost.TabContentFactory() {  
+			public View createTabContent(String tag) {  
+				return(new AnalogClock(Edit.this));  
+			}  
+		}); 
+		tab_two.setIndicator("Advanced");
+		th_add.addTab(tab_two);
+		
+		th_add.setCurrentTab(0);
+		
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
 		this.dh = new DatabaseHelper(this);
 		
@@ -55,7 +78,6 @@ public class Edit extends Activity {
 		array_spinner_group[1] = "Group 1";
 		array_spinner_group[2] = "Group 2";
 		array_spinner_group[3] = "Group 3";
-		
 		
 		array_spinner_status = new String[3];
 		array_spinner_status[0] = "Incomplete";

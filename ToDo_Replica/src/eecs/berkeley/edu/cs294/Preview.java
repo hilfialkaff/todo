@@ -5,7 +5,11 @@ import java.util.List;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AnalogClock;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.TabHost.TabSpec;
 
 public class Preview extends Activity {
 	/** Called when the activity is first created. */
@@ -16,13 +20,33 @@ public class Preview extends Activity {
 	TextView tv_group_preview2;
 	TextView tv_status_preview2;
 	TextView tv_priority_preview2;
-	
+	TabHost th_preview;
 	private DatabaseHelper dh;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview);
+		
+		th_preview = (TabHost) findViewById(R.id.th_preview);
+		th_preview.setup();
+
+		TabSpec tab_one = th_preview.newTabSpec("tab_one_btn_tab");
+		tab_one.setContent(R.id.tl_preview);
+		tab_one.setIndicator("Basic");
+		th_preview.addTab(tab_one);
+		
+		TabSpec tab_two = th_preview.newTabSpec("tab_two_btn_tab");
+		tab_two.setContent(new TabHost.TabContentFactory() {  
+			public View createTabContent(String tag) {  
+				return(new AnalogClock(Preview.this));  
+			}  
+		}); 
+		tab_two.setIndicator("Advanced");
+		th_preview.addTab(tab_two);
+		
+		th_preview.setCurrentTab(0);
+		
 		this.dh = new DatabaseHelper(this);
 		
 		tv_title_preview2 = (TextView) findViewById(R.id.tv_title_preview2);

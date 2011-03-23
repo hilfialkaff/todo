@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<TabHost
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+	android:id="@+id/th_add"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<LinearLayout
+	android:id="@+id/ll_add"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+<TabWidget
+	android:id="@android:id/tabs"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+</TabWidget>
+<FrameLayout
+	android:id="@android:id/tabcontent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 <ScrollView
 	android:id="@+id/sv_add"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:scrollbars="vertical">
+	android:scrollbars="vertical"
+	android:paddingTop="13dp">
 <TableLayout
 	android:id="@+id/tl_add"
 	android:layout_width="fill_parent"
@@ -146,6 +162,24 @@
 		</Spinner>
 	</TableRow>
 	<TableRow
+		android:id="@+id/tr_deadline"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<TextView
+			android:id="@+id/tv_deadline"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Deadline"
+			android:textSize="20px">
+		</TextView>
+		<Spinner
+			android:id="@+id/s_deadline"
+			android:layout_width="350px"
+			android:layout_height="wrap_content">
+		</Spinner>
+	</TableRow>
+	<TableRow
 		android:id="@+id/tr_submit"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -160,4 +194,6 @@
 	</TableRow>
 </TableLayout>
 </ScrollView>
+</FrameLayout>
 </LinearLayout>
+</TabHost>
