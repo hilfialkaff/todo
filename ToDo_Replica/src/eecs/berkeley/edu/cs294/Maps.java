@@ -70,8 +70,6 @@ public class Maps extends MapActivity {
                     // Changing the map
                     mc.animateTo(p);
                     mc.setZoom(17);
-                    
-                  //  mapView.invalidate();
                 }    
             } catch(IOException err) {
                 err.printStackTrace();
@@ -80,15 +78,8 @@ public class Maps extends MapActivity {
             Bitmap bmp = BitmapFactory.decodeResource(
                     getResources(), R.drawable.pushpin);            
             canvas.drawBitmap(bmp, screenPts.x, screenPts.y, null); 
-            
-            
         	
             return true;
-        }
-        
-        public void placeTodoMark(String currPlace, Canvas canvas, Point screenPts) 
-        {
-        	                  	
         }
     }
     
@@ -98,23 +89,20 @@ public class Maps extends MapActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
-        
-        // Setting mapView
-        mapView = (MapView) findViewById(R.id.mapView);
-        mapView.setBuiltInZoomControls(true);
-        mapView.setStreetView(true);
  
         dh = new DatabaseHelper(this);
         
-        // Putting the todo markers
+        // Setting the map
+        mapView = (MapView) findViewById(R.id.mapView);
+        mapView.setBuiltInZoomControls(true);
+        mapView.setStreetView(true);
         mc = mapView.getController();
         mc.setZoom(17);
         mapView.invalidate();
 
+        // Putting the todo markers
         List<Overlay> listOfOverlays = mapView.getOverlays();
         listOfOverlays.clear();
-        
-      //Add a marker
     	List<String> places = dh.selectAll_to_do(DatabaseHelper.PLACE);
     	for(Iterator<String> it = places.iterator(); it.hasNext();) {
             MapOverlay mapOverlay = new MapOverlay(it.next());
