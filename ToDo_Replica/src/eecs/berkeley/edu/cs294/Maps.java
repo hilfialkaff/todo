@@ -38,49 +38,14 @@ public class Maps extends MapActivity {
 	
     class MapOverlay extends com.google.android.maps.Overlay
     {
-    	GeoPoint location = null;
+    	String place;
     	
-    	/*
-    	public MapOverlay(GeoPoint location)
+    	public MapOverlay(String place)
         {
             super();
-            this.location = location;
-        }*/
-
-    	@Override
-        public boolean onTouchEvent(MotionEvent event, MapView mapView) 
-        {   
-            //---when user lifts his finger---
-            if (event.getAction() == 1) {                
-                GeoPoint p = mapView.getProjection().fromPixels(
-                    (int) event.getX(),
-                    (int) event.getY());
- 
-                Geocoder geoCoder = new Geocoder(
-                    getBaseContext(), Locale.getDefault());
-                try {
-                    List<Address> addresses = geoCoder.getFromLocation(
-                        p.getLatitudeE6()  / 1E6, 
-                        p.getLongitudeE6() / 1E6, 1);
- 
-                    String add = "";
-                    if (addresses.size() > 0) 
-                    {
-                        for (int i=0; i<addresses.get(0).getMaxAddressLineIndex(); 
-                             i++)
-                           add += addresses.get(0).getAddressLine(i) + "\n";
-                    }
- 
-                    Toast.makeText(getBaseContext(), add, Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e) {                
-                    e.printStackTrace();
-                }   
-                return true;
-            }
-            else                
-                return false;
-        }      
+            this.place = place;
+        }
+    	      
 
         @Override
         public boolean draw(Canvas canvas, MapView mapView, 
@@ -90,25 +55,12 @@ public class Maps extends MapActivity {
             
             //Translate the GeoPoint to screen pixels
             Point screenPts = new Point();
- 
-            //Add a marker
-        	List<String> places = dh.selectAll_to_do(DatabaseHelper.PLACE);
-        	for(Iterator<String> it = places.iterator(); it.hasNext();) {
-        	    placeTodoMark(it.next(), canvas, screenPts);
-        	}
-        	
-            return true;
-        }
-        
-        public void placeTodoMark(String currPlace, Canvas canvas, Point screenPts) 
-        {
-        	try {
+            mapView.getProjection().toPixels(p, screenPts);
+
+            try {
     	    	Geocoder geoCoder = new Geocoder(getBaseContext(), Locale.getDefault());
-                List<Address> addresses = geoCoder.getFromLocationName(currPlace, 1);
-                
-                if(addresses.size() == 0) {
-                	Toast.makeText(getBaseContext(), currPlace + " not found", Toast.LENGTH_SHORT).show();
-                }
+                List<Address> addresses = geoCoder.getFromLocationName(place, 1);
+
                 	
                 if (addresses.size() > 0) {
                     p = new GeoPoint(
@@ -118,15 +70,25 @@ public class Maps extends MapActivity {
                     // Changing the map
                     mc.animateTo(p);
                     mc.setZoom(17);
-                    mapView.invalidate();
+                    
+                  //  mapView.invalidate();
                 }    
             } catch(IOException err) {
                 err.printStackTrace();
             }
-            
+
             Bitmap bmp = BitmapFactory.decodeResource(
                     getResources(), R.drawable.pushpin);            
-            canvas.drawBitmap(bmp, screenPts.x, screenPts.y, null);       	
+            canvas.drawBitmap(bmp, screenPts.x, screenPts.y, null); 
+            
+            
+        	
+            return true;
+        }
+        
+        public void placeTodoMark(String currPlace, Canvas canvas, Point screenPts) 
+        {
+        	                  	
         }
     }
     
@@ -148,10 +110,16 @@ public class Maps extends MapActivity {
         mc = mapView.getController();
         mc.setZoom(17);
         mapView.invalidate();
-        MapOverlay mapOverlay = new MapOverlay();
+
         List<Overlay> listOfOverlays = mapView.getOverlays();
-        listOfOverlays.clear();        
-        listOfOverlays.add(mapOverlay);        
+        listOfOverlays.clear();
+        
+      //Add a marker
+    	List<String> places = dh.selectAll_to_do(DatabaseHelper.PLACE);
+    	for(Iterator<String> it = places.iterator(); it.hasNext();) {
+            MapOverlay mapOverlay = new MapOverlay(it.next());
+            listOfOverlays.add(mapOverlay);
+    	}                
  
         // Where to point the map to (langitude & latitude)    
         try {
