@@ -57,7 +57,7 @@ public class ToDo_Lists extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = this.dh.selectAll_to_do_title();
+		List<String> titles = this.dh.selectAll_to_do("title");
 
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		

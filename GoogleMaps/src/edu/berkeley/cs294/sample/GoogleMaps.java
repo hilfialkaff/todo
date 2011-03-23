@@ -121,7 +121,6 @@ public class GoogleMaps extends MapActivity {
         try {
             List<Address> addresses = geoCoder.getFromLocationName(
                 "empire state building", 5);
-            String add = "";
             if (addresses.size() > 0) {
                 p = new GeoPoint(
                         (int) (addresses.get(0).getLatitude() * 1E6), 
