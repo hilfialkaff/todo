@@ -23,6 +23,7 @@ public class Add extends Activity {
 	ArrayAdapter<String> adapter;
 
 
+	
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_status, s_priority;
