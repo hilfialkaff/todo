@@ -21,8 +21,6 @@ public class Add extends Activity {
 	private String title, place, note, tag, group, status, priority;
 	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
 	ArrayAdapter<String> adapter;
-
-
 	
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
