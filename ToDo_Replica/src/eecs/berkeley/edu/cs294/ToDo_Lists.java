@@ -1,5 +1,7 @@
 package eecs.berkeley.edu.cs294;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -23,6 +25,14 @@ import com.google.gdata.client.calendar.CalendarService;
 import com.google.gdata.data.calendar.CalendarEntry;
 import com.google.gdata.data.calendar.CalendarFeed;
 import com.google.gdata.util.AuthenticationException;
+
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.calendar.CalendarEntry;
+import com.google.gdata.data.calendar.CalendarFeed;
+import com.google.gdata.util.AuthenticationException;
+import com.google.gdata.util.ServiceException;
+
+
 
 public class ToDo_Lists extends Activity {
 	/** Called when the activity is first created. */
@@ -52,6 +62,45 @@ public class ToDo_Lists extends Activity {
 		this.dh = new DatabaseHelper(this);	
 
 		populate();
+		CalendarService myService = null;
+		try{
+		// Create a CalenderService and authenticate
+		myService = new CalendarService("ToDo_Replica");
+		}
+		catch (ExceptionInInitializerError e) {
+			Log.w("debug", "gg abiz");
+		}
+		try {
+			myService.setUserCredentials("dicz.hack@gmail.com", "jessicajung");
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+		}
+
+		// Send the request and print the response
+		URL feedUrl = null;
+		try {
+			feedUrl = new URL("https://www.google.com/calendar/feeds/dicz.hack@gmail.com");
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		
+		CalendarFeed resultFeed = null;
+		try {
+			resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Your calendars:");
+		System.out.println();
+		for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+		  CalendarEntry entry = resultFeed.getEntries().get(i);
+		  Log.w("debug", "\t" + entry.getTitle().getPlainText());
+		}
 	}
 
 	@Override
