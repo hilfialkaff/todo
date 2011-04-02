@@ -1,12 +1,7 @@
 package eecs.berkeley.edu.cs294;
 
-import com.google.gdata.client.*;
 import com.google.gdata.client.calendar.*;
-import com.google.gdata.data.*;
-import com.google.gdata.data.acl.*;
 import com.google.gdata.data.calendar.*;
-import com.google.gdata.data.extensions.*;
-import com.google.gdata.util.*;
 import java.net.URL;
 
 import java.io.InputStream;
@@ -87,6 +82,26 @@ public class ToDo_Replica extends Activity {
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		Drawable drawable = LoadImageFromWebOperations("http://i570.photobucket.com/albums/ss142/Vexond/PulseCocoon.jpg");
 		iv_background.setImageDrawable(drawable);
+		
+		try{
+			// Create a CalenderService and authenticate
+			CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
+			myService.setUserCredentials("hilfialkaff@gmail.com", "firasfarisi");
+
+			// Send the request and print the response
+			URL feedUrl = new URL("https://www.google.com/calendar/feeds/default/allcalendars/full");
+			CalendarFeed resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
+			Log.w("Debug", "Calendar:");
+			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+				CalendarEntry entry = resultFeed.getEntries().get(i);
+				Log.w("Debug", "\t" + entry.getTitle().getPlainText());
+			}
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	@Override
