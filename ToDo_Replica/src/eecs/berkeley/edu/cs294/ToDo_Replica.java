@@ -55,7 +55,7 @@ public class ToDo_Replica extends Activity {
 				System.out.println("\t" + entry.getTitle().getPlainText());
 			}
 		}catch(Exception e){
-			System.out.println("nothing..");
+			System.err.println("nothing..");
 		}
 
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
