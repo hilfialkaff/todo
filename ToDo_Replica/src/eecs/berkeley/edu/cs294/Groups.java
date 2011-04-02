@@ -73,4 +73,39 @@ public class Groups extends Activity {
 			group_list.addView(ruler);
 		}
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+
+		if (resultCode == Activity.RESULT_OK) {
+			group_list.removeAllViews();
+			populate();
+		}
+	}
+
+	private void populate() {
+		List<String> titles = this.dh.selectAll_group_name();
+
+		for (String title : titles) {
+			TableRow row = new TableRow(this);		
+			row.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+			TextView tv_title = new TextView(this);
+			tv_title.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
+			tv_title.setText(title);
+
+			row.addView(tv_title);
+			row.setContentDescription(tv_title.getText());
+			row.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), Preview.class);
+					intent.putExtra("title_select", v.getContentDescription());
+					startActivityForResult(intent, 3);
+				}
+			});
+			registerForContextMenu(row);
+			group_list.addView(row);
+		}
+	}
 }
