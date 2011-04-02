@@ -1,14 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import com.google.gdata.client.*;
-import com.google.gdata.client.calendar.*;
-import com.google.gdata.data.*;
-import com.google.gdata.data.acl.*;
-import com.google.gdata.data.calendar.*;
-import com.google.gdata.data.extensions.*;
-import com.google.gdata.util.*;
-import java.net.URL;
-
 import java.io.InputStream;
 import java.net.URL;
 
@@ -25,6 +16,10 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.gdata.client.calendar.CalendarService;
+import com.google.gdata.data.calendar.CalendarEntry;
+import com.google.gdata.data.calendar.CalendarFeed;
+
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
 	@Override
@@ -34,7 +29,7 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		setContentView(R.layout.main);
-		
+
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
@@ -45,7 +40,24 @@ public class ToDo_Replica extends Activity {
 		final ImageButton ib_custom_search = (ImageButton) findViewById(R.id.ib_custom_search);
 		if (ib_custom_search != null)
 		 */
-		
+		// Create a CalenderService and authenticate
+		try{
+			CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
+			myService.setUserCredentials("todo.aplikasi@gmail.com", "cs294-35");
+
+			// Send the request and print the response
+			URL feedUrl = new URL("https://www.google.com/calendar/feeds/todo.aplikasi@gmail.com");
+			CalendarFeed resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
+			System.out.println("Your calendars:");
+			System.out.println();
+			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
+				CalendarEntry entry = resultFeed.getEntries().get(i);
+				System.out.println("\t" + entry.getTitle().getPlainText());
+			}
+		}catch(Exception e){
+			System.out.println("nothing..");
+		}
+
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
@@ -56,7 +68,7 @@ public class ToDo_Replica extends Activity {
 				}
 			});
 		}
-		
+
 		/*
 		Button b_maps = (Button) findViewById(R.id.b_maps);
 		b_maps.setOnClickListener(new OnClickListener() {
@@ -82,13 +94,13 @@ public class ToDo_Replica extends Activity {
 				startActivityForResult(intent, 2);
 			}
 		});
-		*/
-		
+		 */
+
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		Drawable drawable = LoadImageFromWebOperations("http://i570.photobucket.com/albums/ss142/Vexond/PulseCocoon.jpg");
 		iv_background.setImageDrawable(drawable);
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, Menu.FIRST, Menu.FIRST, "Maps");
@@ -100,17 +112,17 @@ public class ToDo_Replica extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
-		
+
 		switch(item.getItemId()){
 		case Menu.FIRST:
 			intent = new Intent(ToDo_Replica.this, Maps.class);
 			startActivityForResult(intent, 1);
-			
+
 			return true;
 		case Menu.FIRST + 1:
 			intent = new Intent(ToDo_Replica.this, ToDo_Lists.class);
 			startActivityForResult(intent, 2);
-			
+
 			return true;
 		case Menu.FIRST + 2:
 			intent = new Intent(ToDo_Replica.this, Groups.class);
@@ -119,7 +131,7 @@ public class ToDo_Replica extends Activity {
 		}
 		return false;
 	}
-	
+
 	private Drawable LoadImageFromWebOperations(String url) {
 		try {
 			InputStream is = (InputStream) new URL(url).getContent();

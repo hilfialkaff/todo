@@ -38,6 +38,7 @@ public class AddGroup extends Activity {
 				name = et_name.getText().toString();
 				members = et_members.getText().toString();
 				dh.insert_group(name, members);
+				setResult(RESULT_OK);
 				finish();
 			}
 		});
