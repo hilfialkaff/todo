@@ -11,8 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -48,14 +48,13 @@ public class ToDo_Replica extends Activity {
 			// Send the request and print the response
 			URL feedUrl = new URL("https://www.google.com/calendar/feeds/todo.aplikasi@gmail.com");
 			CalendarFeed resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
-			System.out.println("Your calendars:");
-			System.out.println();
+			Log.w("Debug", "Your calendars:");
 			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
 				CalendarEntry entry = resultFeed.getEntries().get(i);
-				System.out.println("\t" + entry.getTitle().getPlainText());
+				Log.w("Debug","\t" + entry.getTitle().getPlainText());
 			}
-		}catch(Exception e){
-			System.out.println("nothing..");
+		} catch(Exception e){
+			e.printStackTrace();
 		}
 
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
