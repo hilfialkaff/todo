@@ -53,8 +53,8 @@ public class ToDo_Replica extends Activity {
 				CalendarEntry entry = resultFeed.getEntries().get(i);
 				Log.w("Debug","\t" + entry.getTitle().getPlainText());
 			}
-		} catch(Exception e){
-			e.printStackTrace();
+		}catch(Exception e){
+			System.err.println("nothing..");
 		}
 
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
