@@ -11,8 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -38,7 +38,6 @@ public class ToDo_Replica extends Activity {
 		final ImageButton ib_custom_search = (ImageButton) findViewById(R.id.ib_custom_search);
 		if (ib_custom_search != null)
 		 */
-		// Create a CalenderService and authenticate
 
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {

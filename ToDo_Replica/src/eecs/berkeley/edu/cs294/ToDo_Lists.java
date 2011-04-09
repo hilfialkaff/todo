@@ -17,8 +17,6 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-
-
 public class ToDo_Lists extends Activity {
 	/** Called when the activity is first created. */
 	TableLayout tl_todo_lists;
@@ -47,7 +45,6 @@ public class ToDo_Lists extends Activity {
 		this.dh = new DatabaseHelper(this);	
 
 		populate();
-		
 	}
 
 	@Override
