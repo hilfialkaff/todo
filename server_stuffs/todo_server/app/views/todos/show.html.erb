@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @todo.title %>
+</p>
+
+<p>
+  <b>Place:</b>
+  <%= @todo.place %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @todo.note %>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%= @todo.tag %>
+</p>
+
+<p>
+  <b>Assembly:</b>
+  <%= @todo.assembly %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @todo.status %>
+</p>
+
+<p>
+  <b>Priority:</b>
+  <%= @todo.priority %>
+</p>
+
+
+<%= link_to 'Edit', edit_todo_path(@todo) %> |
+<%= link_to 'Back', todos_path %>

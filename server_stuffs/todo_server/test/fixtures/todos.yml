@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  place: MyString
+  note: MyString
+  tag: MyString
+  assembly: MyString
+  status: MyString
+  priority: 1
+
+two:
+  title: MyString
+  place: MyString
+  note: MyString
+  tag: MyString
+  assembly: MyString
+  status: MyString
+  priority: 1
