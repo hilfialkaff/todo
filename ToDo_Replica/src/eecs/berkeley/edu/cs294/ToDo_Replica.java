@@ -16,9 +16,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.google.gdata.client.calendar.CalendarService;
-import com.google.gdata.data.calendar.CalendarEntry;
-import com.google.gdata.data.calendar.CalendarFeed;
+
 
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
@@ -41,22 +39,6 @@ public class ToDo_Replica extends Activity {
 		if (ib_custom_search != null)
 		 */
 		// Create a CalenderService and authenticate
-		try{
-			CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
-			myService.setUserCredentials("todo.aplikasi@gmail.com", "cs294-35");
-
-			// Send the request and print the response
-			URL feedUrl = new URL("https://www.google.com/calendar/feeds/todo.aplikasi@gmail.com");
-			CalendarFeed resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
-			System.out.println("Your calendars:");
-			System.out.println();
-			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
-				CalendarEntry entry = resultFeed.getEntries().get(i);
-				System.out.println("\t" + entry.getTitle().getPlainText());
-			}
-		}catch(Exception e){
-			System.err.println("nothing..");
-		}
 
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {
@@ -99,26 +81,6 @@ public class ToDo_Replica extends Activity {
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		Drawable drawable = LoadImageFromWebOperations("http://i570.photobucket.com/albums/ss142/Vexond/PulseCocoon.jpg");
 		iv_background.setImageDrawable(drawable);
-		
-		try{
-			// Create a CalenderService and authenticate
-			CalendarService myService = new CalendarService("exampleCo-exampleApp-1");
-			myService.setUserCredentials("hilfialkaff@gmail.com", "firasfarisi");
-
-			// Send the request and print the response
-			URL feedUrl = new URL("https://www.google.com/calendar/feeds/default/allcalendars/full");
-			CalendarFeed resultFeed = myService.getFeed(feedUrl, CalendarFeed.class);
-			Log.w("Debug", "Calendar:");
-			for (int i = 0; i < resultFeed.getEntries().size(); i++) {
-				CalendarEntry entry = resultFeed.getEntries().get(i);
-				Log.w("Debug", "\t" + entry.getTitle().getPlainText());
-			}
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
