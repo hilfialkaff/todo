@@ -10,8 +10,8 @@ Features
   - Pindahin bbrp options dri basic k advanced
 
 - Stub-coding:
-  - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous)
-  - prtama x msk app slalu coba ambil dri remote db
+  - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous) -- DONE
+  - prtama x msk app slalu coba ambil dri remote db -- DONE
   - coba cari cara efisien buat invite org laen msk k group dbanding email klo ada,,(gmn supaya server aruz bs lngsng alert tu hp org)
 
 - Client side:

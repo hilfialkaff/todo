@@ -6,6 +6,8 @@ import java.net.URL;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,8 +18,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-
-
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
 	@Override
@@ -27,6 +27,19 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		setContentView(R.layout.main);
+		
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+		
+		if(netInfo == null) {
+			Log.d("DEBUG", "--------------- No internet connection --------- ");
+		
+		}
+			
+		if (netInfo.isConnected()) {
+			Log.d("DEBUG", "------------- Connected to internet -------------");
+		
+		}
 
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
