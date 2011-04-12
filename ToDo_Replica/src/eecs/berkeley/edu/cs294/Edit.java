@@ -210,21 +210,18 @@ public class Edit extends Activity {
 				
 				List<String> newEntry = dh.select_to_do(pk);
 				
-				ServerConnection connection = new ServerConnection();
-				
-				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-				
-				if(netInfo == null) {
-					Log.d("DEBUG", "--------------- No internet connection --------- ");
+				if (group != null) {
+					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+					if(netInfo == null) {
+						Log.d("DEBUG", "--------------- No internet connection --------- ");
+					}
+
+					if (netInfo.isConnected()) {
+						ServerConnection.pushRemote(oldEntry, newEntry);
+					}
 				}
-					
-				if (netInfo.isConnected()) {
-					Log.d("DEBUG", "------------- Connected to internet -------------");
-					
-					connection.pushRemote(oldEntry, newEntry);
-				}
-				
 				
 				setResult(RESULT_OK);
 				finish();

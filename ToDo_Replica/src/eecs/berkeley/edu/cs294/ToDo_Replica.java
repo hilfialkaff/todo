@@ -2,6 +2,8 @@ package eecs.berkeley.edu.cs294;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,20 +29,31 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		setContentView(R.layout.main);
-		
-		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-		
-		if(netInfo == null) {
-			Log.d("DEBUG", "--------------- No internet connection --------- ");
-		
-		}
-			
-		if (netInfo.isConnected()) {
-			Log.d("DEBUG", "------------- Connected to internet -------------");
-		
-		}
 
+		/* Timer code */
+		/********************************************************************/
+		Timer serverTimer = new Timer("serverTimer", true);
+		TimerTask serverTimerTask = new TimerTask() {
+			public void run() {
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+				
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+					// TODO: Warn the user
+				}
+					
+				if (netInfo.isConnected()) {
+					Log.d("DEBUG", "------------- Connected to internet -------------");
+					ServerConnection.pullRemote();
+				}
+			}
+		};
+		
+		// TODO: Need to be un-hardcoded
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 50000, 50000); // Run every 50 seconds
+		/********************************************************************/
+		
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 

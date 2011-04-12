@@ -1,7 +1,12 @@
 package eecs.berkeley.edu.cs294;
 
+import java.util.List;
+
 import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -138,6 +143,23 @@ public class Add extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				dh.insert_to_do(title, place, note, tag, group, status, priority);
+
+				List<String> newEntry = dh.select_to_do(title);
+				
+				if(group != null) {
+					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+					if(netInfo == null) {
+						Log.d("DEBUG", "--------------- No internet connection --------- ");
+					}
+
+					if (netInfo.isConnected()) {
+						ServerConnection.pushRemote(null, newEntry);
+					}
+				}
+				
+				
 				setResult(RESULT_OK);
 				finish();
 			}

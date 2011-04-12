@@ -18,6 +18,8 @@ public class DatabaseHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	public static final int NUM_ENTRIES = 7;
+	public static final int GROUP_INDEX = 4;
+	
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority) values (NULL, ?, ?, ?, ?, ?, ?, ?)";
@@ -46,6 +48,8 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(5, assembly);
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
+		
+		
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
