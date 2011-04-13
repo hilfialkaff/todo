@@ -4,10 +4,11 @@ Features
   - Dket todo -> geter
   - share ma lokasi org laen
   - nlp org laen
-  - pncet todo -> draw pathny & nongolin info todo
+  - pncet todo -> draw pathny & nongolin info todo (DONE, onTap action: dialogBox for todo's info is commented & called drawPath instead)
 
 - Layout:
   - Pindahin bbrp options dri basic k advanced
+  - Masukin temen dari contacts ke group (In Progress)
 
 - Stub-coding:
   - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous) -- DONE
