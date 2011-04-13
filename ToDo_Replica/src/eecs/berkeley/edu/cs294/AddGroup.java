@@ -8,6 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.RawContacts;
+import android.database.Cursor;
+
 public class AddGroup extends Activity {
 	/** Called when the activity is first created. */
 	private String name, members;
@@ -42,5 +47,7 @@ public class AddGroup extends Activity {
 				finish();
 			}
 		});
+		
+		String[] projection = new String[] {Contacts.DISPLAY_NAME};
 	}
 }

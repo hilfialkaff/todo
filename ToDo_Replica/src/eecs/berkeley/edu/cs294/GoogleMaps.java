@@ -33,6 +33,14 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -43,7 +51,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-public class GoogleMaps extends MapActivity implements LocationListener {
+public class GoogleMaps extends MapActivity implements LocationListener, OnTouchListener {
 	private MapView mapView;
 	private MapController mc;
 	private DatabaseHelper dh;
@@ -157,6 +165,9 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 
 		@Override
 		public boolean onTap(int index) {
+			DemoPopupWindow dw = new DemoPopupWindow(mapView);
+			dw.showLikeQuickAction(0, 30);
+
 			OverlayItem item = mOverlays.get(index);
 			AlertDialog.Builder dialog = new AlertDialog.Builder(mapView.getContext());
 			dialog.setTitle(item.getTitle());
@@ -178,10 +189,16 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 			}
 			mapView.invalidate();
 			DrawPath(srcGeoPoint, destGeoPoint, Color.GREEN, mapView);
-			mc.animateTo(srcGeoPoint);
+			mc.animateTo(destGeoPoint);
 
 			return true;
 		}
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+
+		return false;
 	}
 
 	@Override
@@ -260,7 +277,6 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 		urlString.append(",");
 		urlString.append( Double.toString((double)destination.getLongitudeE6()/1.0E6));
 		urlString.append("&ie=UTF8&0&om=0&output=kml");
-		Log.d("debug","URL: " + urlString.toString());
 
 		Document document = null;
 		HttpURLConnection huc = null;
@@ -279,7 +295,6 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 
 			if(document.getElementsByTagName("GeometryCollection").getLength() > 0) {
 				String path = document.getElementsByTagName("GeometryCollection").item(0).getFirstChild().getFirstChild().getFirstChild().getNodeValue();
-				Log.d("debug","Path: " + path);
 
 				String [] pairs = path.split(" ");
 				String[] lngLat = pairs[0].split(",");
@@ -292,7 +307,6 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 					gp1 = gp2;
 					gp2 = new GeoPoint((int)(Double.parseDouble(lngLat[1])*1E6), (int)(Double.parseDouble(lngLat[0])*1E6));
 					mv.getOverlays().add(new MyOverlay(gp1, gp2, 2, color));
-					Log.d("debug","Pair: " + pairs[i]);
 				}
 				mv.getOverlays().add(new MyOverlay(destination, destination, 3));
 			}
@@ -312,6 +326,41 @@ public class GoogleMaps extends MapActivity implements LocationListener {
 
 		catch (SAXException e) {
 			e.printStackTrace();
+		}
+	}
+
+	private static class DemoPopupWindow extends BetterPopupWindow implements OnClickListener {
+		public DemoPopupWindow(View anchor) {
+			super(anchor);
+		}
+
+		@Override
+		protected void onCreate() {
+			LayoutInflater inflater = (LayoutInflater) this.anchor.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			ViewGroup root = (ViewGroup) inflater.inflate(R.layout.popup_grid_layout, null);
+
+			for(int i = 0, icount = root.getChildCount() ; i < icount ; i++) {
+				View v = root.getChildAt(i);
+
+				if(v instanceof TableRow) {
+					TableRow row = (TableRow) v;
+					for(int j = 0, jcount = row.getChildCount() ; j < jcount ; j++) {
+						View item = row.getChildAt(j);
+						if(item instanceof Button) {
+							Button b = (Button) item;
+							b.setOnClickListener(this);
+						}
+					}
+				}
+			}
+			this.setContentView(root);
+		}
+
+		@Override
+		public void onClick(View v) {
+			Button b = (Button) v;
+			Toast.makeText(this.anchor.getContext(), b.getText(), Toast.LENGTH_SHORT).show();
+			this.dismiss();
 		}
 	}
 }
