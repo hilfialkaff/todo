@@ -122,7 +122,7 @@ public class ToDo_Replica extends Activity {
 
 		switch(item.getItemId()){
 		case Menu.FIRST:
-			intent = new Intent(ToDo_Replica.this, Maps.class);
+			intent = new Intent(ToDo_Replica.this, GoogleMaps.class);
 			startActivityForResult(intent, 1);
 
 			return true;

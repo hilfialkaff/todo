@@ -25,6 +25,7 @@ public class DatabaseHelper {
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority) values (NULL, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (NULL, ?, ?)";
 
+	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
 	
 	private Context context;
@@ -85,7 +86,20 @@ public class DatabaseHelper {
 	public void deleteAll_group() {
 		this.db.delete(TABLE_NAME_GROUP, null, null);
 	}
-
+	
+	public List<String[]> select_to_do_title_place() {
+		List<String[]> list = new ArrayList<String[]>();
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(new String[] {cursor.getString(cursor.getColumnIndex(TITLE)), cursor.getString(cursor.getColumnIndex(PLACE))});
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed())
+			cursor.close();
+		return list;
+	}
+	
 	public List<String> selectAll_to_do(String col_name) {
 		List<String> list = new ArrayList<String>();
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, new String[] {col_name}, null, null, null, null, "td_id asc");
