@@ -56,7 +56,8 @@ public class ServerConnection extends Activity {
 	public static void pullRemote() {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
-
+		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
+		
 		try
 		{
 			// For localhost use ip 10.0.2.2
@@ -70,6 +71,7 @@ public class ServerConnection extends Activity {
 				xmlResponse = getResponse(response.getEntity());
 				Log.d( "ServerDEBUG", "received " + xmlResponse);
 				todoList = parseXMLString(xmlResponse);
+				synchDb(todoList);
 			}
 			else
 			{
@@ -105,6 +107,13 @@ public class ServerConnection extends Activity {
 	}
 
 	/*
+	 * Synchronize local database w/ changes from the server
+	 */
+	private static void synchDb(ArrayList<MyTodo> todoList) {
+		
+	}
+	
+	/*
 	 * Get an xml response from the server
 	 */
 	private static String getResponse( HttpEntity entity )
@@ -139,7 +148,8 @@ public class ServerConnection extends Activity {
 	 */
 	private static ArrayList<MyTodo> parseXMLString(String xmlString) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
+		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
+		
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			InputSource is = new InputSource();
@@ -147,7 +157,6 @@ public class ServerConnection extends Activity {
 			is.setCharacterStream(new StringReader(xmlString));
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("post");
-			todoList = new ArrayList<MyTodo>();
 			
 			Log.d("ServerDEBUG", "Begin iterating nodes");
 
@@ -168,7 +177,7 @@ public class ServerConnection extends Activity {
 					if (name.equalsIgnoreCase("name")){
 						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
 					} else if (name.equalsIgnoreCase("title")){
-						todoList.get(i).setTodoTitle((property.getFirstChild().getNodeValue()));
+						todoList.get(i).setTodoPlace((property.getFirstChild().getNodeValue()));
 					} else if (name.equalsIgnoreCase("content")){
 						todoList.get(i).setTodoContent((property.getFirstChild().getNodeValue()));
 					}
@@ -184,12 +193,10 @@ public class ServerConnection extends Activity {
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo todo = it.next();
 			Log.d("ServerDEBUG", "name: " + todo.getTodoName() + 
-					" title: " + todo.getTodoTitle() + 
+					" title: " + todo.getTodoPlace() + 
 					" content: " + todo.getTodoContent());
 		}
 		
 		return null;
 	}
-
-	private static ArrayList<MyTodo> todoList;
 }
