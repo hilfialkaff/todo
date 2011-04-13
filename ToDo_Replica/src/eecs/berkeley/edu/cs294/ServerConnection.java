@@ -104,7 +104,7 @@ public class ServerConnection extends Activity {
 			}
 			else
 			{
-				Log.d( "DEBUG", "got a null response" );
+				Log.d( "ServerDEBUG", "got a null response" );
 			}
 		} catch (IOException e) {
 			Log.e( "Error", "IOException " + e.getMessage() );
