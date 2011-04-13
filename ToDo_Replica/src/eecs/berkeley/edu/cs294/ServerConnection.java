@@ -55,6 +55,7 @@ public class ServerConnection extends Activity {
 	 */
 	public static void pullRemote() {
 		Log.d("DEBUG", "pullRemote()");
+		retreiveUrl();
 	}
 	
 	/*
@@ -78,121 +79,118 @@ public class ServerConnection extends Activity {
 	
 		// TODO: push to remote database
 	}
-	
-/*	
-	 private ArrayList<MyTodo> eventsArrayList = null;
-	 
-	private void retreiveProjects()
-	{
-	  HttpClient httpClient = new DefaultHttpClient();
-	  
-	  String xmlResponse;
-	  
-	  try
-	  {
-	    // FOR LOCAL DEV String url = "http://192.168.0.186:3000/events?format=xml";
-		  String url = "http://192.168.0.186:3000/events?format=xml";
-	    Log.d( "DEBUG", "performing get " + url );
 
-	    HttpGet method = new HttpGet( new URI(url) );
-	    HttpResponse response = httpClient.execute(method);
-	    if ( response != null )
-	    {
-	     xmlResponse = getResponse(response.getEntity());
-	     Log.d( "DEBUG", "received " + xmlResponse);
-	     eventsArrayList = parseXMLString(xmlResponse);
-	    }
-	    else
-	    {
-	      Log.d( "DEBUG", "got a null response" );
-	    }
-	  } catch (IOException e) {
-	    Log.e( "Error", "IOException " + e.getMessage() );
-	  } catch (URISyntaxException e) {
-	    Log.e( "Error", "URISyntaxException " + e.getMessage() );
-	  }
-	  
+	private static ArrayList<MyTodo> eventsArrayList = null;
+
+	private static void retreiveUrl()
+	{
+		HttpClient httpClient = new DefaultHttpClient();
+
+		String xmlResponse;
+
+		try
+		{
+			// FOR LOCAL DEV: String url = "http://192.168.0.186:3000/events?format=xml";
+			String url = "http://10.0.2.2:3000/posts?format=xml";
+			Log.d( "DEBUG", "performing get " + url );
+
+			HttpGet method = new HttpGet( new URI(url) );
+			HttpResponse response = httpClient.execute(method);
+			if ( response != null )
+			{
+				xmlResponse = getResponse(response.getEntity());
+				Log.d( "DEBUG", "received " + xmlResponse);
+				// eventsArrayList = parseXMLString(xmlResponse);
+			}
+			else
+			{
+				Log.d( "DEBUG", "got a null response" );
+			}
+		} catch (IOException e) {
+			Log.e( "Error", "IOException " + e.getMessage() );
+		} catch (URISyntaxException e) {
+			Log.e( "Error", "URISyntaxException " + e.getMessage() );
+		}
+
 	}
 
-	private String getResponse( HttpEntity entity )
+	private static String getResponse( HttpEntity entity )
 	{
-	  String response = "";
+		String response = "";
 
-	  try
-	  {
-	    int length = ( int ) entity.getContentLength();
-	    StringBuffer sb = new StringBuffer( length );
-	    InputStreamReader isr = new InputStreamReader( entity.getContent(), "UTF-8" );
-	    char buff[] = new char[length];
-	    int cnt;
-	    while ( ( cnt = isr.read( buff, 0, length - 1 ) ) > 0 )
-	    {
-	      sb.append( buff, 0, cnt );
-	    }
+		try
+		{
+			int length = ( int ) entity.getContentLength();
+			StringBuffer sb = new StringBuffer( length );
+			InputStreamReader isr = new InputStreamReader( entity.getContent(), "UTF-8" );
+			char buff[] = new char[length];
+			int cnt;
+			while ( ( cnt = isr.read( buff, 0, length - 1 ) ) > 0 )
+			{
+				sb.append( buff, 0, cnt );
+			}
 
-	      response = sb.toString();
-	      isr.close();
-	  } catch ( IOException ioe ) {
-	    ioe.printStackTrace();
-	  }
+			response = sb.toString();
+			isr.close();
+		} catch ( IOException ioe ) {
+			ioe.printStackTrace();
+		}
 
-	  return response;
+		return response;
 	}
 
-	private ArrayList<MyTodo> parseXMLString(String xmlString) {
+	/*
+	private static ArrayList<MyTodo> parseXMLString(String xmlString) {
+		
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource();
+			is.setCharacterStream(new StringReader(xmlString));
+
+			Document doc = db.parse(is);
+			NodeList nodes = doc.getElementsByTagName("myevent");
+
+			eventsArrayList = new ArrayList<MyTodo>(); //Gertig
+
+			//Log.e("Gertig","There are "+nodes.getLength()+" events in this list");
+
+			//Iterate the events
+			for (int i = 0; i < nodes.getLength(); i++) {
+
+				Element element = (Element) nodes.item(i);
+				eventsArrayList.add(new MyTodo());
+
+				NodeList eventIDNum = element.getElementsByTagName("id");
+				Element line = (Element) eventIDNum.item(0);
+				eventsArrayList.get(i).eventID = Integer.parseInt(getCharacterDataFromElement(line));
+
+				NodeList eventName = element.getElementsByTagName("name");
+				line = (Element) eventName.item(0);
+				eventsArrayList.get(i).name = getCharacterDataFromElement(line).trim();
 
 
-	try {
-	        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        InputSource is = new InputSource();
-	        is.setCharacterStream(new StringReader(xmlString));
+				NodeList eventBudget = element.getElementsByTagName("budget");
+				line = (Element) eventBudget.item(0);
+				eventsArrayList.get(i).budget = Double.parseDouble(getCharacterDataFromElement(line));
 
-	        Document doc = db.parse(is);
-	        NodeList nodes = doc.getElementsByTagName("myevent");
+			}
 
-	        eventsArrayList = new ArrayList<MyTodo>(); //Gertig
-	        
-	//Log.e("Gertig","There are "+nodes.getLength()+" events in this list");
-	               
-	        //Iterate the events
-	        for (int i = 0; i < nodes.getLength(); i++) {
-	        
-	           Element element = (Element) nodes.item(i);
-	           eventsArrayList.add(new MyTodo());
-	           
-	           NodeList eventIDNum = element.getElementsByTagName("id");
-	           Element line = (Element) eventIDNum.item(0);
-	           eventsArrayList.get(i).eventID = Integer.parseInt(getCharacterDataFromElement(line));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	           NodeList eventName = element.getElementsByTagName("name");
-	           line = (Element) eventName.item(0);
-	           eventsArrayList.get(i).name = getCharacterDataFromElement(line).trim();
-	           
-	           
-	           NodeList eventBudget = element.getElementsByTagName("budget");
-	           line = (Element) eventBudget.item(0);
-	           eventsArrayList.get(i).budget = Double.parseDouble(getCharacterDataFromElement(line));
-	           
-	        }
-	        
-	    }
-	    catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
-	    return eventsArrayList;
+		return eventsArrayList;
 
 	}
 
 	public static String getCharacterDataFromElement(Element e) {
-	    Node child = e.getFirstChild();
-	    if (child instanceof CharacterData) {
-	       CharacterData cd = (CharacterData) child;
-	       return cd.getData();
-	    }
-	    return "?"; //ListActivity will display a ? if a null value is passed to the Rails server
-	  }
-
-*/
+		Node child = e.getFirstChild();
+		if (child instanceof CharacterData) {
+			CharacterData cd = (CharacterData) child;
+			return cd.getData();
+		}
+		return "?"; //ListActivity will display a ? if a null value is passed to the Rails server
+	}*/
 }
