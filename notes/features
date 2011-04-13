@@ -16,7 +16,7 @@ Features
 
 - Client side:
   - push json array k server
-  - parse json array dri server
+  - Fetch xml from server -- DONE 
 
 - Server side:
   - Gnti nama2, field2 dri dummy server
