@@ -38,12 +38,12 @@ public class ServerConnection extends Activity {
 		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 		
 		if(netInfo == null) {
-			Log.d("DEBUG", "--------------- No internet connection --------- ");
+			Log.d("ServerDEBUG", "--------------- No internet connection --------- ");
 			return false;
 		}
 			
 		if (netInfo.isConnected()) {
-			Log.d("DEBUG", "------------- Connected to internet -------------");
+			Log.d("ServerDEBUG", "------------- Connected to internet -------------");
 			return true;
 		}
 		
@@ -54,7 +54,7 @@ public class ServerConnection extends Activity {
 	 * Pull server changes to local and synchronize it with the local database 
 	 */
 	public static void pullRemote() {
-		Log.d("DEBUG", "pullRemote()");
+		Log.d("ServerDEBUG", "pullRemote()");
 		retreiveUrl();
 	}
 	
@@ -64,17 +64,17 @@ public class ServerConnection extends Activity {
 	public static void pushRemote(List<String> oldEntry, List<String> newEntry) {
 	
 		if(oldEntry == null) {
-			Log.d("DEBUG", "old: null");
+			Log.d("ServerDEBUG", "old: null");
 		}
 		else {
-			Log.d("DEBUG", "old: " + oldEntry.toString());
+			Log.d("ServerDEBUG", "old: " + oldEntry.toString());
 		}	
 	
 		if(newEntry == null) {
-			Log.d("DEBUG", "new: null");
+			Log.d("ServerDEBUG", "new: null");
 		}
 		else {
-			Log.d("DEBUG", "new: " + newEntry.toString());
+			Log.d("ServerDEBUG", "new: " + newEntry.toString());
 		}
 	
 		// TODO: push to remote database
@@ -92,14 +92,14 @@ public class ServerConnection extends Activity {
 		{
 			// FOR LOCAL DEV: String url = "http://192.168.0.186:3000/events?format=xml";
 			String url = "http://10.0.2.2:3000/posts?format=xml";
-			Log.d( "DEBUG", "performing get " + url );
+			Log.d( "ServerDEBUG", "performing get " + url );
 
 			HttpGet method = new HttpGet( new URI(url) );
 			HttpResponse response = httpClient.execute(method);
 			if ( response != null )
 			{
 				xmlResponse = getResponse(response.getEntity());
-				Log.d( "DEBUG", "received " + xmlResponse);
+				Log.d( "ServerDEBUG", "received " + xmlResponse);
 				// eventsArrayList = parseXMLString(xmlResponse);
 			}
 			else
