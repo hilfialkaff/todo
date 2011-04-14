@@ -4,6 +4,7 @@ package eecs.berkeley.edu.cs294;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -15,9 +16,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -27,6 +33,7 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ServerConnection extends Activity {
 
@@ -51,17 +58,18 @@ public class ServerConnection extends Activity {
 	}
 
 	/*
-	 * Pull server changes to local and synchronize it with the local database 
+	 * Pull server changes to local and synchronize it with the local database
+	 * 
+	 * TODO: Need changes for the actual server
 	 */
 	public static void pullRemote() {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-		
+		String url = "http://10.0.2.2:3000/posts?format=xml"; // For localhost use ip 10.0.2.2
+
 		try
-		{
-			// For localhost use ip 10.0.2.2
-			String url = "http://10.0.2.2:3000/posts?format=xml";
+		{	
 			Log.d( "ServerDEBUG", "performing get " + url );
 
 			HttpGet method = new HttpGet( new URI(url) );
@@ -86,6 +94,8 @@ public class ServerConnection extends Activity {
 
 	/*
 	 * Push local changes to the server
+	 * 
+	 * TODO: Need changes for the actual server
 	 */
 	public static void pushRemote(List<String> oldEntry, List<String> newEntry) {
 
@@ -103,16 +113,71 @@ public class ServerConnection extends Activity {
 			Log.d("ServerDEBUG", "new: " + newEntry.toString());
 		}
 
-		// TODO: push to remote database
+		String url = "http://10.0.2.2:3000/posts"; // For localhost use ip 10.0.2.2
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpPost postRequest = new HttpPost(url);
+		
+		JSONObject posts = new JSONObject();
+		JSONObject post = new JSONObject();
+		JSONObject details = new JSONObject();
+
+		try {
+			details.put("content", "testttt");
+			details.put("title", "testttt");
+			details.put("name", "testttt");
+
+			// post.put("post", details);
+			posts.put("posts", details);
+
+			Log.d("ServerDEBUG", "Event JSON = "+ posts.toString());
+
+			StringEntity se = new StringEntity(posts.toString());
+			postRequest.setEntity(se);
+			postRequest.setHeader("Content-Type","application/json");
+
+
+		} catch (UnsupportedEncodingException e) {
+			Log.e("Error",""+e);
+			e.printStackTrace();
+		} catch (JSONException js) {
+			js.printStackTrace();
+		}
+
+		HttpResponse response = null;
+
+		try {
+			response = client.execute(postRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			Log.e("ClientProtocol",""+e);
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("IO",""+e);
+		}
+
+		HttpEntity entity = response.getEntity();
+		String stringResponse = getResponse(entity);
+		
+		if (entity != null) {
+			try {
+				entity.consumeContent();
+			} catch (IOException e) {
+				Log.e("IO E",""+e);
+				e.printStackTrace();
+			}
+		}
+
+		Log.d("ServerDEBUG", "response: " + stringResponse);
+		Log.d("ServerDEBUG", "Your post was successfully uploaded");
 	}
 
 	/*
 	 * Synchronize local database w/ changes from the server
 	 */
 	private static void synchDb(ArrayList<MyTodo> todoList) {
-		
+
 	}
-	
+
 	/*
 	 * Get an xml response from the server
 	 */
@@ -149,7 +214,7 @@ public class ServerConnection extends Activity {
 	private static ArrayList<MyTodo> parseXMLString(String xmlString) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-		
+
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			InputSource is = new InputSource();
@@ -157,7 +222,7 @@ public class ServerConnection extends Activity {
 			is.setCharacterStream(new StringReader(xmlString));
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("post");
-			
+
 			Log.d("ServerDEBUG", "Begin iterating nodes");
 
 			/* Iterating each todo node in the xml */
@@ -196,7 +261,7 @@ public class ServerConnection extends Activity {
 					" title: " + todo.getTodoPlace() + 
 					" content: " + todo.getTodoContent());
 		}
-		
+
 		return null;
 	}
 }
