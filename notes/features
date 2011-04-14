@@ -8,7 +8,7 @@ Features
 
 - Layout:
   - Pindahin bbrp options dri basic k advanced
-  - Masukin temen dari contacts ke group (In Progress)
+  - Masukin temen dari contacts ke group (DONE, only need to convert the selected contacts to JSON->Hilfi)
 
 - Stub-coding:
   - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous) -- DONE

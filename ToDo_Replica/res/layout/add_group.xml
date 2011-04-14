@@ -42,13 +42,13 @@
 			android:text="Members"
 			android:textSize="20px">
 		</TextView>
-		<EditText
-			android:id="@+id/et_members"
+		<Button
+			android:id="@+id/b_add_contact"
 			android:layout_width="350px"
 			android:layout_height="wrap_content"
-			android:hint="Touch here to edit members"
+			android:text="Click here to edit members"
 			android:textSize="20px">
-		</EditText>
+		</Button>
 	</TableRow>
 	<TableRow
 		android:id="@+id/tr_submitgroup"
