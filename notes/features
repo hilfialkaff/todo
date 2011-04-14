@@ -19,6 +19,7 @@ Features
   - parse json array dri server
 
 - Server side:
-  - Gnti nama2, field2 dri dummy server
-  - Bikin user authentication prtama2
+  - table : user, group, todo
+  - todo  : todo.name, place, note(text), tag(text), group, status
+  - Bikin user authentication prtama2  //  buat apa ya? di handphone ada authentication kah?
   - Design database supaya tiap todo yg dganti d 1 org bs lngsng k ganti d org laen
