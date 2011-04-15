@@ -1,6 +1,17 @@
 class CommentsController < ApplicationController
 
-  before_filter :authenticate, :only => :destroy
+  # before_filter :authenticate, :only => :destroy
+
+  # GET /comments
+  # GET /comments.xml
+  def index
+    @comments = Comment.all
+    
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @comments }
+    end
+  end
 
   def create
     @post = Post.find(params[:post_id])

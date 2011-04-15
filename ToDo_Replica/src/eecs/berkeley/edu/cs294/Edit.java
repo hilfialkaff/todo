@@ -3,6 +3,8 @@ package eecs.berkeley.edu.cs294;
 import java.util.List;
 
 import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -201,7 +203,26 @@ public class Edit extends Activity {
 				place = et_place.getText().toString();
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
+				
+				List<String> oldEntry = dh.select_to_do(pk);
+				
 				dh.update_to_do(pk, title, place, note, tag, group, status, priority);
+				
+				List<String> newEntry = dh.select_to_do(pk);
+				
+				if (group != null) {
+					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+					if(netInfo == null) {
+						Log.d("DEBUG", "--------------- No internet connection --------- ");
+					}
+
+					if (netInfo.isConnected()) {
+						ServerConnection.pushRemote(oldEntry, newEntry);
+					}
+				}
+				
 				setResult(RESULT_OK);
 				finish();
 			}

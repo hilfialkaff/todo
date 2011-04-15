@@ -16,12 +16,16 @@ import android.util.Log;
 public class DatabaseHelper {
 	private static final String DATABASE_NAME = "noctis.db";
 	private static final int DATABASE_VERSION = 1;
+
+	public static final int NUM_ENTRIES = 7;
+	public static final int GROUP_INDEX = 4;
 	
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority) values (NULL, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (NULL, ?, ?)";
 
+	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
 	
 	private Context context;
@@ -45,6 +49,8 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(5, assembly);
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
+		
+		
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
@@ -80,7 +86,20 @@ public class DatabaseHelper {
 	public void deleteAll_group() {
 		this.db.delete(TABLE_NAME_GROUP, null, null);
 	}
-
+	
+	public List<String[]> select_to_do_title_place() {
+		List<String[]> list = new ArrayList<String[]>();
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(new String[] {cursor.getString(cursor.getColumnIndex(TITLE)), cursor.getString(cursor.getColumnIndex(PLACE))});
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed())
+			cursor.close();
+		return list;
+	}
+	
 	public List<String> selectAll_to_do(String col_name) {
 		List<String> list = new ArrayList<String>();
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, new String[] {col_name}, null, null, null, null, "td_id asc");

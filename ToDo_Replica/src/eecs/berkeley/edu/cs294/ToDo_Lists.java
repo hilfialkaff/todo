@@ -4,7 +4,10 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
@@ -100,6 +103,23 @@ public class ToDo_Lists extends Activity {
 			startActivityForResult(intent, 4);
 			return true;
 		case 1:
+			List<String> oldEntry = dh.select_to_do(menuItem.getItemId());
+			
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_INDEX));
+			
+			if (oldEntry.get(DatabaseHelper.GROUP_INDEX) != null) {
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+				}
+
+				if (netInfo.isConnected()) {
+					ServerConnection.pushRemote(oldEntry, null);
+				}
+			}
+			
 			dh.delete_to_do(menuItem.getItemId());
 			tl_todo_lists.removeAllViews();
 			populate();

@@ -2,10 +2,14 @@ package eecs.berkeley.edu.cs294;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,8 +19,6 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-
 
 public class ToDo_Replica extends Activity {
 	/** Called when the activity is first created. */
@@ -28,6 +30,30 @@ public class ToDo_Replica extends Activity {
 
 		setContentView(R.layout.main);
 
+		/* Timer code */
+		/********************************************************************/
+		Timer serverTimer = new Timer("serverTimer", true);
+		TimerTask serverTimerTask = new TimerTask() {
+			public void run() {
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+				
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+					// TODO: Warn the user
+				}
+					
+				if (netInfo.isConnected()) {
+					Log.d("DEBUG", "------------- Connected to internet -------------");
+					ServerConnection.pullRemote();
+				}
+			}
+		};
+		
+		// TODO: Need to be un-hardcoded
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 50000, 50000); // Run every 50 seconds
+		/********************************************************************/
+		
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
@@ -44,7 +70,7 @@ public class ToDo_Replica extends Activity {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), Add.class);
+					Intent intent = new Intent(v.getContext(), AddContact.class);
 					startActivityForResult(intent, 0);
 				}
 			});
@@ -96,7 +122,7 @@ public class ToDo_Replica extends Activity {
 
 		switch(item.getItemId()){
 		case Menu.FIRST:
-			intent = new Intent(ToDo_Replica.this, Maps.class);
+			intent = new Intent(ToDo_Replica.this, GoogleMaps.class);
 			startActivityForResult(intent, 1);
 
 			return true;
