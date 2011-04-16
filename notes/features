@@ -21,6 +21,6 @@ Features
 
 - Server side:
   - table : user, group, todo
-  - todo  : todo.name, place, note(text), tag(text), group, status
+  - todo  : todo.name, place, note(text), tag(text), group, status, delivery
   - Bikin user authentication prtama2  //  buat apa ya? di handphone ada authentication kah?
   - Design database supaya tiap todo yg dganti d 1 org bs lngsng k ganti d org laen
