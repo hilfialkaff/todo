@@ -1,0 +1,4 @@
+<h1>ToDo's Server</h1>
+<%= link_to "Entries", entries_path %>
+<p>"\n"</p>
+<%= link_to "Details", tododetails_path %>

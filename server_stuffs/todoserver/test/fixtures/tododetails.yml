@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  todo: MyString
+  place: MyString
+  note: MyText
+  tag: MyText
+  group: MyString
+  status: MyString
+  delivered: MyString
+
+two:
+  todo: MyString
+  place: MyString
+  note: MyText
+  tag: MyText
+  group: MyString
+  status: MyString
+  delivered: MyString

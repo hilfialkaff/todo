@@ -1,0 +1,346 @@
+
+
+Started GET "/" for 127.0.0.1 at Sun Apr 10 18:19:45 -0700 2011
+  Processing by HomeController#index as HTML
+Rendered home/index.html.erb within layouts/application (2.8ms)
+Completed 200 OK in 12ms (Views: 11.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:19:48 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+SQLite3::SQLException: no such table: posts: SELECT "posts".* FROM "posts"
+Completed   in 49ms
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: posts: SELECT "posts".* FROM "posts"):
+  app/controllers/posts_controller.rb:8:in `index'
+
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.6/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.6/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.6ms)
+Rendered /Library/Ruby/Gems/1.8/gems/actionpack-3.0.6/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (71.1ms)
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (3.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("schema_migrations")
+  [1m[36mSQL (1.2ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mSQL (0.1ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+Migrating to CreateBooks (20110406232311)
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE TABLE "books" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110406232311')
+Migrating to CreatePosts (20110406233417)
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE TABLE "posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "title" varchar(255), "content" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110406233417')
+Migrating to CreateComments (20110407012535)
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE TABLE "comments" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "commenter" varchar(255), "body" text, "post_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110407012535')
+Migrating to CreateTags (20110408102933)
+  [1m[36mSQL (0.3ms)[0m  [1mCREATE TABLE "tags" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "post_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110408102933')
+  [1m[36mSQL (0.2ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.2ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("books")
+  [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("comments")[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("posts")
+  [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("tags")[0m
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:20:42 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.5ms)[0m  SELECT "posts".* FROM "posts"
+Rendered posts/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 23ms (Views: 12.0ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at Sun Apr 10 18:20:44 -0700 2011
+  Processing by HomeController#index as HTML
+Rendered home/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 11ms (Views: 10.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at Sun Apr 10 18:20:46 -0700 2011
+  Processing by HomeController#index as HTML
+Rendered home/index.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 11ms (Views: 10.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:20:47 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+Rendered posts/index.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 22ms (Views: 11.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/posts/new" for 127.0.0.1 at Sun Apr 10 18:20:48 -0700 2011
+  Processing by PostsController#new as HTML
+Completed 401 Unauthorized in 0ms
+
+
+Started GET "/posts/new" for 127.0.0.1 at Sun Apr 10 18:20:54 -0700 2011
+  Processing by PostsController#new as HTML
+Rendered tags/_form.html.erb (1.4ms)
+Rendered posts/_form.html.erb (110.8ms)
+Rendered posts/new.html.erb within layouts/application (115.8ms)
+Completed 200 OK in 135ms (Views: 123.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/posts" for 127.0.0.1 at Sun Apr 10 18:21:31 -0700 2011
+  Processing by PostsController#create as HTML
+  Parameters: {"commit"=>"Create Post", "post"=>{"name"=>"asdasdas", "tags_attributes"=>{"0"=>{"name"=>""}}, "title"=>"asdasdasd", "content"=>"asdasdasda"}, "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓"}
+Completed 401 Unauthorized in 0ms
+
+
+Started POST "/posts" for 127.0.0.1 at Sun Apr 10 18:21:31 -0700 2011
+  Processing by PostsController#create as HTML
+  Parameters: {"commit"=>"Create Post", "post"=>{"name"=>"asdasdas", "tags_attributes"=>{"0"=>{"name"=>""}}, "title"=>"asdasdasd", "content"=>"asdasdasda"}, "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓"}
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("created_at", "updated_at", "content", "title", "name") VALUES ('2011-04-11 01:21:32.012584', '2011-04-11 01:21:32.012584', 'asdasdasda', 'asdasdasd', 'asdasdas')[0m
+Redirected to http://0.0.0.0:3000/posts/1
+Completed 302 Found in 35ms
+
+
+Started GET "/posts/1" for 127.0.0.1 at Sun Apr 10 18:21:32 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE ("tags".post_id = 1)[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" WHERE ("comments".post_id = 1)
+Rendered comments/_comment.html.erb (0.0ms)
+Rendered comments/_form.html.erb (22.0ms)
+Rendered posts/show.html.erb within layouts/application (110.9ms)
+Completed 200 OK in 131ms (Views: 119.1ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/posts/1/comments" for 127.0.0.1 at Sun Apr 10 18:21:41 -0700 2011
+  Processing by CommentsController#create as HTML
+  Parameters: {"comment"=>{"body"=>"asdasdasd", "commenter"=>"asdasdas"}, "commit"=>"Create Comment", "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓", "post_id"=>"1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("updated_at", "body", "created_at", "post_id", "commenter") VALUES ('2011-04-11 01:21:41.437364', 'asdasdasd', '2011-04-11 01:21:41.437364', 1, 'asdasdas')
+Redirected to http://0.0.0.0:3000/posts/1
+Completed 302 Found in 39ms
+
+
+Started GET "/posts/1" for 127.0.0.1 at Sun Apr 10 18:21:41 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" WHERE ("tags".post_id = 1)
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE ("comments".post_id = 1)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1
+Rendered comments/_comment.html.erb (13.6ms)
+Rendered comments/_form.html.erb (6.1ms)
+Rendered posts/show.html.erb within layouts/application (101.7ms)
+Completed 200 OK in 201ms (Views: 109.0ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:21:45 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+Rendered posts/index.html.erb within layouts/application (12.8ms)
+Completed 200 OK in 31ms (Views: 20.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/posts/1" for 127.0.0.1 at Sun Apr 10 18:21:48 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE ("tags".post_id = 1)[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" WHERE ("comments".post_id = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1[0m
+Rendered comments/_comment.html.erb (65.0ms)
+Rendered comments/_form.html.erb (5.7ms)
+Rendered posts/show.html.erb within layouts/application (101.9ms)
+Completed 200 OK in 121ms (Views: 109.6ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/posts/new" for 127.0.0.1 at Sun Apr 10 18:21:50 -0700 2011
+  Processing by PostsController#new as HTML
+Rendered tags/_form.html.erb (1.3ms)
+Rendered posts/_form.html.erb (106.5ms)
+Rendered posts/new.html.erb within layouts/application (111.0ms)
+Completed 200 OK in 129ms (Views: 118.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:21:51 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.5ms)[0m  SELECT "posts".* FROM "posts"
+Rendered posts/index.html.erb within layouts/application (13.8ms)
+Completed 200 OK in 32ms (Views: 21.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at Sun Apr 10 18:21:51 -0700 2011
+  Processing by HomeController#index as HTML
+Rendered home/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 11ms (Views: 10.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:21:53 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT "posts".* FROM "posts"[0m
+Rendered posts/index.html.erb within layouts/application (12.8ms)
+Completed 200 OK in 31ms (Views: 20.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/posts/1" for 127.0.0.1 at Sun Apr 10 18:21:58 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE ("tags".post_id = 1)[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" WHERE ("comments".post_id = 1)
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1[0m
+Rendered comments/_comment.html.erb (13.0ms)
+Rendered comments/_form.html.erb (5.6ms)
+Rendered posts/show.html.erb within layouts/application (112.1ms)
+Completed 200 OK in 131ms (Views: 119.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:22:04 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.5ms)[0m  SELECT "posts".* FROM "posts"
+Rendered posts/index.html.erb within layouts/application (12.8ms)
+Completed 200 OK in 31ms (Views: 20.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/posts/new" for 127.0.0.1 at Sun Apr 10 18:22:06 -0700 2011
+  Processing by PostsController#new as HTML
+Rendered tags/_form.html.erb (1.3ms)
+Rendered posts/_form.html.erb (32.3ms)
+Rendered posts/new.html.erb within layouts/application (36.8ms)
+Completed 200 OK in 125ms (Views: 44.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/posts" for 127.0.0.1 at Sun Apr 10 18:22:22 -0700 2011
+  Processing by PostsController#create as HTML
+  Parameters: {"commit"=>"Create Post", "post"=>{"name"=>"Group", "tags_attributes"=>{"0"=>{"name"=>""}}, "title"=>"G_title", "content"=>"G_content"}, "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓"}
+  [1m[36mAREL (0.4ms)[0m  [1mINSERT INTO "posts" ("updated_at", "created_at", "content", "name", "title") VALUES ('2011-04-11 01:22:22.991129', '2011-04-11 01:22:22.991129', 'G_content', 'Group', 'G_title')[0m
+Redirected to http://0.0.0.0:3000/posts/2
+Completed 302 Found in 31ms
+
+
+Started GET "/posts/2" for 127.0.0.1 at Sun Apr 10 18:22:23 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[35mPost Load (0.2ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT "tags".* FROM "tags" WHERE ("tags".post_id = 2)[0m
+  [1m[35mComment Load (0.2ms)[0m  SELECT "comments".* FROM "comments" WHERE ("comments".post_id = 2)
+Rendered comments/_comment.html.erb (0.0ms)
+Rendered comments/_form.html.erb (18.0ms)
+Rendered posts/show.html.erb within layouts/application (120.6ms)
+Completed 200 OK in 140ms (Views: 128.1ms | ActiveRecord: 0.9ms)
+
+
+Started POST "/posts/2/comments" for 127.0.0.1 at Sun Apr 10 18:22:34 -0700 2011
+  Processing by CommentsController#create as HTML
+  Parameters: {"comment"=>{"body"=>"blablabla 1", "commenter"=>"Todo 1"}, "commit"=>"Create Comment", "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓", "post_id"=>"2"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("post_id", "body", "commenter", "created_at", "updated_at") VALUES (2, 'blablabla 1', 'Todo 1', '2011-04-11 01:22:34.988321', '2011-04-11 01:22:34.988321')
+Redirected to http://0.0.0.0:3000/posts/2
+Completed 302 Found in 37ms
+
+
+Started GET "/posts/2" for 127.0.0.1 at Sun Apr 10 18:22:35 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" WHERE ("tags".post_id = 2)
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE ("comments".post_id = 2)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1
+Rendered comments/_comment.html.erb (13.4ms)
+Rendered comments/_form.html.erb (54.0ms)
+Rendered posts/show.html.erb within layouts/application (100.1ms)
+Completed 200 OK in 172ms (Views: 107.3ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/posts/2/comments" for 127.0.0.1 at Sun Apr 10 18:22:41 -0700 2011
+  Processing by CommentsController#create as HTML
+  Parameters: {"comment"=>{"body"=>"blablabla2 ", "commenter"=>"Todo 2"}, "commit"=>"Create Comment", "authenticity_token"=>"4tIghc987sjltOWiYMCTM606HsSM/+1fZ1f+PZNN6DA=", "utf8"=>"✓", "post_id"=>"2"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+  [1m[35mAREL (0.4ms)[0m  INSERT INTO "comments" ("updated_at", "post_id", "body", "created_at", "commenter") VALUES ('2011-04-11 01:22:41.939314', 2, 'blablabla2 ', '2011-04-11 01:22:41.939314', 'Todo 2')
+Redirected to http://0.0.0.0:3000/posts/2
+Completed 302 Found in 37ms
+
+
+Started GET "/posts/2" for 127.0.0.1 at Sun Apr 10 18:22:41 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" WHERE ("tags".post_id = 2)
+  [1m[36mComment Load (0.3ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE ("comments".post_id = 2)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+Rendered comments/_comment.html.erb (64.4ms)
+Rendered comments/_form.html.erb (5.8ms)
+Rendered posts/show.html.erb within layouts/application (102.8ms)
+Completed 200 OK in 122ms (Views: 110.2ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:22:46 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.5ms)[0m  SELECT "posts".* FROM "posts"
+Rendered posts/index.html.erb within layouts/application (91.7ms)
+Completed 200 OK in 111ms (Views: 99.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/posts/2" for 127.0.0.1 at Sun Apr 10 18:22:50 -0700 2011
+  Processing by PostsController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mPost Load (0.2ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT "tags".* FROM "tags" WHERE ("tags".post_id = 2)
+  [1m[36mComment Load (0.2ms)[0m  [1mSELECT "comments".* FROM "comments" WHERE ("comments".post_id = 2)[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1[0m
+Rendered comments/_comment.html.erb (66.8ms)
+Rendered comments/_form.html.erb (5.6ms)
+Rendered posts/show.html.erb within layouts/application (104.2ms)
+Completed 200 OK in 124ms (Views: 112.0ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/posts" for 127.0.0.1 at Sun Apr 10 18:23:01 -0700 2011
+  Processing by PostsController#index as HTML
+  [1m[35mPost Load (0.5ms)[0m  SELECT "posts".* FROM "posts"
+Rendered posts/index.html.erb within layouts/application (15.5ms)
+Completed 200 OK in 34ms (Views: 23.2ms | ActiveRecord: 0.5ms)
+  [1m[36mSQL (0.5ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.2ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+Migrating to CreateBooks (20110406232311)
+Migrating to CreatePosts (20110406233417)
+Migrating to CreateComments (20110407012535)
+Migrating to CreateTags (20110408102933)
+  [1m[35mSQL (0.1ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (0.2ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.2ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("books")
+  [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("comments")[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("posts")
+  [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("tags")[0m
