@@ -13,7 +13,7 @@ class EntriesController < ApplicationController
   # GET /entries/1
   # GET /entries/1.xml
   def show
-    @entry = Entry.find(params[:id])
+#    @entry = Entry.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

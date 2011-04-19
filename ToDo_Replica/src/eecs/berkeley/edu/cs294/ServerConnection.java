@@ -122,20 +122,20 @@ public class ServerConnection extends Activity {
 		JSONObject details = new JSONObject();
 
 		try {
-			details.put("content", "testttt");
-			details.put("title", "testttt");
-			details.put("name", "testttt");
+			posts.put("post_content", "testttt");
+			posts.put("post_title", "testttt");
+			posts.put("post_name", "testttt");
 
 			// post.put("post", details);
-			posts.put("posts", details);
+			// posts.put("posts", details);
 
 			Log.d("ServerDEBUG", "Event JSON = "+ posts.toString());
 
 			StringEntity se = new StringEntity(posts.toString());
 			postRequest.setEntity(se);
-			postRequest.setHeader("Content-Type","application/json");
-
-
+			//postRequest.setHeader("Content-Type","application/json");
+			postRequest.setHeader("json","posts");
+			
 		} catch (UnsupportedEncodingException e) {
 			Log.e("Error",""+e);
 			e.printStackTrace();

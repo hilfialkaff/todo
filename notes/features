@@ -1,7 +1,6 @@
 Features
 
 - Map:
-  - Dket todo -> geter
   - share ma lokasi org laen
   - nlp org laen
   - pncet todo -> draw pathny & nongolin info todo (DONE, onTap action: dialogBox for todo's info is commented & called drawPath instead)
@@ -9,18 +8,25 @@ Features
 - Layout:
   - Pindahin bbrp options dri basic k advanced
   - Masukin temen dari contacts ke group (DONE, only need to convert the selected contacts to JSON->Hilfi)
+  - UPDATE button
+  - General UI
 
 - Stub-coding:
   - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous) -- DONE
   - prtama x msk app slalu coba ambil dri remote db -- DONE
-  - coba cari cara efisien buat invite org laen msk k group dbanding email klo ada,,(gmn supaya server aruz bs lngsng alert tu hp org)
+  - coba cari cara efisien buat invite org laen msk k group dbanding email klo ada,,(gmn supaya server aruz bs lngsng alert tu hp org) -- DONE
 
 - Client side:
   - push json array k server
-  - Fetch xml from server -- DONE 
+  - Fetch xml from server -- DONE
+  - check klo ada invitation
+  - send new group members
+  - synchronize w/ db
 
 - Server side:
   - table : user, group, todo
   - todo  : todo.name, place, note(text), tag(text), group, status, delivery
-  - Bikin user authentication prtama2  //  buat apa ya? di handphone ada authentication kah?
   - Design database supaya tiap todo yg dganti d 1 org bs lngsng k ganti d org laen
+  - Display todo/user
+  - Ganti table layoutny
+  - bikin post/get request buat dptin/kasih invite dri/ke server
