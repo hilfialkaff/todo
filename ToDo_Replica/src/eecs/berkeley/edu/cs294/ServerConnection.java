@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,9 +15,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -33,10 +31,13 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.widget.Toast;
 
 public class ServerConnection extends Activity {
 
+	static public final int POST_REQUEST = 1;
+	static public final int PUT_REQUEST = 2;
+	static public final int DELETE_REQUEST = 3;
+	
 	/*
 	 * Check if phone is connected to the internet
 	 */
@@ -63,10 +64,12 @@ public class ServerConnection extends Activity {
 	 * TODO: Need changes for the actual server
 	 */
 	public static void pullRemote() {
+
+		/*
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-		String url = "http://10.0.2.2:3000/posts?format=xml"; // For localhost use ip 10.0.2.2
+		String url = "http://10.0.2.2:3000/tododetails?format=xml"; // For localhost use ip 10.0.2.2
 
 		try
 		{	
@@ -89,7 +92,7 @@ public class ServerConnection extends Activity {
 			Log.e( "Error", "IOException " + e.getMessage() );
 		} catch (URISyntaxException e) {
 			Log.e( "Error", "URISyntaxException " + e.getMessage() );
-		}
+		}*/
 	}
 
 	/*
@@ -97,50 +100,73 @@ public class ServerConnection extends Activity {
 	 * 
 	 * TODO: Need changes for the actual server
 	 */
-	public static void pushRemote(List<String> oldEntry, List<String> newEntry) {
+	public static void pushRemote(List<String> entry, int request_type) {
 
-		if(oldEntry == null) {
-			Log.d("ServerDEBUG", "old: null");
+		int retCode = 0;
+		
+		if(entry == null) {
+			Log.d("ServerDEBUG", "entry: null");
 		}
 		else {
-			Log.d("ServerDEBUG", "old: " + oldEntry.toString());
+			Log.d("ServerDEBUG", "entry: " + entry.toString());
 		}	
 
-		if(newEntry == null) {
-			Log.d("ServerDEBUG", "new: null");
+		retCode = pushPut(entry);
+		
+		/*
+		switch(request_type) {
+		case POST_REQUEST:
+			retCode = pushPost(entry);
+			break;
+		case PUT_REQUEST:
+			retCode = pushPut(entry);
+			break;
+		case DELETE_REQUEST:
+			retCode = pushDelete(entry);
+			break;
+		default:
+			Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
 		}
-		else {
-			Log.d("ServerDEBUG", "new: " + newEntry.toString());
+		*/
+		if(retCode == 0) {
+			Log.d("ServerDEBUG", "Your post was successfully uploaded");
 		}
-
-		String url = "http://10.0.2.2:3000/posts"; // For localhost use ip 10.0.2.2
+	}
+	
+	/*
+	 * Send a POST request to the server when a new todo is created
+	 */
+	public static int pushPost(List<String> entry) {
+		String url = "http://10.0.2.2:3000/tododetails"; // For localhost use ip 10.0.2.2
 		DefaultHttpClient client = new DefaultHttpClient();
+		
 		HttpPost postRequest = new HttpPost(url);
 		
 		JSONObject posts = new JSONObject();
-		JSONObject post = new JSONObject();
 		JSONObject details = new JSONObject();
 
 		try {
-			posts.put("post_content", "testttt");
-			posts.put("post_title", "testttt");
-			posts.put("post_name", "testttt");
+			details.put("todo", "testttt");
+			details.put("place", "");
 
-			// post.put("post", details);
-			// posts.put("posts", details);
+			posts.put("tododetail", details);
 
 			Log.d("ServerDEBUG", "Event JSON = "+ posts.toString());
 
 			StringEntity se = new StringEntity(posts.toString());
+
 			postRequest.setEntity(se);
-			//postRequest.setHeader("Content-Type","application/json");
-			postRequest.setHeader("json","posts");
+			postRequest.setHeader("Content-Type","application/json");
+			postRequest.setHeader("Accept", "application/json");
 			
 		} catch (UnsupportedEncodingException e) {
 			Log.e("Error",""+e);
-			e.printStackTrace();
+			e.printStackTrace();	
+			return -1;
+		
 		} catch (JSONException js) {
-			js.printStackTrace();
+			js.printStackTrace();	
+			return -1;
 		}
 
 		HttpResponse response = null;
@@ -150,9 +176,11 @@ public class ServerConnection extends Activity {
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 			Log.e("ClientProtocol",""+e);
+			return -1;
 		} catch (IOException e) {
 			e.printStackTrace();
 			Log.e("IO",""+e);
+			return -1;
 		}
 
 		HttpEntity entity = response.getEntity();
@@ -164,11 +192,122 @@ public class ServerConnection extends Activity {
 			} catch (IOException e) {
 				Log.e("IO E",""+e);
 				e.printStackTrace();
+				return -1;
 			}
 		}
 
 		Log.d("ServerDEBUG", "response: " + stringResponse);
-		Log.d("ServerDEBUG", "Your post was successfully uploaded");
+		return 0;
+	}
+	
+	/*
+	 * Send a PUT request to the server in the case of a todo being edited
+	 * 
+	 * TODO: Same as pushDelete(), find out the exact number for url
+	 */
+	public static int pushPut(List<String> entry) {
+		String url = "http://10.0.2.2:3000/tododetails/1"; // For localhost use ip 10.0.2.2
+		DefaultHttpClient client = new DefaultHttpClient();
+		
+		HttpPut putRequest = new HttpPut(url);
+		
+		JSONObject tododetail= new JSONObject();
+		JSONObject details = new JSONObject();
+
+		try {
+			details.put("todo", "testttt");
+			details.put("place", "");
+
+			tododetail.put("tododetail", details);
+
+			Log.d("ServerDEBUG", "Event JSON = "+ tododetail.toString());
+
+			StringEntity se = new StringEntity(tododetail.toString());
+
+			putRequest.setEntity(se);
+			putRequest.setHeader("Content-Type","application/json");
+			putRequest.setHeader("Accept", "application/json");
+			
+		} catch (UnsupportedEncodingException e) {
+			Log.e("Error",""+e);
+			e.printStackTrace();	
+			return -1;
+		
+		} catch (JSONException js) {
+			js.printStackTrace();	
+			return -1;
+		}
+
+		HttpResponse response = null;
+
+		try {
+			response = client.execute(putRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			Log.e("ClientProtocol",""+e);
+			return -1;
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("IO",""+e);
+			return -1;
+		}
+
+		HttpEntity entity = response.getEntity();
+		String stringResponse = getResponse(entity);
+		
+		if (entity != null) {
+			try {
+				entity.consumeContent();
+			} catch (IOException e) {
+				Log.e("IO E",""+e);
+				e.printStackTrace();
+				return -1;
+			}
+		}
+
+		Log.d("ServerDEBUG", "response: " + stringResponse);
+
+		return 0;
+	}
+	
+	/*
+	 * Send a DELETE request to the server in the case of a todo being deleted
+	 * 
+	 * TODO: Figure out the number
+	 */
+	public static int pushDelete(List<String> entry) {
+		String url = "http://10.0.2.2:3000/tododetails/5"; // For localhost debugging use ip 10.0.2.2
+		DefaultHttpClient client = new DefaultHttpClient();
+		HttpDelete deleteRequest = new HttpDelete(url);
+		HttpResponse response = null;
+
+		try {
+			response = client.execute(deleteRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			Log.e("ClientProtocol",""+e);
+			return -1;
+		} catch (IOException e) {
+			e.printStackTrace();
+			Log.e("IO",""+e);
+			return -1;
+		}
+
+		HttpEntity entity = response.getEntity();
+		String stringResponse = getResponse(entity);
+		
+		if (entity != null) {
+			try {
+				entity.consumeContent();
+			} catch (IOException e) {
+				Log.e("IO E",""+e);
+				e.printStackTrace();
+				return -1;
+			}
+		}
+
+		Log.d("ServerDEBUG", "response: " + stringResponse);
+		return 0;
 	}
 
 	/*

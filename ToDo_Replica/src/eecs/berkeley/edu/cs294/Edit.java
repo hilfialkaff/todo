@@ -204,12 +204,10 @@ public class Edit extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				
-				List<String> oldEntry = dh.select_to_do(pk);
-				
 				dh.update_to_do(pk, title, place, note, tag, group, status, priority);
 				
-				List<String> newEntry = dh.select_to_do(pk);
-				
+				/* Push changes to remote if applicable */
+				List<String> newEntry = dh.select_to_do(pk);				
 				if (group != null) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
@@ -219,7 +217,7 @@ public class Edit extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(oldEntry, newEntry);
+						ServerConnection.pushRemote(newEntry, ServerConnection.PUT_REQUEST);
 					}
 				}
 				

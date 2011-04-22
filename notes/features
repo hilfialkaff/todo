@@ -17,7 +17,7 @@ Features
   - coba cari cara efisien buat invite org laen msk k group dbanding email klo ada,,(gmn supaya server aruz bs lngsng alert tu hp org) -- DONE
 
 - Client side:
-  - push json array k server
+  - push json array k server buat delete/edit/create-- DONE w/ some hardcoding
   - Fetch xml from server -- DONE
   - check klo ada invitation
   - send new group members
@@ -30,3 +30,4 @@ Features
   - Display todo/user
   - Ganti table layoutny
   - bikin post/get request buat dptin/kasih invite dri/ke server
+  - tmbhin timestamp

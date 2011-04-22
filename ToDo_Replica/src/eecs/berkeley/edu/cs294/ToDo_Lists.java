@@ -103,10 +103,9 @@ public class ToDo_Lists extends Activity {
 			startActivityForResult(intent, 4);
 			return true;
 		case 1:
+			/* Push changes to remote if applicable */
 			List<String> oldEntry = dh.select_to_do(menuItem.getItemId());
-			
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_INDEX));
-			
 			if (oldEntry.get(DatabaseHelper.GROUP_INDEX) != null) {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
@@ -116,7 +115,7 @@ public class ToDo_Lists extends Activity {
 				}
 
 				if (netInfo.isConnected()) {
-					ServerConnection.pushRemote(oldEntry, null);
+					ServerConnection.pushRemote(oldEntry, ServerConnection.DELETE_REQUEST);
 				}
 			}
 			

@@ -144,8 +144,8 @@ public class Add extends Activity {
 				tag = actv_tag.getText().toString();
 				dh.insert_to_do(title, place, note, tag, group, status, priority);
 
+				/* Push changes to the remote if applicable */
 				List<String> newEntry = dh.select_to_do(title);
-				
 				if(group != null) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
@@ -155,7 +155,7 @@ public class Add extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(null, newEntry);
+						ServerConnection.pushRemote(newEntry, ServerConnection.POST_REQUEST);
 					}
 				}
 				
