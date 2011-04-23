@@ -111,7 +111,6 @@ public class ServerConnection extends Activity {
 			Log.d("ServerDEBUG", "entry: " + entry.toString() + " with request type: " + request_type);
 		}	
 		
-		/*
 		switch(request_type) {
 		case POST_REQUEST:
 			retCode = pushPost(entry);
@@ -125,7 +124,7 @@ public class ServerConnection extends Activity {
 		default:
 			Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
 		}
-		*/
+		
 		if(retCode == 0) {
 			Log.d("ServerDEBUG", "Your post was successfully uploaded");
 		}
@@ -143,9 +142,14 @@ public class ServerConnection extends Activity {
 		JSONObject posts = new JSONObject();
 		JSONObject details = new JSONObject();
 
+		/* Setting up the packet to be sent to server */
 		try {
-			details.put("todo", "testttt");
-			details.put("place", "");
+			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX));
+			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX));
+			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX));
+			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX));
+			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX));
+			details.put("group", entry.get(DatabaseHelper.GROUP_INDEX));
 
 			posts.put("tododetail", details);
 
@@ -167,8 +171,8 @@ public class ServerConnection extends Activity {
 			return -1;
 		}
 
+		/* Sending... */
 		HttpResponse response = null;
-
 		try {
 			response = client.execute(postRequest);
 		} catch (ClientProtocolException e) {
@@ -181,6 +185,7 @@ public class ServerConnection extends Activity {
 			return -1;
 		}
 
+		/* Parsing the response from the server */
 		HttpEntity entity = response.getEntity();
 		String stringResponse = getResponse(entity);
 		
@@ -195,6 +200,20 @@ public class ServerConnection extends Activity {
 		}
 
 		Log.d("ServerDEBUG", "response: " + stringResponse);
+		
+		try {
+			JSONObject jObject = new JSONObject(stringResponse);
+			JSONObject tododetailObject = jObject.getJSONObject("tododetail");
+			String railsID = tododetailObject.getString("id");
+			
+			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX));
+			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, null, null, null, null, railsID);
+		} catch (Exception e) {
+			Log.e("JSON E", ""+e);
+			e.printStackTrace();
+			return -1;
+		}
+
 		return 0;
 	}
 	
@@ -204,17 +223,25 @@ public class ServerConnection extends Activity {
 	 * TODO: Same as pushDelete(), find out the exact number for url
 	 */
 	public static int pushPut(List<String> entry) {
-		String url = "http://10.0.2.2:3000/tododetails/1"; // For localhost use ip 10.0.2.2
-		DefaultHttpClient client = new DefaultHttpClient();
+		// For localhost use ip 10.0.2.2
+		String url = "http://10.0.2.2:3000/tododetails/" + entry.get(DatabaseHelper.RAILS_ID_INDEX); 
 		
+		Log.d("ServerDEBUG", "PUT to " + url);
+		
+		DefaultHttpClient client = new DefaultHttpClient();
 		HttpPut putRequest = new HttpPut(url);
 		
 		JSONObject tododetail= new JSONObject();
 		JSONObject details = new JSONObject();
 
+		/* Setting up the packet to be sent to server */
 		try {
-			details.put("todo", "testttt");
-			details.put("place", "");
+			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX));
+			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX));
+			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX));
+			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX));
+			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX));
+			details.put("group", entry.get(DatabaseHelper.GROUP_INDEX));
 
 			tododetail.put("tododetail", details);
 
@@ -236,8 +263,8 @@ public class ServerConnection extends Activity {
 			return -1;
 		}
 
+		/* Sending... */
 		HttpResponse response = null;
-
 		try {
 			response = client.execute(putRequest);
 		} catch (ClientProtocolException e) {
@@ -250,9 +277,9 @@ public class ServerConnection extends Activity {
 			return -1;
 		}
 
+		/* Parsing the response from the server */
 		HttpEntity entity = response.getEntity();
 		String stringResponse = getResponse(entity);
-		
 		if (entity != null) {
 			try {
 				entity.consumeContent();
@@ -274,11 +301,15 @@ public class ServerConnection extends Activity {
 	 * TODO: Figure out the number
 	 */
 	public static int pushDelete(List<String> entry) {
-		String url = "http://10.0.2.2:3000/tododetails/5"; // For localhost debugging use ip 10.0.2.2
+		// For localhost debugging use ip 10.0.2.2
+		String url = "http://10.0.2.2:3000/tododetails/" + entry.get(DatabaseHelper.RAILS_ID_INDEX);
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpDelete deleteRequest = new HttpDelete(url);
 		HttpResponse response = null;
 
+		Log.d("ServerDEBUG", "DELETE to " + url);
+		
+		/* Sending... */
 		try {
 			response = client.execute(deleteRequest);
 		} catch (ClientProtocolException e) {
@@ -291,9 +322,9 @@ public class ServerConnection extends Activity {
 			return -1;
 		}
 
+		/* Parsing the response from the server */
 		HttpEntity entity = response.getEntity();
 		String stringResponse = getResponse(entity);
-		
 		if (entity != null) {
 			try {
 				entity.consumeContent();
@@ -311,9 +342,35 @@ public class ServerConnection extends Activity {
 	/*
 	 * Synchronize local database w/ changes from the server
 	 */
-	private static void synchDb(ArrayList<MyTodo> todoList) {
+	private void synchDb(ArrayList<MyTodo> todoList) {
+		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
+			MyTodo currTodo = it.next();
+			int currID = Integer.parseInt(currTodo.getTodoRailsID());
+			int currTimestamp = Integer.parseInt(currTodo.getTodoTimestamp());
+			List<String> entry = ToDo_Replica.dh.select_to_do_railsID(currID);
+			long dbTimestamp = Integer.parseInt(entry.get(DatabaseHelper.TIMESTAMP_INDEX));
+			
+			/* No need for any local database update */
+			if(dbTimestamp > currTimestamp) {
+				return;
+			}
 
-	}
+			/* Need to update local database since changes in the server is more recent */
+			else {
+				String title = currTodo.getTodoName();
+				String place = currTodo.getTodoPlace();
+				String note = currTodo.getTodoNote();
+				String tag = currTodo.getTodoTag();
+				String group = currTodo.getTodoGroup();
+				String status = currTodo.getTodoStatus();
+				String priority = currTodo.getTodoPriority();
+				String dateStr = currTodo.getTodoTimestamp();
+				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX));
+				
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, null);
+			}
+		}
+	}	
 
 	/*
 	 * Get an xml response from the server
@@ -378,10 +435,10 @@ public class ServerConnection extends Activity {
 
 					if (name.equalsIgnoreCase("name")){
 						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
-					} else if (name.equalsIgnoreCase("title")){
+					} else if (name.equalsIgnoreCase("place")){
 						todoList.get(i).setTodoPlace((property.getFirstChild().getNodeValue()));
-					} else if (name.equalsIgnoreCase("content")){
-						todoList.get(i).setTodoContent((property.getFirstChild().getNodeValue()));
+					} else if (name.equalsIgnoreCase("note")){
+						todoList.get(i).setTodoNote((property.getFirstChild().getNodeValue()));
 					}
 				}
 			}
@@ -395,8 +452,8 @@ public class ServerConnection extends Activity {
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo todo = it.next();
 			Log.d("ServerDEBUG", "name: " + todo.getTodoName() + 
-					" title: " + todo.getTodoPlace() + 
-					" content: " + todo.getTodoContent());
+					" place: " + todo.getTodoPlace() + 
+					" note: " + todo.getTodoNote());
 		}
 
 		return null;

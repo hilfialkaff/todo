@@ -19,7 +19,6 @@ import android.widget.TextView;
 public class Groups extends Activity {
 	/** Called when the activity is first created. */
 	TableLayout group_list;
-	private DatabaseHelper dh;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,9 +47,9 @@ public class Groups extends Activity {
 		});
 		
 		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
-		this.dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 		
-		List<String> titles = this.dh.selectAll_group_name();
+		List<String> titles = ToDo_Replica.dh.selectAll_group_name();
 		
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		
@@ -84,7 +83,7 @@ public class Groups extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = this.dh.selectAll_group_name();
+		List<String> titles = ToDo_Replica.dh.selectAll_group_name();
 
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		

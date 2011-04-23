@@ -35,8 +35,6 @@ public class Maps extends MapActivity {
 	GeoPoint p;
 	LocationOverlay locationOverlay;
 
-	private DatabaseHelper dh;
-
 	class MapOverlay extends com.google.android.maps.Overlay
 	{
 		String place;
@@ -75,7 +73,7 @@ public class Maps extends MapActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 
-		dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		// Setting the map
 		mapView = (MapView) findViewById(R.id.mapView);
@@ -86,7 +84,7 @@ public class Maps extends MapActivity {
 
 		// Putting the to-do markers
 
-		List<String> places = dh.selectAll_to_do(DatabaseHelper.PLACE);
+		List<String> places = ToDo_Replica.dh.selectAll_to_do(DatabaseHelper.PLACE);
 
 		Drawable drawable = this.getResources().getDrawable(R.drawable.pushpin);
 		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());

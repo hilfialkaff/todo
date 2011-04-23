@@ -54,7 +54,6 @@ import com.google.android.maps.OverlayItem;
 public class GoogleMaps extends MapActivity implements LocationListener, OnTouchListener {
 	private MapView mapView;
 	private MapController mc;
-	private DatabaseHelper dh;
 	private Drawable drawable;
 	private CustomItemizedOverlay itemizedOverlay;
 	private List<Overlay> mapOverlays;
@@ -76,7 +75,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 		mc = mapView.getController();
 		mc.setZoom(17);
 
-		dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		drawable = this.getResources().getDrawable(R.drawable.pushpin);
 		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
@@ -106,7 +105,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 	}
 
 	private void populate() {
-		List<String[]> todos = dh.select_to_do_title_place();
+		List<String[]> todos = ToDo_Replica.dh.select_to_do_title_place();
 		if(!todos.isEmpty()) {
 			for(Iterator<String[]> it = todos.iterator(); it.hasNext();) {
 				String todo[] = it.next();

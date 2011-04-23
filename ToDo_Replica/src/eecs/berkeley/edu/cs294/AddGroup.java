@@ -25,14 +25,13 @@ public class AddGroup extends Activity {
 	Button b_add_members;
 	Button b_submit, b_add_contact;
 
-	private DatabaseHelper dh;
 	public static ArrayList<Contact> candidate = new ArrayList<Contact>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_group);
-		this.dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		et_name = (EditText) findViewById(R.id.et_name);
 		
@@ -41,7 +40,7 @@ public class AddGroup extends Activity {
 			@Override
 			public void onClick(View v) {
 				name = et_name.getText().toString();
-				dh.insert_group(name, members);
+				ToDo_Replica.dh.insert_group(name, members);
 				setResult(RESULT_OK);
 				finish();
 			}
