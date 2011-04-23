@@ -108,10 +108,8 @@ public class ServerConnection extends Activity {
 			Log.d("ServerDEBUG", "entry: null");
 		}
 		else {
-			Log.d("ServerDEBUG", "entry: " + entry.toString());
+			Log.d("ServerDEBUG", "entry: " + entry.toString() + " with request type: " + request_type);
 		}	
-
-		retCode = pushPut(entry);
 		
 		/*
 		switch(request_type) {
