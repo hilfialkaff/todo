@@ -2,6 +2,7 @@ package eecs.berkeley.edu.cs294;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -106,6 +107,12 @@ public class ToDo_Replica extends Activity {
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		Drawable drawable = LoadImageFromWebOperations("http://i570.photobucket.com/albums/ss142/Vexond/PulseCocoon.jpg");
 		iv_background.setImageDrawable(drawable);
+		
+		/** Temp stuffs */
+		/*
+		Date date = new Date();
+		Log.d("ServerDEBUG", Long.toString(date.getTime()));
+		*/
 	}
 
 	@Override

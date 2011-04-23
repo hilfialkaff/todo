@@ -1,5 +1,6 @@
 package eecs.berkeley.edu.cs294;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,8 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TabHost.TabSpec;
 import android.widget.AnalogClock;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -20,10 +19,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TableLayout;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TabHost.TabSpec;
 
 public class Edit extends Activity {
 	/** Called when the activity is first created. */
 	private String title, place, note, tag, group, status, priority;
+	private Date date;
 	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
 	ArrayAdapter<String> adapter;
 	
@@ -203,8 +205,9 @@ public class Edit extends Activity {
 				place = et_place.getText().toString();
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
+				String dateStr = Long.toString(date.getTime());
 				
-				dh.update_to_do(pk, title, place, note, tag, group, status, priority);
+				dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr);
 				
 				/* Push changes to remote if applicable */
 				List<String> newEntry = dh.select_to_do(pk);				

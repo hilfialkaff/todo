@@ -22,7 +22,7 @@ public class DatabaseHelper {
 	
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
-	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority) values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority, timestamp) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (NULL, ?, ?)";
 
 	public static final String TITLE = "title";
@@ -40,7 +40,7 @@ public class DatabaseHelper {
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
 	}
 
-	public long insert_to_do(String title, String place, String note, String tag, String assembly, String status, String priority) {
+	public long insert_to_do(String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp) {
 		this.insertStmt_to_do.clearBindings();
 		this.insertStmt_to_do.bindString(1, title);
 		this.insertStmt_to_do.bindString(2, place);
@@ -49,12 +49,12 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(5, assembly);
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
-		
+		this.insertStmt_to_do.bindString(8, timestamp);
 		
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
-	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority) {
+	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp) {
 		ContentValues cv = new ContentValues();
 		cv.put("title", title);
 		cv.put("place", place);
@@ -63,6 +63,7 @@ public class DatabaseHelper {
 		cv.put("assembly", assembly);
 		cv.put("status", status);
 		cv.put("priority", priority);
+		cv.put("timestamp", timestamp);
 		String selection = "td_id = ?";
 		return db.update(TABLE_NAME_TO_DO, cv, selection, new String[] {Integer.toString(pk)});
 	}
@@ -127,6 +128,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
+				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
@@ -148,6 +150,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
+				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
@@ -192,7 +195,7 @@ public class DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, assembly TEXT, status TEXT, priority TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, assembly TEXT, status TEXT, priority TEXT, timestamp TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, member TEXT)");
 		}
 
