@@ -10,7 +10,6 @@
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true">
 	</ImageView>
-	<!--
 	<Button
 		android:id="@+id/b_maps"
 		android:layout_width="wrap_content"
@@ -31,5 +30,4 @@
 		android:text="Groups"
 		android:layout_below="@+id/b_todo_lists">
 	</Button>
-	-->
 </RelativeLayout>

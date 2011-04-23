@@ -16,8 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -80,7 +81,6 @@ public class ToDo_Replica extends Activity {
 			});
 		}
 
-		/*
 		Button b_maps = (Button) findViewById(R.id.b_maps);
 		b_maps.setOnClickListener(new OnClickListener() {
 			@Override
@@ -105,11 +105,11 @@ public class ToDo_Replica extends Activity {
 				startActivityForResult(intent, 2);
 			}
 		});
-		 */
 
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		Drawable drawable = LoadImageFromWebOperations("http://i570.photobucket.com/albums/ss142/Vexond/PulseCocoon.jpg");
-		iv_background.setImageDrawable(drawable);
+
+		//iv_background.setImageDrawable(drawable);
 		
 		/** Temp stuffs */
 		/*
@@ -123,6 +123,7 @@ public class ToDo_Replica extends Activity {
 		menu.add(0, Menu.FIRST, Menu.FIRST, "Maps");
 		menu.add(0, Menu.FIRST + 1, Menu.FIRST + 1, "ToDo Lists");
 		menu.add(0, Menu.FIRST + 2, Menu.FIRST + 2, "Groups");
+		menu.add(0, Menu.FIRST + 3, Menu.FIRST + 3, "Synch");
 		return super.onCreateOptionsMenu(menu);
 	}
 
