@@ -21,7 +21,6 @@ public class Preview extends Activity {
 	TextView tv_status_preview2;
 	TextView tv_priority_preview2;
 	TabHost th_preview;
-	private DatabaseHelper dh;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class Preview extends Activity {
 		
 		th_preview.setCurrentTab(0);
 		
-		this.dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 		
 		tv_title_preview2 = (TextView) findViewById(R.id.tv_title_preview2);
 		tv_place_preview2 = (TextView) findViewById(R.id.tv_place_preview2);
@@ -64,7 +63,7 @@ public class Preview extends Activity {
 		}
 		
 		String title = extras.getString("title_select");
-		List<String> row = this.dh.select_to_do(title);
+		List<String> row = ToDo_Replica.dh.select_to_do_title(title);
 		
 		tv_title_preview2.setText(row.get(0));
 		tv_place_preview2.setText(row.get(1));

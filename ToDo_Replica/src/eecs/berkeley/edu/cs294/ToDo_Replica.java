@@ -22,13 +22,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class ToDo_Replica extends Activity {
+	static public DatabaseHelper dh;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-
+		dh = new DatabaseHelper(this); 
+		
 		setContentView(R.layout.main);
 
 		/* Timer code */

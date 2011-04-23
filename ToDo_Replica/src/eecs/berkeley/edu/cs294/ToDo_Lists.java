@@ -23,7 +23,6 @@ import android.widget.TextView;
 public class ToDo_Lists extends Activity {
 	/** Called when the activity is first created. */
 	TableLayout tl_todo_lists;
-	private DatabaseHelper dh;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class ToDo_Lists extends Activity {
 		}
 
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
-		this.dh = new DatabaseHelper(this);	
+		ToDo_Replica.dh = new DatabaseHelper(this);	
 
 		populate();
 	}
@@ -61,7 +60,7 @@ public class ToDo_Lists extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = this.dh.selectAll_to_do("title");
+		List<String> titles = ToDo_Replica.dh.selectAll_to_do("title");
 
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		
@@ -90,8 +89,8 @@ public class ToDo_Lists extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
-		menu.add(0, dh.select_primary_key(v.getContentDescription().toString()), 0, "edit");
-		menu.add(0, dh.select_primary_key(v.getContentDescription().toString()), 1, "delete");
+		menu.add(0, ToDo_Replica.dh.select_primary_key(v.getContentDescription().toString()), 0, "edit");
+		menu.add(0, ToDo_Replica.dh.select_primary_key(v.getContentDescription().toString()), 1, "delete");
 	}
 
 	@Override
@@ -104,9 +103,9 @@ public class ToDo_Lists extends Activity {
 			return true;
 		case 1:
 			/* Push changes to remote if applicable */
-			List<String> oldEntry = dh.select_to_do(menuItem.getItemId());
+			List<String> oldEntry = ToDo_Replica.dh.select_to_do_pk(menuItem.getItemId());
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_INDEX));
-			if (oldEntry.get(DatabaseHelper.GROUP_INDEX) != null) {
+			if (oldEntry.get(DatabaseHelper.GROUP_INDEX) != null || oldEntry.get(DatabaseHelper.GROUP_INDEX) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
@@ -119,7 +118,7 @@ public class ToDo_Lists extends Activity {
 				}
 			}
 			
-			dh.delete_to_do(menuItem.getItemId());
+			ToDo_Replica.dh.delete_to_do(menuItem.getItemId());
 			tl_todo_lists.removeAllViews();
 			populate();
 			return true;

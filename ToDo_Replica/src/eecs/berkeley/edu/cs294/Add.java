@@ -36,8 +36,6 @@ public class Add extends Activity {
 	TabHost th_add;
 	TableLayout tl_todo_lists;
 
-	private DatabaseHelper dh;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +61,7 @@ public class Add extends Activity {
 		th_add.setCurrentTab(0);
 		
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_add);
-		this.dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		array_spinner_group = new String[4];
 		array_spinner_group[0] = "None";
@@ -146,11 +144,11 @@ public class Add extends Activity {
 				tag = actv_tag.getText().toString();
 				String dateStr = Long.toString(date.getTime());
 				
-				dh.insert_to_do(title, place, note, tag, group, status, priority, dateStr);
+				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group, status, priority, dateStr);
 
 				/* Push changes to the remote if applicable */
-				List<String> newEntry = dh.select_to_do(title);
-				if(group != null) {
+				List<String> newEntry = ToDo_Replica.dh.select_to_do_title(title);
+				if(group != null || group != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

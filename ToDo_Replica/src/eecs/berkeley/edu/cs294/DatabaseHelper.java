@@ -17,12 +17,23 @@ public class DatabaseHelper {
 	private static final String DATABASE_NAME = "noctis.db";
 	private static final int DATABASE_VERSION = 1;
 
-	public static final int NUM_ENTRIES = 7;
-	public static final int GROUP_INDEX = 4;
+	// public static final int NUM_ENTRIES = 7;
 	
+	/* Indexes of the various entries in the database */
+	public static final int TITLE_INDEX = 0;
+	public static final int PLACE_INDEX = 1;
+	public static final int NOTE_INDEX = 2;
+	public static final int TAG_INDEX = 3;
+	public static final int GROUP_INDEX = 4;
+	public static final int STATUS_INDEX = 5;
+	public static final int PRIORITY_INDEX = 6;
+	public static final int TIMESTAMP_INDEX = 7;
+	public static final int RAILS_ID_INDEX = 8;
+	public static final int TD_ID_INDEX = 9;
+		
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
-	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority, timestamp) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority, timestamp, railsID) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (NULL, ?, ?)";
 
 	public static final String TITLE = "title";
@@ -51,19 +62,47 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(7, priority);
 		this.insertStmt_to_do.bindString(8, timestamp);
 		
+		Log.d("DbDEBUG", "INSERT title: " + title + " place: " + place + " note: " + note + 
+				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
+				" priority: " + priority + " timestamp: " + timestamp );
 		return this.insertStmt_to_do.executeInsert();
 	}
 	
-	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp) {
+	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp, String railsID) {
 		ContentValues cv = new ContentValues();
-		cv.put("title", title);
-		cv.put("place", place);
-		cv.put("note", note);
-		cv.put("tag", tag);
-		cv.put("assembly", assembly);
-		cv.put("status", status);
-		cv.put("priority", priority);
-		cv.put("timestamp", timestamp);
+		
+		if(title != null) {
+			cv.put("title", title);
+		}
+		if(place != null) {
+			cv.put("place", place);
+		}
+		if(note != null) {
+			cv.put("note", note);
+		}
+		if(tag != null) {
+			cv.put("tag", tag);
+		}
+		if(assembly != null) {
+			cv.put("assembly", assembly);
+		}
+		if(status != null) {
+			cv.put("status", status);
+		}
+		if(priority != null) {
+			cv.put("priority", priority);
+		}
+		if(timestamp != null) {
+			cv.put("timestamp", timestamp);
+		}
+		if(railsID != null) {
+			cv.put("railsID", railsID);
+		}
+	
+		Log.d("DbDEBUG", "UPDATE title: " + title + " place: " + place + " note: " + note + 
+				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
+				" priority: " + priority + " timestamp: " + timestamp + " railsID: " + railsID);
+		
 		String selection = "td_id = ?";
 		return db.update(TABLE_NAME_TO_DO, cv, selection, new String[] {Integer.toString(pk)});
 	}
@@ -90,7 +129,7 @@ public class DatabaseHelper {
 	
 	public List<String[]> select_to_do_title_place() {
 		List<String[]> list = new ArrayList<String[]>();
-		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
+												Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(new String[] {cursor.getString(cursor.getColumnIndex(TITLE)), cursor.getString(cursor.getColumnIndex(PLACE))});
@@ -115,7 +154,7 @@ public class DatabaseHelper {
 		return list;
 	}
 	
-	public List<String> select_to_do(String title) {
+	public List<String> select_to_do_title(String title) {
 		List<String> list = new ArrayList<String>();
 		String selection = "title" + " = '" + title + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
@@ -129,6 +168,8 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
+				list.add(cursor.getString(cursor.getColumnIndex("railsID")));
+				list.add(cursor.getString(cursor.getColumnIndex("td_id")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
@@ -137,7 +178,7 @@ public class DatabaseHelper {
 		return list;
 	}
 	
-	public List<String> select_to_do(int pk) {
+	public List<String> select_to_do_pk(int pk) {
 		List<String> list = new ArrayList<String>();
 		String selection = "td_id = " + pk;
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
@@ -151,6 +192,32 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
+				list.add(cursor.getString(cursor.getColumnIndex("railsID")));
+				list.add(cursor.getString(cursor.getColumnIndex("td_id")));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+
+	public List<String> select_to_do_railsID(int railsID) {
+		List<String> list = new ArrayList<String>();
+		String selection = "railsID = " + railsID;
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("title")));
+				list.add(cursor.getString(cursor.getColumnIndex("place")));
+				list.add(cursor.getString(cursor.getColumnIndex("note")));
+				list.add(cursor.getString(cursor.getColumnIndex("tag")));
+				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("status")));
+				list.add(cursor.getString(cursor.getColumnIndex("priority")));
+				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
+				list.add(cursor.getString(cursor.getColumnIndex("railsID")));
+				list.add(cursor.getString(cursor.getColumnIndex("td_id")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null && !cursor.isClosed()) {
@@ -195,7 +262,7 @@ public class DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, assembly TEXT, status TEXT, priority TEXT, timestamp TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, assembly TEXT, status TEXT, priority TEXT, timestamp TEXT, railsID TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, member TEXT)");
 		}
 

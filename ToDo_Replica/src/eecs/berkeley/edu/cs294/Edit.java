@@ -25,7 +25,7 @@ import android.widget.TabHost.TabSpec;
 public class Edit extends Activity {
 	/** Called when the activity is first created. */
 	private String title, place, note, tag, group, status, priority;
-	private Date date;
+	private Date date = new Date();
 	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
 	ArrayAdapter<String> adapter;
 	
@@ -35,8 +35,6 @@ public class Edit extends Activity {
 	Button b_submit;
 	TabHost th_add;
 	TableLayout tl_todo_lists;
-	
-	private DatabaseHelper dh;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +48,8 @@ public class Edit extends Activity {
 		}
 		
 		final int pk = extras.getInt("pk_select");
-		this.dh = new DatabaseHelper(this);	
-		List<String> row = this.dh.select_to_do(pk);
+		ToDo_Replica.dh = new DatabaseHelper(this);	
+		List<String> row = ToDo_Replica.dh.select_to_do_pk(pk);
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
@@ -73,7 +71,7 @@ public class Edit extends Activity {
 		th_add.setCurrentTab(0);
 		
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
-		this.dh = new DatabaseHelper(this);
+		ToDo_Replica.dh = new DatabaseHelper(this);
 		
 		//List<String> groups = dh.selectAll_group_name();
 		//array_spinner_group = new String[groups.size()];
@@ -207,11 +205,11 @@ public class Edit extends Activity {
 				tag = actv_tag.getText().toString();
 				String dateStr = Long.toString(date.getTime());
 				
-				dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr);
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, null);
 				
 				/* Push changes to remote if applicable */
-				List<String> newEntry = dh.select_to_do(pk);				
-				if (group != null) {
+				List<String> newEntry = ToDo_Replica.dh.select_to_do_pk(pk);				
+				if (group != null || group != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
