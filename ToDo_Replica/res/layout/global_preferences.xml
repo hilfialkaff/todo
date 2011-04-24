@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="Display options">
+		<CheckBoxPreference
+			android:key="manual_sync"
+			android:title="Manual Sync"
+			android:defaultValue="true"
+			android:summary="If manual sync is not selected, automatic sync will run every 5 minutes" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

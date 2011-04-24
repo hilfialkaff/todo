@@ -87,6 +87,7 @@ public class ToDo_Replica extends Activity {
 				startActivityForResult(intent, 0);
 			}
 		});
+
 		ImageButton b_todo_lists = (ImageButton) findViewById(R.id.b_todo_lists);
 		b_todo_lists.setOnClickListener(new OnClickListener() {
 			@Override
@@ -107,7 +108,9 @@ public class ToDo_Replica extends Activity {
 
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		iv_background.setBackgroundResource(R.drawable.chocobo);
-
+		
+		TextView tv_cloud1 = (TextView) findViewById(R.id.tv_cloud1);
+		//tv_cloud1.setBackgroundResource(R.drawable.gradient);
 		/** Temp stuffs */
 		/*
 		Date date = new Date();

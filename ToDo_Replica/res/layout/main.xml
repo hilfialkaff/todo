@@ -33,4 +33,22 @@
 		android:layout_toRightOf="@+id/b_todo_lists"
 		android:layout_marginRight="50px">
 	</ImageButton>
+	<TextView
+		android:id="@+id/tv_cloud1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/b_maps"
+		android:text="I gotta finish my cs294 project!"
+		android:layout_marginTop="50px"
+		android:layout_marginLeft="10px">
+	</TextView>
+	<TextView
+		android:id="@+id/tv_cloud2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="50px"
+		android:text="I gotta finish my cs294 project!">
+	</TextView>
 </RelativeLayout>
