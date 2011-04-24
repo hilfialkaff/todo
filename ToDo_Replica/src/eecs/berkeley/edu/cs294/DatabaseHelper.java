@@ -18,7 +18,7 @@ public class DatabaseHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	// public static final int NUM_ENTRIES = 7;
-	
+
 	/* Indexes of the various entries in the database */
 	public static final int TITLE_INDEX = 0;
 	public static final int PLACE_INDEX = 1;
@@ -30,7 +30,7 @@ public class DatabaseHelper {
 	public static final int TIMESTAMP_INDEX = 7;
 	public static final int RAILS_ID_INDEX = 8;
 	public static final int TD_ID_INDEX = 9;
-		
+
 	private static final String TABLE_NAME_TO_DO = "to_do";
 	private static final String TABLE_NAME_GROUP = "assembly";
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority, timestamp, railsID) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -38,7 +38,7 @@ public class DatabaseHelper {
 
 	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
-	
+
 	private Context context;
 	private SQLiteDatabase db;
 	private SQLiteStatement insertStmt_to_do, insertStmt_group;
@@ -61,16 +61,16 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
 		this.insertStmt_to_do.bindString(8, timestamp);
-		
+
 		Log.d("DbDEBUG", "INSERT title: " + title + " place: " + place + " note: " + note + 
 				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
 				" priority: " + priority + " timestamp: " + timestamp );
 		return this.insertStmt_to_do.executeInsert();
 	}
-	
+
 	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp, String railsID) {
 		ContentValues cv = new ContentValues();
-		
+
 		if(title != null) {
 			cv.put("title", title);
 		}
@@ -98,15 +98,15 @@ public class DatabaseHelper {
 		if(railsID != null) {
 			cv.put("railsID", railsID);
 		}
-	
+
 		Log.d("DbDEBUG", "UPDATE title: " + title + " place: " + place + " note: " + note + 
 				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
 				" priority: " + priority + " timestamp: " + timestamp + " railsID: " + railsID);
-		
+
 		String selection = "td_id = ?";
 		return db.update(TABLE_NAME_TO_DO, cv, selection, new String[] {Integer.toString(pk)});
 	}
-	
+
 	public long insert_group(String name, String member) {
 		this.insertStmt_group.clearBindings();
 		this.insertStmt_group.bindString(1, name);
@@ -117,19 +117,19 @@ public class DatabaseHelper {
 	public void deleteAll_to_do() {
 		this.db.delete(TABLE_NAME_TO_DO, null, null);
 	}
-	
+
 	public void delete_to_do(int pk) {
 		String selection = "td_id = ?";
 		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {Integer.toString(pk)});
 	}
-	
+
 	public void deleteAll_group() {
 		this.db.delete(TABLE_NAME_GROUP, null, null);
 	}
-	
+
 	public List<String[]> select_to_do_title_place() {
 		List<String[]> list = new ArrayList<String[]>();
-												Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
+		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, null, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(new String[] {cursor.getString(cursor.getColumnIndex(TITLE)), cursor.getString(cursor.getColumnIndex(PLACE))});
@@ -139,7 +139,7 @@ public class DatabaseHelper {
 			cursor.close();
 		return list;
 	}
-	
+
 	public List<String> selectAll_to_do(String col_name) {
 		List<String> list = new ArrayList<String>();
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, new String[] {col_name}, null, null, null, null, "td_id asc");
@@ -153,7 +153,7 @@ public class DatabaseHelper {
 		}
 		return list;
 	}
-	
+
 	public List<String> select_to_do_title(String title) {
 		List<String> list = new ArrayList<String>();
 		String selection = "title" + " = '" + title + "'";
@@ -177,7 +177,7 @@ public class DatabaseHelper {
 		}
 		return list;
 	}
-	
+
 	public List<String> select_to_do_pk(int pk) {
 		List<String> list = new ArrayList<String>();
 		String selection = "td_id = " + pk;
@@ -225,7 +225,7 @@ public class DatabaseHelper {
 		}
 		return list;
 	}
-	
+
 	public int select_primary_key(String title) {
 		int pk = -1;
 		String selection = "title" + " = '" + title + "'";
@@ -240,7 +240,7 @@ public class DatabaseHelper {
 		}
 		return pk;
 	}
-	
+
 	public List<String> selectAll_group_name() {
 		List<String> list = new ArrayList<String>();
 		Cursor cursor = this.db.query(TABLE_NAME_GROUP, new String[] {"name"}, null, null, null, null, "name desc");
@@ -254,7 +254,7 @@ public class DatabaseHelper {
 		}
 		return list;
 	}
-	
+
 	private static class OpenHelper extends SQLiteOpenHelper {
 		OpenHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);

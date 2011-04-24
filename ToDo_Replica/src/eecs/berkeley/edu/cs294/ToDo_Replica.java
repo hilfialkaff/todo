@@ -7,9 +7,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +22,7 @@ import android.widget.TextView;
 
 public class ToDo_Replica extends Activity {
 	static public DatabaseHelper dh;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +30,11 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		dh = new DatabaseHelper(this); 
-		
+
 		setContentView(R.layout.main);
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-		
+
 		/* Timer code */
 		/********************************************************************/
 		Timer serverTimer = new Timer("serverTimer", true);
@@ -40,24 +42,24 @@ public class ToDo_Replica extends Activity {
 			public void run() {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-				
+
 				if(netInfo == null) {
 					Log.d("DEBUG", "---------- No internet connection ----------");
 					// TODO: Warn the user
 				}
-					
+
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
 					ServerConnection.pullRemote();
 				}
 			}
 		};
-		
+
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 50000, 50000); // Run every 50 seconds
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 300000, 300000); // Run every 5 minutes
 		/********************************************************************/
 
-		
+
 		final TextView tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
 		if (tv_custom_title != null)
 			tv_custom_title.setText("ToDo");
@@ -71,7 +73,7 @@ public class ToDo_Replica extends Activity {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), AddContact.class);
+					Intent intent = new Intent(v.getContext(), Add.class);
 					startActivityForResult(intent, 0);
 				}
 			});
@@ -105,31 +107,33 @@ public class ToDo_Replica extends Activity {
 
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		iv_background.setBackgroundResource(R.drawable.chocobo);
-		
+
 		/** Temp stuffs */
 		/*
 		Date date = new Date();
 		Log.d("ServerDEBUG", Long.toString(date.getTime()));
-		*/
+		 */
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, Menu.FIRST, Menu.FIRST, "Menu 1");
-		menu.add(0, Menu.FIRST + 1, Menu.FIRST + 1, "Menu 2");
-		menu.add(0, Menu.FIRST + 2, Menu.FIRST + 2, "Menu 3");
-		menu.add(0, Menu.FIRST + 3, Menu.FIRST + 3, "Menu 4");
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.main_menu, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
-		case Menu.FIRST:
+		case R.id.m_settings:
+			startActivity(new Intent(this, MainMenu.class));
 			return true;
-		case Menu.FIRST + 1:
-			return true;
-		case Menu.FIRST + 2:
+		case R.id.m_feedback:
+			Intent intent = new Intent(android.content.Intent.ACTION_VIEW);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+			intent.setData(Uri.parse("mailto:" + "dicz.hack@gmail.com, filbert.hansel@gmail.com, hilfialkaff@gmail.com"));
+			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ToDo Feedback");
+			startActivity(intent); 
 			return true;
 		}
 		return false;

@@ -30,7 +30,12 @@
 				  android:label="@string/app_name"
      			  android:theme="@android:style/Theme.NoTitleBar" />
      	<activity android:name=".AddContact"> </activity>
-     			  
+     	<activity android:name=".MainMenu"
+			android:label="ToDo Settings">
+			<intent-filter>
+				<category android:name="android.intent.category.PREFERENCE" />
+			</intent-filter>
+		</activity>
     </application>
     
     <uses-permission android:name="android.permission.INTERNET" />
