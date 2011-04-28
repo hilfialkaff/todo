@@ -51,7 +51,12 @@ public class DatabaseHelper {
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
 	}
 
-	public long insert_to_do(String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp) {
+	public long insert_to_do(String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp, String railsID) {
+		
+		if(railsID == null) {
+			railsID = "";
+		}
+		
 		this.insertStmt_to_do.clearBindings();
 		this.insertStmt_to_do.bindString(1, title);
 		this.insertStmt_to_do.bindString(2, place);
@@ -61,10 +66,11 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
 		this.insertStmt_to_do.bindString(8, timestamp);
+		this.insertStmt_to_do.bindString(9, railsID);
 
 		Log.d("DbDEBUG", "INSERT title: " + title + " place: " + place + " note: " + note + 
 				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
-				" priority: " + priority + " timestamp: " + timestamp );
+				" priority: " + priority + " timestamp: " + timestamp + " railsID: " + railsID);
 		return this.insertStmt_to_do.executeInsert();
 	}
 
@@ -118,11 +124,16 @@ public class DatabaseHelper {
 		this.db.delete(TABLE_NAME_TO_DO, null, null);
 	}
 
-	public void delete_to_do(int pk) {
+	public void delete_to_do_pk(int pk) {
 		String selection = "td_id = ?";
 		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {Integer.toString(pk)});
 	}
 
+	public void delete_to_do_railsID(String railsID) {
+		String selection = "railsID = ?";
+		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {railsID});
+	}
+	
 	public void deleteAll_group() {
 		this.db.delete(TABLE_NAME_GROUP, null, null);
 	}
@@ -202,9 +213,9 @@ public class DatabaseHelper {
 		return list;
 	}
 
-	public List<String> select_to_do_railsID(int railsID) {
+	public List<String> select_to_do_railsID(String railsID) {
 		List<String> list = new ArrayList<String>();
-		String selection = "railsID = " + railsID;
+		String selection = "railsID" + " = '" + railsID + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {

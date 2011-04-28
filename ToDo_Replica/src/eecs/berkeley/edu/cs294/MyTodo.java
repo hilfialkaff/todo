@@ -2,6 +2,14 @@ package eecs.berkeley.edu.cs294;
 
 import java.io.Serializable;
 
+import android.util.Log;
+
+/*
+ * Serializing the object todo so that the code would be more readable
+ * 
+ * TODO: Error-checking on the parameters.
+ * TODO: Adjust with the actual server
+ */
 public class MyTodo implements Serializable{
 
 	public String name = "";
@@ -57,7 +65,7 @@ public class MyTodo implements Serializable{
 		this.priority= priority;
 	}
 	public String getTodoTimestamp() {
-		return railsID;
+		return timestamp;
 	}
 	public void setTodoTimestamp(String timestamp) {
 		this.timestamp = timestamp;
@@ -67,5 +75,14 @@ public class MyTodo implements Serializable{
 	}
 	public void setTodoRailsID(String railsID) {
 		this.railsID = railsID;
+	}
+	
+	/*
+	 * Debugging function
+	 */
+	public void printMembers() {
+		Log.d("ServerDEBUG", "MyTodo object name: " + name + " title: " + title + " note: " + note 
+				+ " tag: " + tag + " group: " + group + " status: " + status + " priority: "
+				+ " timestamp: " + timestamp + " railsID: " + railsID);
 	}
 }

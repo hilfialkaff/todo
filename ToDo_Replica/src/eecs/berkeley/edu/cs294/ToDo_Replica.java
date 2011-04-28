@@ -56,7 +56,7 @@ public class ToDo_Replica extends Activity {
 		};
 
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 300000, 300000); // Run every 5 minutes
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000); // Run every 5 minutes
 		/********************************************************************/
 
 

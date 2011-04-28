@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,10 +14,14 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import junit.framework.Assert;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
@@ -30,6 +36,7 @@ import org.xml.sax.InputSource;
 import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.format.Time;
 import android.util.Log;
 
 public class ServerConnection extends Activity {
@@ -60,12 +67,9 @@ public class ServerConnection extends Activity {
 
 	/*
 	 * Pull server changes to local and synchronize it with the local database
-	 * 
-	 * TODO: Need changes for the actual server
 	 */
 	public static void pullRemote() {
 
-		/*
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
@@ -73,7 +77,7 @@ public class ServerConnection extends Activity {
 
 		try
 		{	
-			Log.d( "ServerDEBUG", "performing get " + url );
+			Log.d("ServerDEBUG", "performing get " + url );
 
 			HttpGet method = new HttpGet( new URI(url) );
 			HttpResponse response = httpClient.execute(method);
@@ -82,7 +86,11 @@ public class ServerConnection extends Activity {
 				xmlResponse = getResponse(response.getEntity());
 				Log.d( "ServerDEBUG", "received " + xmlResponse);
 				todoList = parseXMLString(xmlResponse);
-				synchDb(todoList);
+				
+				/* The server is not empty */
+				if(todoList != null) {
+					SynchDatabase.synchDb(todoList);
+				}
 			}
 			else
 			{
@@ -92,16 +100,14 @@ public class ServerConnection extends Activity {
 			Log.e( "Error", "IOException " + e.getMessage() );
 		} catch (URISyntaxException e) {
 			Log.e( "Error", "URISyntaxException " + e.getMessage() );
-		}*/
+		}
 	}
 
 	/*
 	 * Push local changes to the server
-	 * 
-	 * TODO: Need changes for the actual server
 	 */
 	public static void pushRemote(List<String> entry, int request_type) {
-
+		
 		int retCode = 0;
 		
 		if(entry == null) {
@@ -219,8 +225,6 @@ public class ServerConnection extends Activity {
 	
 	/*
 	 * Send a PUT request to the server in the case of a todo being edited
-	 * 
-	 * TODO: Same as pushDelete(), find out the exact number for url
 	 */
 	public static int pushPut(List<String> entry) {
 		// For localhost use ip 10.0.2.2
@@ -297,8 +301,6 @@ public class ServerConnection extends Activity {
 	
 	/*
 	 * Send a DELETE request to the server in the case of a todo being deleted
-	 * 
-	 * TODO: Figure out the number
 	 */
 	public static int pushDelete(List<String> entry) {
 		// For localhost debugging use ip 10.0.2.2
@@ -337,41 +339,8 @@ public class ServerConnection extends Activity {
 
 		Log.d("ServerDEBUG", "response: " + stringResponse);
 		return 0;
-	}
-
-	/*
-	 * Synchronize local database w/ changes from the server
-	 */
-	private void synchDb(ArrayList<MyTodo> todoList) {
-		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
-			MyTodo currTodo = it.next();
-			int currID = Integer.parseInt(currTodo.getTodoRailsID());
-			int currTimestamp = Integer.parseInt(currTodo.getTodoTimestamp());
-			List<String> entry = ToDo_Replica.dh.select_to_do_railsID(currID);
-			long dbTimestamp = Integer.parseInt(entry.get(DatabaseHelper.TIMESTAMP_INDEX));
-			
-			/* No need for any local database update */
-			if(dbTimestamp > currTimestamp) {
-				return;
-			}
-
-			/* Need to update local database since changes in the server is more recent */
-			else {
-				String title = currTodo.getTodoName();
-				String place = currTodo.getTodoPlace();
-				String note = currTodo.getTodoNote();
-				String tag = currTodo.getTodoTag();
-				String group = currTodo.getTodoGroup();
-				String status = currTodo.getTodoStatus();
-				String priority = currTodo.getTodoPriority();
-				String dateStr = currTodo.getTodoTimestamp();
-				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX));
-				
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, null);
-			}
-		}
 	}	
-
+	
 	/*
 	 * Get an xml response from the server
 	 */
@@ -415,7 +384,7 @@ public class ServerConnection extends Activity {
 
 			is.setCharacterStream(new StringReader(xmlString));
 			Document doc = builder.parse(is);
-			NodeList nodes = doc.getElementsByTagName("post");
+			NodeList nodes = doc.getElementsByTagName("tododetail");
 
 			Log.d("ServerDEBUG", "Begin iterating nodes");
 
@@ -433,12 +402,42 @@ public class ServerConnection extends Activity {
 					Node property = properties.item(j);
 					String name = property.getNodeName();
 
-					if (name.equalsIgnoreCase("name")){
+					if(property.getFirstChild() == null) {
+						continue;
+					}
+					
+					else if (name.equalsIgnoreCase("group")){
 						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
-					} else if (name.equalsIgnoreCase("place")){
-						todoList.get(i).setTodoPlace((property.getFirstChild().getNodeValue()));
-					} else if (name.equalsIgnoreCase("note")){
+					} 
+					
+					else if (name.equalsIgnoreCase("updated-at")){
+						String timestamp = property.getFirstChild().getNodeValue();
+						timestamp = timestamp.replaceAll("[:-]", ""); // Hack to eliminate UTC's parser's dumbness
+						todoList.get(i).setTodoTimestamp(timestamp);
+					} 
+					
+					else if (name.equalsIgnoreCase("tag")){
+						todoList.get(i).setTodoTag((property.getFirstChild().getNodeValue()));
+					} 
+					
+					else if (name.equalsIgnoreCase("id")){
+						todoList.get(i).setTodoRailsID((property.getFirstChild().getNodeValue()));
+					} 
+					
+					else if (name.equalsIgnoreCase("note")){
 						todoList.get(i).setTodoNote((property.getFirstChild().getNodeValue()));
+					}
+					
+					else if (name.equalsIgnoreCase("todo")){
+						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
+					} 
+					
+					else if (name.equalsIgnoreCase("place")){
+						todoList.get(i).setTodoPlace((property.getFirstChild().getNodeValue()));
+					}
+					
+					else if (name.equalsIgnoreCase("status")){
+						todoList.get(i).setTodoStatus((property.getFirstChild().getNodeValue()));
 					}
 				}
 			}
@@ -451,11 +450,9 @@ public class ServerConnection extends Activity {
 		/* For debugging purpose */
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo todo = it.next();
-			Log.d("ServerDEBUG", "name: " + todo.getTodoName() + 
-					" place: " + todo.getTodoPlace() + 
-					" note: " + todo.getTodoNote());
+			todo.printMembers();
 		}
 
-		return null;
+		return todoList;
 	}
 }

@@ -144,7 +144,7 @@ public class Add extends Activity {
 				tag = actv_tag.getText().toString();
 				String dateStr = Long.toString(date.getTime());
 				
-				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group, status, priority, dateStr);
+				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group, status, priority, dateStr, null);
 
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do_title(title);

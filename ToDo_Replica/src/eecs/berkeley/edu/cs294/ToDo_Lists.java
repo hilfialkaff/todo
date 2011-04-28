@@ -118,7 +118,7 @@ public class ToDo_Lists extends Activity {
 				}
 			}
 			
-			ToDo_Replica.dh.delete_to_do(menuItem.getItemId());
+			ToDo_Replica.dh.delete_to_do_pk(menuItem.getItemId());
 			tl_todo_lists.removeAllViews();
 			populate();
 			return true;
