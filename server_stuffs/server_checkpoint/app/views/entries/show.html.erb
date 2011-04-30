@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @entry.user %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @entry.group %>
+</p>
+
+<p>
+  <b>Todo:</b>
+  <%= @entry.todo %>
+</p>
+
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

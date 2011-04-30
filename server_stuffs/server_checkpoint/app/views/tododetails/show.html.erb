@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Todo:</b>
+  <%= @tododetail.todo %>
+</p>
+
+<p>
+  <b>Place:</b>
+  <%= @tododetail.place %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @tododetail.note %>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%= @tododetail.tag %>
+</p>
+
+<p>
+  <b>Group:</b>
+  <%= @tododetail.group %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @tododetail.status %>
+</p>
+
+<p>
+  <b>Delivered:</b>
+  <%= @tododetail.delivered %>
+</p>
+
+
+<%= link_to 'Edit', edit_tododetail_path(@tododetail) %> |
+<%= link_to 'Back', tododetails_path %>
