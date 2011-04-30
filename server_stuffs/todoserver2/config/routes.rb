@@ -1,11 +1,7 @@
-Todoserver::Application.routes.draw do
-  resources :groups
-
-  resources :invitations
-
-  resources :tododetails
-
-  resources :entries
+TodoServer::Application.routes.draw do
+  resources :users do
+    resources :groups
+  end
 
   get "home/index"
 

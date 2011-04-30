@@ -35,6 +35,16 @@
   <%= @tododetail.delivered %>
 </p>
 
+<h2>Add todo:</h2>
+<%= form_for([@group, @group.tododetails.build]) do |f| %>
+  <div class="field">
+     <%= f.label :todo %><br />
+     <%= f.text_field :commenter %>
+  </div>
+  <div class="actions">
+     <%= f.submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Edit', edit_tododetail_path(@tododetail) %> |
 <%= link_to 'Back', tododetails_path %>
