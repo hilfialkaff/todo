@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @group.description %>
+</p>
+
+<h2>Users</h2>
+<% @group.users.each do |user| %>
+  <p>
+    <b>User Name:</b>
+    <%= user.name %>
+  </p>
+<% end %>
+
+<h2>Invite a user: Not yet implemented</h2>
+
+<h2>Todos</h2>
+<% @group.tododetails.each do |todo| %>
+  <p>
+    <b>Name:</b>
+    <%= todo.todo %>
+  </p>
+  <p>
+    <b>Place:</b>
+    <%= todo.place %>
+  </p>
+  <p>
+    <b>Note:</b>
+    <%= todo.note %>
+  </p>
+  <p>
+    <b>Tag:</b>
+    <%= todo.tag %>
+  </p>
+  <p>
+    <b>Status:</b>
+    <%= todo.status %>
+  </p>
+  <p>
+    <b>Priority:</b>
+    <%= todo.priority %>
+  </p>
+
+  <p>
+    <%= link_to 'Delete todo', [todo.group, todo],
+                 :confirm => 'Are you sure?',
+                 :method => :delete %>
+  </p>
+<% end %>
+
+<h2>Add a Todo</h2>
+<%= form_for([@group, @group.tododetails.build]) do |f| %>
+  <div class="field">
+    <%= f.label :todo %><br />
+    <%= f.text_field :todo %>
+  </div>
+  <div class="field">
+    <%= f.label :place %><br />
+    <%= f.text_field :place %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_field :note %>
+  </div>
+  <div class="field">
+    <%= f.label :tag %><br />
+    <%= f.text_field :tag %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :priority %><br />
+    <%= f.text_field :priority %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit', edit_group_path(@group) %> |
+<%= link_to 'Back', groups_path %>

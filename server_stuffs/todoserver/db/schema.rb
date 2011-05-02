@@ -10,21 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428212918) do
+ActiveRecord::Schema.define(:version => 20110502002344) do
 
-  create_table "entries", :force => true do |t|
-    t.string   "user"
-    t.string   "group"
-    t.string   "todo"
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "groups", :force => true do |t|
-    t.string   "name"
-    t.text     "members"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "group_id"
   end
 
   create_table "invitations", :force => true do |t|
@@ -39,11 +36,22 @@ ActiveRecord::Schema.define(:version => 20110428212918) do
     t.string   "place"
     t.text     "note"
     t.text     "tag"
-    t.string   "group"
+    t.integer  "group_id"
     t.string   "status"
-    t.string   "delivered"
+    t.string   "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users_groups", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "group_id"
   end
 
 end
