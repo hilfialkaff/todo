@@ -10,24 +10,27 @@ Features
   - Masukin temen dari contacts ke group (DONE, only need to convert the selected contacts to JSON->Hilfi)
   - UPDATE button
   - General UI
+  - If a todo has just been updated, it should glow, etc
 
 - Stub-coding:
   - klo lu gnti local db + ada group name ...lngsng send k remote (qt bikin ni asynchronous dlu coz jauh lbih gmpng,, klo ada wktu bikin yg synchronous) -- DONE
   - prtama x msk app slalu coba ambil dri remote db -- DONE
   - coba cari cara efisien buat invite org laen msk k group dbanding email klo ada,,(gmn supaya server aruz bs lngsng alert tu hp org) -- DONE
+  - group page: create new group, add ppl to group
+  - invitation page: check invitation
+  - security (who can remove ppl, etc)
 
 - Client side:
-  - push json array k server buat delete/edit/create-- DONE w/ some hardcoding
-  - Fetch xml from server -- DONE
-  - check klo ada invitation
-  - send new group members
-  - synchronize w/ db
+  - push json array k server buat delete/edit/create-- DONE   - Fetch xml from server -- DONE
+  - Send/recv/accept invitation 
+  - Add new group members
+  - synchronize w/ db - DONE
 
 - Server side:
-  - table : user, group, todo
-  - todo  : todo.name, place, note(text), tag(text), group, status, delivery
-  - Design database supaya tiap todo yg dganti d 1 org bs lngsng k ganti d org laen
-  - Display todo/user
-  - Ganti table layoutny
-  - bikin post/get request buat dptin/kasih invite dri/ke server
-  - tmbhin timestamp
+  - table : user, group, todo -- DONE
+  - Design database supaya tiap todo yg dganti d 1 org bs lngsng k ganti d org laen - DONE
+  - Display todo/user - DONE
+  - bikin post/get request buat dptin/kasih invite dri/ke server - DONE
+  - tmbhin timestamp - DONE
+  - invitation
+  - security (password, etc)
