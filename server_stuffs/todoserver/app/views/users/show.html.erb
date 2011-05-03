@@ -16,6 +16,12 @@
     <b>Description:</b>
     <%= group.description %>
   </p>
+
+  <p>
+    <%= link_to "Unsubscribe", "/users/" + "#{@user.id}" + "/unsubscribe" + "?group_name=#{group.name}&user_name=#{@user.name}" %>
+    <%= link_to "Delete", "/groups/" + "#{group.id}" + "?user_id=#{@user.id}", :method => :delete %>
+  </p>
+
 <% end %>
 
 <h2>Add a group:</h2>
@@ -28,6 +34,45 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<h2>Invitations</h2>
+<% @user.invitations.each do |inv| %>
+  <p>
+    <b>Group:</b>
+    <%= inv.group_name %>
+  </p>
+ 
+  <p>
+    <b>Invitation from:</b>
+    <%= inv.from %>
+  </p>
+
+  <p>
+    <b>Description:</b>
+    <%= inv.description %>
+  </p>
+
+<% end %>
+
+<h2>Invite somebody:</h2>
+<%= form_for([@user, @user.invitations.build]) do |f| %>
+  <div class="field">
+    <%= f.label :from %><br />
+    <%= f.text_field :from %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :group_name %><br />
+    <%= f.text_area :group_name %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
