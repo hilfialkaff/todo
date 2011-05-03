@@ -4,13 +4,16 @@ Todoserver::Application.routes.draw do
       resources :tododetails do
       end
     end
-  end
 
-  resources :invitations
+    resources :invitations do
+    end
+  end
 
   resources :groups do
     resources :tododetails
   end
+
+  match "users/:id/unsubscribe" => "users#unsubscribe"
 
   get "home/index"
 

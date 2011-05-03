@@ -21,7 +21,8 @@ Features
   - security (who can remove ppl, etc)
 
 - Client side:
-  - push json array k server buat delete/edit/create-- DONE   - Fetch xml from server -- DONE
+  - push json array k server buat delete/edit/create-- DONE
+  - Fetch xml from server -- DONE
   - Send/recv/accept invitation 
   - Add new group members
   - synchronize w/ db - DONE

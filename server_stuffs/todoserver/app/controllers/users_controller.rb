@@ -80,4 +80,13 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def unsubscribe
+    @user = User.find_by_name(params[:user_name])
+    @group = @user.groups.find_by_name(params[:group_name])
+
+    @user.groups.delete(@group)
+
+    redirect_to user_path(@user)
+  end
 end
