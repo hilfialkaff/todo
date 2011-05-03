@@ -21,13 +21,8 @@
     <td><%= tododetail.tag %></td>
     <td><%= tododetail.status %></td>
     <td><%= tododetail.priority %></td>
-    <td><%= link_to 'Show', tododetail %></td>
-    <td><%= link_to 'Edit', edit_tododetail_path(tododetail) %></td>
-    <td><%= link_to 'Destroy', tododetail, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Tododetail', new_tododetail_path %>
