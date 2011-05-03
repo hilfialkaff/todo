@@ -40,6 +40,9 @@ import android.text.format.Time;
 import android.util.Log;
 
 public class ServerConnection extends Activity {
+	
+	static final String homeurl = "http://10.0.2.2/";	//localhost ip
+	static final String todolink = "groups/14";
 
 	static public final int POST_REQUEST = 1;
 	static public final int PUT_REQUEST = 2;
@@ -73,7 +76,7 @@ public class ServerConnection extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-		String url = "http://10.0.2.2:3000/tododetails?format=xml"; // For localhost use ip 10.0.2.2
+		String url = homeurl + todolink + "?format=xml"; // For localhost use ip 10.0.2.2
 
 		try
 		{	
@@ -140,7 +143,7 @@ public class ServerConnection extends Activity {
 	 * Send a POST request to the server when a new todo is created
 	 */
 	public static int pushPost(List<String> entry) {
-		String url = "http://10.0.2.2:3000/tododetails"; // For localhost use ip 10.0.2.2
+		String url = homeurl + todolink; // For localhost use ip 10.0.2.2
 		DefaultHttpClient client = new DefaultHttpClient();
 		
 		HttpPost postRequest = new HttpPost(url);
@@ -228,7 +231,7 @@ public class ServerConnection extends Activity {
 	 */
 	public static int pushPut(List<String> entry) {
 		// For localhost use ip 10.0.2.2
-		String url = "http://10.0.2.2:3000/tododetails/" + entry.get(DatabaseHelper.RAILS_ID_INDEX); 
+		String url = homeurl + todolink + entry.get(DatabaseHelper.RAILS_ID_INDEX); 
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
 		
@@ -303,8 +306,7 @@ public class ServerConnection extends Activity {
 	 * Send a DELETE request to the server in the case of a todo being deleted
 	 */
 	public static int pushDelete(List<String> entry) {
-		// For localhost debugging use ip 10.0.2.2
-		String url = "http://10.0.2.2:3000/tododetails/" + entry.get(DatabaseHelper.RAILS_ID_INDEX);
+		String url = homeurl + todolink + entry.get(DatabaseHelper.RAILS_ID_INDEX);
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpDelete deleteRequest = new HttpDelete(url);
 		HttpResponse response = null;
@@ -350,9 +352,9 @@ public class ServerConnection extends Activity {
 
 		try
 		{
-			int length = ( int ) entity.getContentLength();
+			int length = (int) entity.getContentLength();
 			StringBuffer sb = new StringBuffer( length );
-			InputStreamReader isr = new InputStreamReader( entity.getContent(), "UTF-8" );
+			InputStreamReader isr = new InputStreamReader(entity.getContent(), "UTF-8");
 			char buff[] = new char[length];
 			int cnt;
 			while ( ( cnt = isr.read( buff, 0, length - 1 ) ) > 0 )
@@ -438,6 +440,10 @@ public class ServerConnection extends Activity {
 					
 					else if (name.equalsIgnoreCase("status")){
 						todoList.get(i).setTodoStatus((property.getFirstChild().getNodeValue()));
+					}
+					
+					else if (name.equalsIgnoreCase("priority")){
+						todoList.get(i).setTodoPriority((property.getFirstChild().getNodeValue()));
 					}
 				}
 			}
