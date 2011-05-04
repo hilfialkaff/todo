@@ -28,6 +28,16 @@ class RecvInvitationsController < ApplicationController
     @sender_inv.find_by_to(@user.name).update_attributes(:status => "Rejected")
 
     @user.recv_invitations.delete(@invitation)
+
     redirect_to user_path(@user)
+  end
+
+  def index
+    @recv_invitations = User.find(params[:user_id]).recv_invitations.all
+ 
+    respond_to do |format|
+      format.xml { render :xml => @recv_invitations }
+      format.json { render :json => @recv_invitations }
+    end
   end
 end

@@ -7,6 +7,7 @@ class TododetailsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @tododetails }
+      format.json { render :json => @tododetail }
     end
   end
 
@@ -18,6 +19,7 @@ class TododetailsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @tododetail }
+      format.json { render :json => @tododetail }
     end
   end
 
@@ -71,7 +73,7 @@ class TododetailsController < ApplicationController
     @group = Group.find(params[:group_id])
     @tododetail = @group.tododetails.find(params[:id])
     @tododetail.destroy
-    
+
     redirect_to group_path(@group)
   end
 end

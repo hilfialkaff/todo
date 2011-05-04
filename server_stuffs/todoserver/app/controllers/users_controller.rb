@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @users }
+      format.json  { render :json => @users }
     end
   end
 
@@ -18,6 +19,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
+      format.json  { render :json => @user }
     end
   end
 
@@ -46,9 +48,12 @@ class UsersController < ApplicationController
       if @user.save
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
+        format.json  { render :json => @user, :status => :created, :location => @user }
+
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -62,9 +67,11 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
         format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -78,6 +85,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 
@@ -86,6 +94,11 @@ class UsersController < ApplicationController
     @group = @user.groups.find_by_name(params[:group_name])
 
     @user.groups.delete(@group)
+
+    # Delete 
+    if @group.users.size == 0:
+      @group.destroy
+    end
 
     redirect_to user_path(@user)
   end

@@ -18,6 +18,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @group }
+      format.json { render :json => @group } 
     end
   end
 
@@ -29,6 +30,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @group }
+      format.json { render :json => @group } 
     end
   end
 
@@ -40,26 +42,10 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.xml
   def create
-    if params[:user_id].to_s.match(/\A[+-]?\d+?(\.\d+)?\Z/) != nil 
-      @user = User.find(params[:user_id])
-      @group = @user.groups.create(params[:group])
+    @user = User.find(params[:user_id])
+    @group = @user.groups.create(params[:group])
 
-      redirect_to user_path(@user)
-
-    else
-      @group = Group.new(params[:group])
-
-      respond_to do |format|
-        if @group.save
-          format.html { redirect_to(@group, :notice => 'Group was successfully created.') }
-          format.xml  { render :xml => @group, :status => :created, :location => @group }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
-        end
-      end
-    end
-    
+    redirect_to user_path(@user)
   end
 
   # PUT /groups/1
@@ -71,9 +57,11 @@ class GroupsController < ApplicationController
       if @group.update_attributes(params[:group])
         format.html { redirect_to(@group, :notice => 'Group was successfully updated.') }
         format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.json { render :json => @group.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -87,6 +75,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(groups_url) }
       format.xml  { head :ok }
+      format.json { head :ok }
     end
   end
 end
