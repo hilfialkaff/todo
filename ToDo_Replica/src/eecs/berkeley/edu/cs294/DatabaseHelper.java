@@ -19,7 +19,7 @@ public class DatabaseHelper {
 
 	// public static final int NUM_ENTRIES = 7;
 
-	/* Indexes of the various entries in the database */
+	/* Indexes of the various entries in the todo table */
 	public static final int TITLE_INDEX = 0;
 	public static final int PLACE_INDEX = 1;
 	public static final int NOTE_INDEX = 2;
@@ -31,11 +31,21 @@ public class DatabaseHelper {
 	public static final int RAILS_ID_INDEX = 8;
 	public static final int TD_ID_INDEX = 9;
 
+	/* Indexes of the various entries in the group table */
+	public static final int NAME_INDEX = 0;
+	public static final int MEMBER_INDEX = 1;
+	
+	/* Tables that exists in the database */
 	private static final String TABLE_NAME_TO_DO = "to_do";
-	private static final String TABLE_NAME_GROUP = "assembly";
-	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, assembly, status, priority, timestamp, railsID) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String TABLE_NAME_GROUP = "groupz";
+	private static final String TABLE_NAME_SENT_INVITATION = "sent_invitation";
+	private static final String TABLE_NAME_RECV_INVITATION = "recv_invitation";
+	
+	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, groupz, status, priority, timestamp, railsID) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, member) values (NULL, ?, ?)";
-
+	private static final String INSERT_SENT_INVITATION = "insert into" + TABLE_NAME_SENT_INVITATION + " (sent_id, to, userID, group, status) values (NULL, ?, ?, ?, ?)";
+	private static final String INSERT_RECV_INVITATION = "insert into" + TABLE_NAME_RECV_INVITATION + " (recv_id, from, userID, group) values (NULL, ?, ?, ?)";
+	
 	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
 
@@ -51,7 +61,7 @@ public class DatabaseHelper {
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
 	}
 
-	public long insert_to_do(String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp, String railsID) {
+	public long insert_to_do(String title, String place, String note, String tag, String groupz, String status, String priority, String timestamp, String railsID) {
 		
 		if(railsID == null) {
 			railsID = "";
@@ -62,19 +72,19 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(2, place);
 		this.insertStmt_to_do.bindString(3, note);
 		this.insertStmt_to_do.bindString(4, tag);
-		this.insertStmt_to_do.bindString(5, assembly);
+		this.insertStmt_to_do.bindString(5, groupz);
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
 		this.insertStmt_to_do.bindString(8, timestamp);
 		this.insertStmt_to_do.bindString(9, railsID);
 
 		Log.d("DbDEBUG", "INSERT title: " + title + " place: " + place + " note: " + note + 
-				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
+				" tag: " + tag + " groupz: " + groupz + " status: " + status + 
 				" priority: " + priority + " timestamp: " + timestamp + " railsID: " + railsID);
 		return this.insertStmt_to_do.executeInsert();
 	}
 
-	public long update_to_do(int pk, String title, String place, String note, String tag, String assembly, String status, String priority, String timestamp, String railsID) {
+	public long update_to_do(int pk, String title, String place, String note, String tag, String groupz, String status, String priority, String timestamp, String railsID) {
 		ContentValues cv = new ContentValues();
 
 		if(title != null) {
@@ -89,8 +99,8 @@ public class DatabaseHelper {
 		if(tag != null) {
 			cv.put("tag", tag);
 		}
-		if(assembly != null) {
-			cv.put("assembly", assembly);
+		if(groupz != null) {
+			cv.put("groupz", groupz);
 		}
 		if(status != null) {
 			cv.put("status", status);
@@ -106,7 +116,7 @@ public class DatabaseHelper {
 		}
 
 		Log.d("DbDEBUG", "UPDATE title: " + title + " place: " + place + " note: " + note + 
-				" tag: " + tag + " assembly: " + assembly + " status: " + status + 
+				" tag: " + tag + " groupz: " + groupz + " status: " + status + 
 				" priority: " + priority + " timestamp: " + timestamp + " railsID: " + railsID);
 
 		String selection = "td_id = ?";
@@ -175,7 +185,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("place")));
 				list.add(cursor.getString(cursor.getColumnIndex("note")));
 				list.add(cursor.getString(cursor.getColumnIndex("tag")));
-				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("groupz")));
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
@@ -199,7 +209,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("place")));
 				list.add(cursor.getString(cursor.getColumnIndex("note")));
 				list.add(cursor.getString(cursor.getColumnIndex("tag")));
-				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("groupz")));
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
@@ -223,7 +233,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("place")));
 				list.add(cursor.getString(cursor.getColumnIndex("note")));
 				list.add(cursor.getString(cursor.getColumnIndex("tag")));
-				list.add(cursor.getString(cursor.getColumnIndex("assembly")));
+				list.add(cursor.getString(cursor.getColumnIndex("groupz")));
 				list.add(cursor.getString(cursor.getColumnIndex("status")));
 				list.add(cursor.getString(cursor.getColumnIndex("priority")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
@@ -273,7 +283,7 @@ public class DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, assembly TEXT, status TEXT, priority TEXT, timestamp TEXT, railsID TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, groupz TEXT, status TEXT, priority TEXT, timestamp TEXT, railsID TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, member TEXT)");
 		}
 
