@@ -41,8 +41,8 @@ import android.util.Log;
 
 public class ServerConnection extends Activity {
 	
-	static final String homeurl = "http://10.0.2.2/";	//localhost ip
-	static final String todolink = "groups/14";
+	static final String homeurl = "http://10.0.2.2:3000/";	//localhost ip
+	static final String todolink = "groups/2/tododetails/";
 
 	static public final int POST_REQUEST = 1;
 	static public final int PUT_REQUEST = 2;
@@ -143,6 +143,7 @@ public class ServerConnection extends Activity {
 	 * Send a POST request to the server when a new todo is created
 	 */
 	public static int pushPost(List<String> entry) {
+		Log.d("POSTING DEBUG", "POSTING CALEDEDJLIJHFLIHSHFE");
 		String url = homeurl + todolink; // For localhost use ip 10.0.2.2
 		DefaultHttpClient client = new DefaultHttpClient();
 		
