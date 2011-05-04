@@ -17,14 +17,14 @@
 		android:layout_width="50px"
 		android:layout_height="50px"
 		android:layout_alignParentRight="true"
-		android:background="@android:drawable/ic_menu_search">
+		android:background="@drawable/menu_search">
 	</ImageButton>
 	<ImageButton
 		android:id="@+id/ib_custom_add"
 		android:layout_width="50px"
 		android:layout_height="50px"
 		android:layout_toLeftOf="@id/ib_custom_search"
-		android:background="@android:drawable/ic_menu_add"
+		android:background="@drawable/menu_add"
 		android:layout_marginRight="25px">
 	</ImageButton>
 	<ImageButton
@@ -32,7 +32,7 @@
 		android:layout_width="50px"
 		android:layout_height="50px"
 		android:layout_toLeftOf="@id/ib_custom_add"
-		android:background="@android:drawable/ic_menu_rotate"
+		android:background="@drawable/menu_sync"
 		android:layout_marginRight="25px">
 	</ImageButton>
 </RelativeLayout>

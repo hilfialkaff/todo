@@ -5,50 +5,41 @@
     android:layout_height="fill_parent"
     android:gravity="center_vertical"
     android:background="#FFFFFF">
+
     <ImageView
 		android:id="@+id/iv_background"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true">
 	</ImageView>
-	<ImageButton
+
+	<Button
 		android:id="@+id/b_maps"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@android:drawable/ic_menu_myplaces"
-		android:layout_marginRight="50px">
-	</ImageButton>
-	<ImageButton
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:text="Maps"
+		android:textColor="#FFFFFF">
+	</Button>
+	<Button
 		android:id="@+id/b_todo_lists"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:background="@android:drawable/ic_menu_agenda"
-		android:layout_toRightOf="@+id/b_maps"
-		android:layout_marginRight="50px">
-	</ImageButton>
-	<ImageButton
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:text="ToDo Lists"
+		android:textColor="#FFFFFF"
+		android:layout_centerHorizontal="true">
+	</Button>
+	<Button
 		android:id="@+id/b_groups"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_toRightOf="@+id/b_todo_lists"
-		android:layout_marginRight="50px">
-	</ImageButton>
-	<TextView
-		android:id="@+id/tv_cloud1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/b_maps"
-		android:text="I gotta finish my cs294 project!"
-		android:layout_marginTop="50px"
-		android:layout_marginLeft="10px">
-	</TextView>
-	<TextView
-		android:id="@+id/tv_cloud2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentRight="true"
-		android:layout_marginBottom="50px"
-		android:text="I gotta finish my cs294 project!">
-	</TextView>
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:textColor="#FFFFFF"
+		android:text="Groups"
+		android:layout_alignParentRight="true">
+	</Button>
 </RelativeLayout>

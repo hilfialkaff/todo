@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,7 +80,8 @@ public class ToDo_Replica extends Activity {
 			});
 		}
 
-		ImageButton b_maps = (ImageButton) findViewById(R.id.b_maps);
+		Button b_maps = (Button) findViewById(R.id.b_maps);
+		b_maps.setBackgroundResource(R.drawable.menu_maps);
 		b_maps.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -88,7 +90,8 @@ public class ToDo_Replica extends Activity {
 			}
 		});
 
-		ImageButton b_todo_lists = (ImageButton) findViewById(R.id.b_todo_lists);
+		Button b_todo_lists = (Button) findViewById(R.id.b_todo_lists);
+		b_todo_lists.setBackgroundResource(R.drawable.menu_to_do_lists);
 		b_todo_lists.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -96,8 +99,8 @@ public class ToDo_Replica extends Activity {
 				startActivityForResult(intent, 1);
 			}
 		});
-		ImageButton b_groups = (ImageButton) findViewById(R.id.b_groups);
-		b_groups.setBackgroundResource(R.drawable.ic_menu_allfriends);
+		Button b_groups = (Button) findViewById(R.id.b_groups);
+		b_groups.setBackgroundResource(R.drawable.menu_groups);
 		b_groups.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -109,7 +112,7 @@ public class ToDo_Replica extends Activity {
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		iv_background.setBackgroundResource(R.drawable.chocobo);
 		
-		TextView tv_cloud1 = (TextView) findViewById(R.id.tv_cloud1);
+		//TextView tv_cloud1 = (TextView) findViewById(R.id.tv_cloud1);
 		//tv_cloud1.setBackgroundResource(R.drawable.gradient);
 		/** Temp stuffs */
 		/*
