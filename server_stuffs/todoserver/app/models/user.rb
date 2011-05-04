@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   has_and_belongs_to_many :groups
-  has_many :invitations, :dependent => :destroy
+  has_many :sent_invitations, :dependent => :destroy
+  has_many :recv_invitations, :dependent => :destroy
 
-  validates :name, :presence => true
-  validates_uniqueness_of :name, :scope => :id
+  validates :name, :presence => true, :uniqueness => true
 
   attr_accessible :name
 end

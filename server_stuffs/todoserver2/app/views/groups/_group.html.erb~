@@ -1,9 +1,0 @@
-<p>
-  <b>name:</b>
-  <%= group.name %>
-</p>
-
-<p>
-  <b>members:</b>
-  <%= group.members %>
-</p>

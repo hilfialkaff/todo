@@ -39,11 +39,11 @@
   </div>
 <% end %>
 
-<h2>Invitations</h2>
-<% @user.invitations.each do |inv| %>
+<h2>Invitations recv</h2>
+<% @user.recv_invitations.each do |inv| %>
   <p>
     <b>Group:</b>
-    <%= inv.group_name %>
+    <%= inv.group %>
   </p>
  
   <p>
@@ -56,21 +56,52 @@
     <%= inv.description %>
   </p>
 
+  <p>
+    <%= link_to "Accept", "/users/" + "#{@user.id}" + "/invitations/" + "#{inv.id}" + "/accept" + "?user_id=#{@user.id}&inv_id=#{inv.id}" %>
+    <%= link_to "Reject", "/users/" + "#{@user.id}" + "/invitations/" + "#{inv.id}" + "/reject" + "?user_id=#{@user.id}&inv_id=#{inv.id}" %>
+
+  </p>
+<% end %>
+
+<h2>Invitations sent</h2>
+<% @user.sent_invitations.each do |inv| %>
+  <p>
+    <b>Group:</b>
+    <%= inv.group %>
+  </p>
+ 
+  <p>
+    <b>Invitation to:</b>
+    <%= inv.to %>
+  </p>
+
+  <p>
+    <b>Description:</b>
+    <%= inv.description %>
+  </p>
+  <p>
+    <b>Status:</b>
+    <%= inv.status %>
+  </p>
+
+  <p>
+    <%= link_to "Delete invitation", [inv.user, inv], :confirm => "Are you sure?", :method => :delete %>
+  </p>
 <% end %>
 
 <h2>Invite somebody:</h2>
-<%= form_for([@user, @user.invitations.build]) do |f| %>
+<%= form_for([@user, @user.sent_invitations.build]) do |f| %>
   <div class="field">
-    <%= f.label :from %><br />
-    <%= f.text_field :from %>
+	<%= f.label :to %><br />
+	<%= f.text_field :to %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
+	<%= f.label :group %><br />
+	<%= f.text_field :group %>
   </div>
   <div class="field">
-    <%= f.label :group_name %><br />
-    <%= f.text_area :group_name %>
+	<%= f.label :description %><br />
+	<%= f.text_area :description %>
   </div>
 
   <div class="actions">
@@ -78,5 +109,5 @@
   </div>
 <% end %>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+		<%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

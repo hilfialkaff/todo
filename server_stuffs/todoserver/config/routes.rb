@@ -5,7 +5,10 @@ Todoserver::Application.routes.draw do
       end
     end
 
-    resources :invitations do
+    resources :sent_invitations do
+    end
+
+    resources :recv_invitations do
     end
   end
 
@@ -13,7 +16,18 @@ Todoserver::Application.routes.draw do
     resources :tododetails
   end
 
-  match "users/:id/unsubscribe" => "users#unsubscribe"
+  get "users/:id/unsubscribe" => "users#unsubscribe"
+
+  get "/users/:user_id/invitations/:inv_id/accept" => "recv_invitations#accept"
+  get "/users/:user_id/invitations/:inv_id/reject" => "recv_invitations#reject"
+
+#  scope :users do
+#    get 'unsubscribe/:id' => 'users#unsubscribe', :as => :unsubscribe
+
+#    get "/users/:user_id/invitations/:inv_id/accept" => "recv_invitations#accept", :as => :accept
+#    get "/users/:user_id/invitations/:inv_id/reject" => "recv_invitations#reject", :as => :reject
+#  end
+
 
   get "home/index"
 
