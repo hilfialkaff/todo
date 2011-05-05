@@ -66,8 +66,7 @@ public class ServerConnection extends Activity {
 	 * Main function that pulls all of the data in the server and synchronize it with the 
 	 * local database
 	 */
-	public static void pullRemote() {
-		
+	public static void pullAllRemote() {
 		/* Retrieving the different components of the system from server */
 		ArrayList<MySentInvitation> sentInvitationList = 
 			PullConnectionHelper.pullSentInvitations();
@@ -88,6 +87,18 @@ public class ServerConnection extends Activity {
 		SynchDatabase.SynchGroupMembers(groupMemberList);
 	}
 
+	public static void pullSynchSentInvitations() {
+		ArrayList<MySentInvitation> sentInvitationList = 
+			PullConnectionHelper.pullSentInvitations();
+		SynchDatabase.SynchSentInvitations(sentInvitationList);
+	}
+	
+	public static void pullSynchRecvInvitations() {
+		ArrayList<MyRecvInvitation> recvInvitationList = 
+			PullConnectionHelper.pullRecvInvitations();
+		SynchDatabase.SynchRecvInvitations(recvInvitationList);
+	}
+	
 	/*
 	 * Push local changes to the server
 	 */
