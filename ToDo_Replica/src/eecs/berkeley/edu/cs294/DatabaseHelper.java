@@ -57,17 +57,17 @@ public class DatabaseHelper {
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, description, member, group_rails_id) values (NULL, ?, ?, ?, ?)";
 	private static final String INSERT_MEMBER = "insert into " + TABLE_NAME_MEMBER + " (m_id, name, number, email, group_id, member_rails_id) values (NULL, ?, ?, ?, ?, ?)";
-	private static final String INSERT_SENT_INVITATION = "insert into" + TABLE_NAME_SENT_INVITATION + " (sent_id, to, groupz, status, sent_rails_id) values (NULL, ?, ?, ?, ?)";
-	private static final String INSERT_RECV_INVITATION = "insert into" + TABLE_NAME_RECV_INVITATION + " (recv_id, from, groupz, recv_rails_id) values (NULL, ?, ?, ?)";
-	private static final String INSERT_MAP_GROUP_TO_DO = "insert into" + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
-	private static final String INSERT_MAP_GROUP_MEMBER = "insert into" + TABLE_NAME_MAP_GROUP_MEMBER + " (map_group, map_member) values (?, ?)";
+	private static final String INSERT_SENT_INVITATION = "insert into " + TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, sent_rails_id) values (NULL, ?, ?, ?, ?)";
+	private static final String INSERT_RECV_INVITATION = "insert into " + TABLE_NAME_RECV_INVITATION + " (recv_id, sender, groupz, recv_rails_id) values (NULL, ?, ?, ?)";
+	private static final String INSERT_MAP_GROUP_TO_DO = "insert into " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
+	private static final String INSERT_MAP_GROUP_MEMBER = "insert into " + TABLE_NAME_MAP_GROUP_MEMBER + " (map_group, map_member) values (?, ?)";
 	
 	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
 
 	private Context context;
 	private SQLiteDatabase db;
-	private SQLiteStatement insertStmt_to_do, insertStmt_group,  insertStmt_sent, insertStmt_recv, insertStmt_map_group_to_do, insertStmt_map_group_member;
+	private SQLiteStatement insertStmt_to_do, insertStmt_group, insertStmt_member, insertStmt_sent, insertStmt_recv, insertStmt_map_group_to_do, insertStmt_map_group_member;
 
 	public DatabaseHelper(Context context) {
 		this.context = context;
@@ -75,7 +75,7 @@ public class DatabaseHelper {
 		this.db = openHelper.getWritableDatabase();
 		this.insertStmt_to_do = this.db.compileStatement(INSERT_TO_DO);
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
-		this.insertStmt_group = this.db.compileStatement(INSERT_MEMBER);
+		this.insertStmt_member = this.db.compileStatement(INSERT_MEMBER);
 		this.insertStmt_sent = this.db.compileStatement(INSERT_SENT_INVITATION);
 		this.insertStmt_recv = this.db.compileStatement(INSERT_RECV_INVITATION);
 		this.insertStmt_map_group_to_do = this.db.compileStatement(INSERT_MAP_GROUP_TO_DO);
@@ -278,19 +278,19 @@ public class DatabaseHelper {
 		return list;
 	}
 
-	public long insert_sent(int sent_id, String to, String groupz, int status) {
+	public long insert_sent(int sent_id, String recipient, String groupz, int status) {
 		this.insertStmt_sent.clearBindings();
 		this.insertStmt_sent.bindLong(1, sent_id);
-		this.insertStmt_sent.bindString(2, to);
+		this.insertStmt_sent.bindString(2, recipient);
 		this.insertStmt_sent.bindString(3, groupz);
 		this.insertStmt_sent.bindLong(4, status);
 		return this.insertStmt_sent.executeInsert();
 	}
 	
-	public long insert_recv(int recv_id, String from, String groupz) {
+	public long insert_recv(int recv_id, String sender, String groupz) {
 		this.insertStmt_recv.clearBindings();
 		this.insertStmt_recv.bindLong(1, recv_id);
-		this.insertStmt_recv.bindString(2, from);
+		this.insertStmt_recv.bindString(2, sender);
 		this.insertStmt_recv.bindString(3, groupz);
 		return this.insertStmt_recv.executeInsert();
 	}
@@ -302,10 +302,13 @@ public class DatabaseHelper {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, groupz TEXT, status TEXT, priority TEXT, timestamp TEXT, railsID TEXT)");
-			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, member TEXT)");
-			db.execSQL("CREATE TABLE " + TABLE_NAME_SENT_INVITATION + " (sent_id INTEGER PRIMARY KEY, to TEXT, groupz TEXT, status INTEGER)");
-			db.execSQL("CREATE TABLE " + TABLE_NAME_RECV_INVITATION + " (recv_id INTEGER PRIMARY KEY, from TEXT, groupz TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, group_id TEXT, status TEXT, priority TEXT, timestamp TEXT, deadline TEXT, to_do_rails_id TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, description TEXT, member TEXT, group_rails_id TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_MEMBER + " (m_id INTEGER PRIMARY KEY, name TEXT, number TEXT, email TEXT, group_id INTEGER, member_rails_id TEXT)");			
+			db.execSQL("CREATE TABLE " + TABLE_NAME_SENT_INVITATION + " (sent_id INTEGER PRIMARY KEY, recipient TEXT, groupz TEXT, status INTEGER, sent_rails_id TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_RECV_INVITATION + " (recv_id INTEGER PRIMARY KEY, sender TEXT, groupz TEXT, recv_rails_id TEXT)");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group INTEGER, map_to_do INTEGER, FOREIGN KEY(map_group) REFERENCES garden(g_id), FOREIGN KEY(map_to_do) REFERENCES plot(td_id))");
+			db.execSQL("CREATE TABLE " + TABLE_NAME_MAP_GROUP_MEMBER + " (map_group INTEGER, map_member INTEGER, FOREIGN KEY(map_group) REFERENCES garden(g_id), FOREIGN KEY(map_member) REFERENCES plot(m_id))");
 		}
 
 		@Override
@@ -313,6 +316,7 @@ public class DatabaseHelper {
 			Log.w("debug", "noctis reset");
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TO_DO);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_GROUP);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MEMBER);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SENT_INVITATION);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RECV_INVITATION);
 			onCreate(db);
