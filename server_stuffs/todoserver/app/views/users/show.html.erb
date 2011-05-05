@@ -4,6 +4,14 @@
   <b>Name:</b>
   <%= @user.name %>
 </p>
+<p>
+  <b>Phone Number:</b>
+  <%= @user.number %>
+</p>
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+<p>
 
 <h2>Groups</h2>
 <% @user.groups.each do |group| %>
@@ -47,8 +55,8 @@
   </p>
  
   <p>
-    <b>Invitation from:</b>
-    <%= inv.from %>
+    <b>Sender:</b>
+    <%= inv.sender %>
   </p>
 
   <p>
@@ -71,8 +79,8 @@
   </p>
  
   <p>
-    <b>Invitation to:</b>
-    <%= inv.to %>
+    <b>Recipient:</b>
+    <%= inv.recipient %>
   </p>
 
   <p>
@@ -92,8 +100,8 @@
 <h2>Invite somebody:</h2>
 <%= form_for([@user, @user.sent_invitations.build]) do |f| %>
   <div class="field">
-	<%= f.label :to %><br />
-	<%= f.text_field :to %>
+	<%= f.label :recipient %><br />
+	<%= f.text_field :recipient %>
   </div>
   <div class="field">
 	<%= f.label :group %><br />

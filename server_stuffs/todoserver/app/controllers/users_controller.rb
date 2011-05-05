@@ -95,7 +95,7 @@ class UsersController < ApplicationController
 
     @user.groups.delete(@group)
 
-    # Delete 
+    # Delete if no one subscribes to the group
     if @group.users.size == 0:
       @group.destroy
     end

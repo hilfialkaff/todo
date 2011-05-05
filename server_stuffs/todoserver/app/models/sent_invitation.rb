@@ -1,7 +1,7 @@
 class SentInvitation < ActiveRecord::Base
   belongs_to :user
 
-  validates :to, :presence => true
+  validates :recipient, :presence => true
   validates :group, :presence => true
 
   def validate 
@@ -9,17 +9,17 @@ class SentInvitation < ActiveRecord::Base
       errors.add :group, "Cannot find group"
     end
 
-    if User.find_by_name(to).nil?:
-      errors.add :to, "Cannot find user"
+    if User.find_by_name(recipient).nil?:
+      errors.add :recipient, "Cannot find user"
     end
 
     if status != "Pending" && status != "Accepted" && status != "Rejected":
       errors.add :status, "Status not valid"
     end
 
-    if User.find_by_name(to).nil? == false:
-      if User.find_by_name(to).equal?(User.find(user_id))
-        errors.add :to, "Cannot invite yourself"
+    if User.find_by_name(recipient).nil? == false:
+      if User.find_by_name(recipient).equal?(User.find(user_id))
+        errors.add :recipient, "Cannot invite yourself"
       end
     end
 

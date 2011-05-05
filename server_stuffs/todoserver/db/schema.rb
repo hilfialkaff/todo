@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503200231) do
+ActiveRecord::Schema.define(:version => 20110505033427) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -25,26 +25,25 @@ ActiveRecord::Schema.define(:version => 20110503200231) do
   end
 
   create_table "recv_invitations", :force => true do |t|
-    t.string   "from"
     t.integer  "user_id"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group"
+    t.string   "sender"
   end
 
   create_table "sent_invitations", :force => true do |t|
-    t.string   "to"
     t.integer  "user_id"
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group"
     t.string   "status"
+    t.string   "recipient"
   end
 
   create_table "tododetails", :force => true do |t|
-    t.string   "todo"
     t.string   "place"
     t.text     "note"
     t.text     "tag"
@@ -53,12 +52,16 @@ ActiveRecord::Schema.define(:version => 20110503200231) do
     t.string   "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
+    t.string   "deadline"
   end
 
   create_table "users", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "number"
+    t.string   "email"
   end
 
   create_table "users_groups", :id => false, :force => true do |t|

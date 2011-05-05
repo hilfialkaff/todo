@@ -38,9 +38,6 @@ import android.util.Log;
 
 public class ServerConnection extends Activity {
 	
-	static final String homeurl = "http://10.0.2.2:3000/";	//localhost ip
-	static final String todolink = "groups/2/tododetails/";
-
 	static public final int POST_REQUEST = 1;
 	static public final int PUT_REQUEST = 2;
 	static public final int DELETE_REQUEST = 3;
@@ -66,41 +63,29 @@ public class ServerConnection extends Activity {
 	}
 
 	/*
-	 * Pull server changes to local and synchronize it with the local database
+	 * Main function that pulls all of the data in the server and synchronize it with the 
+	 * local database
 	 */
 	public static void pullRemote() {
-
-		HttpClient httpClient = new DefaultHttpClient();
-		String xmlResponse;
-		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-		String url = homeurl + todolink + "?format=xml"; // For localhost use ip 10.0.2.2
-
-		try
-		{	
-			Log.d("ServerDEBUG", "performing get " + url );
-
-			HttpGet method = new HttpGet( new URI(url) );
-			HttpResponse response = httpClient.execute(method);
-			if ( response != null )
-			{
-				xmlResponse = getResponse(response.getEntity());
-				Log.d( "ServerDEBUG", "received " + xmlResponse);
-				todoList = parseXMLString(xmlResponse);
-				
-				/* The server is not empty */
-				if(todoList != null) {
-					SynchDatabase.synchDb(todoList);
-				}
-			}
-			else
-			{
-				Log.d( "ServerDEBUG", "got a null response" );
-			}
-		} catch (IOException e) {
-			Log.e( "Error", "IOException " + e.getMessage() );
-		} catch (URISyntaxException e) {
-			Log.e( "Error", "URISyntaxException " + e.getMessage() );
-		}
+		
+		/* Retrieving the different components of the system from server */
+		ArrayList<MySentInvitation> sentInvitationList = 
+			PullConnectionHelper.pullSentInvitations();
+		ArrayList<MyRecvInvitation> recvInvitationList = 
+			PullConnectionHelper.pullRecvInvitations();
+		ArrayList<MyGroup> groupList = 
+			PullConnectionHelper.pullGroups();		
+		ArrayList<MyTodo> todoList = 
+			PullConnectionHelper.pullTodos(groupList);
+		ArrayList<MyGroupMember> groupMemberList = 
+			PullConnectionHelper.pullGroupMembers(groupList);
+		
+		/* Synchronize! */
+		SynchDatabase.SynchSentInvitations(sentInvitationList);
+		SynchDatabase.SynchRecvInvitations(recvInvitationList);
+		SynchDatabase.SynchGroups(groupList);
+		SynchDatabase.SynchTodos(todoList);
+		SynchDatabase.SynchGroupMembers(groupMemberList);
 	}
 
 	/*
@@ -228,7 +213,7 @@ public class ServerConnection extends Activity {
 	 * Send a PUT request to the server in the case of a todo being edited
 	 */
 	public static int pushPut(List<String> entry) {
-		// For localhost use ip 10.0.2.2
+		
 		String url = homeurl + todolink + entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T); 
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
@@ -339,124 +324,5 @@ public class ServerConnection extends Activity {
 
 		Log.d("ServerDEBUG", "response: " + stringResponse);
 		return 0;
-	}	
-	
-	/*
-	 * Get an xml response from the server
-	 */
-	private static String getResponse( HttpEntity entity )
-	{
-		String response = "";
-
-		try
-		{
-			int length = (int) entity.getContentLength();
-			StringBuffer sb = new StringBuffer( length );
-			InputStreamReader isr = new InputStreamReader(entity.getContent(), "UTF-8");
-			char buff[] = new char[length];
-			int cnt;
-			while ( ( cnt = isr.read( buff, 0, length - 1 ) ) > 0 )
-			{
-				sb.append( buff, 0, cnt );
-			}
-
-			response = sb.toString();
-			isr.close();
-		} catch ( IOException ioe ) {
-			ioe.printStackTrace();
-		}
-
-		return response;
-	}
-
-	/*
-	 * Parse the XML from the server into a list of TODOs
-	 * 
-	 * TODO: Shouldn't be any hardcoding; Need to discuss w/ the actual server implementation
-	 */
-	private static ArrayList<MyTodo> parseXMLString(String xmlString) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		ArrayList<MyTodo> todoList = new ArrayList<MyTodo>();
-
-		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			InputSource is = new InputSource();
-
-			is.setCharacterStream(new StringReader(xmlString));
-			Document doc = builder.parse(is);
-			NodeList nodes = doc.getElementsByTagName("tododetail");
-
-			Log.d("ServerDEBUG", "Begin iterating nodes");
-
-			/* Iterating each todo node in the xml */
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
-				Node item = nodes.item(i);
-				NodeList properties = item.getChildNodes();
-				todoList.add(new MyTodo());
-
-				/* Iterating each field (ie: name, content, etc) in a todo */
-				for (int j=0;j<properties.getLength();j++){
-
-					Node property = properties.item(j);
-					String name = property.getNodeName();
-
-					if(property.getFirstChild() == null) {
-						continue;
-					}
-					
-					else if (name.equalsIgnoreCase("group_id")){
-						todoList.get(i).setTodoGroupId((property.getFirstChild().getNodeValue()));
-					} 
-					
-					else if (name.equalsIgnoreCase("updated-at")){
-						String timestamp = property.getFirstChild().getNodeValue();
-						timestamp = timestamp.replaceAll("[:-]", ""); // Hack to eliminate UTC's parser's dumbness
-						todoList.get(i).setTodoTimestamp(timestamp);
-					} 
-					
-					else if (name.equalsIgnoreCase("tag")){
-						todoList.get(i).setTodoTag((property.getFirstChild().getNodeValue()));
-					} 
-					
-					else if (name.equalsIgnoreCase("id")){
-						todoList.get(i).setTodoRailsID((property.getFirstChild().getNodeValue()));
-					} 
-					
-					else if (name.equalsIgnoreCase("note")){
-						todoList.get(i).setTodoNote((property.getFirstChild().getNodeValue()));
-					}
-					
-					else if (name.equalsIgnoreCase("title")){
-						todoList.get(i).setTodoTitle((property.getFirstChild().getNodeValue()));
-					} 
-					
-					else if (name.equalsIgnoreCase("place")){
-						todoList.get(i).setTodoPlace((property.getFirstChild().getNodeValue()));
-					}
-					
-					else if (name.equalsIgnoreCase("status")){
-						todoList.get(i).setTodoStatus((property.getFirstChild().getNodeValue()));
-					}
-					
-					else if (name.equalsIgnoreCase("priority")){
-						todoList.get(i).setTodoPriority((property.getFirstChild().getNodeValue()));
-					}
-				}
-			}
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		/* For debugging purpose */
-		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
-			MyTodo todo = it.next();
-			todo.printMembers();
-		}
-
-		return todoList;
-	}
+	}		
 }

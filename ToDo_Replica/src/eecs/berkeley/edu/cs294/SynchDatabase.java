@@ -10,15 +10,55 @@ import android.app.Activity;
 import android.text.format.Time;
 import android.util.Log;
 
+
 /*
  * This class takes care of synchronizing the local database with the remote one
  */
 public class SynchDatabase extends Activity {
+
+	/* TODO */
+	
+	/*
+	 * Synchronize sent invitations in the local db w/ the server
+	 */
+	public static void SynchSentInvitations(ArrayList<MySentInvitation> sentInvitationList) {
+		
+	}
+	
+	/*
+	 * Synchronize received invitations in the local db w/ the server
+	 */
+	public static void SynchRecvInvitations(ArrayList<MyRecvInvitation> recvInvitationList) {
+		
+	}
+	
+	/*
+	 * Synchronize groups in the local db w/ the server
+	 */
+	public static void SynchGroups(ArrayList<MyGroup> groupList) {
+		
+	}
+	
+	/*
+	 * Synchronize todos in the local db w/ the server
+	 */
+	public static void SynchTodos(ArrayList<MyTodo> todoList) {
+		
+	}
+	
+	/*
+	 * Synchronize group members in the local db w/ the server
+	 */
+	public static void SynchGroupMembers(ArrayList<MyGroupMember> groupMembers) {
+		
+	}
 	
 	/*
 	 * Synchronize local database w/ changes from the server
 	 */
-	public static void synchDb(ArrayList<MyTodo> todoList) {
+	public static void synchDb(ArrayList<MySentInvitation> sentInvitationList,
+							ArrayList<MyRecvInvitation> recvInvitationList,
+							ArrayList<MyTodo> todoList) {
 		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("railsID");
 		
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
