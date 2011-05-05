@@ -49,7 +49,7 @@ public class Edit extends Activity {
 		
 		final int pk = extras.getInt("pk_select");
 		ToDo_Replica.dh = new DatabaseHelper(this);	
-		List<String> row = ToDo_Replica.dh.select_to_do_pk(pk);
+		List<String> row = ToDo_Replica.dh.select_to_do(pk);
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
@@ -204,11 +204,10 @@ public class Edit extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				String dateStr = Long.toString(date.getTime());
-				
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, null);
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, dateStr, "", "");
 				
 				/* Push changes to remote if applicable */
-				List<String> newEntry = ToDo_Replica.dh.select_to_do_pk(pk);				
+				List<String> newEntry = ToDo_Replica.dh.select_to_do(pk);				
 				if (group != null || group != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();

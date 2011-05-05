@@ -143,11 +143,12 @@ public class Add extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				String dateStr = Long.toString(date.getTime());
-				
-				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group, status, priority, dateStr, null);
+				//	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+				ToDo_Replica.dh.insert_to_do(title, place, note, tag, 0, status, priority, dateStr, "","");
 
 				/* Push changes to the remote if applicable */
-				List<String> newEntry = ToDo_Replica.dh.select_to_do_title(title);
+				List<String> newEntry = ToDo_Replica.dh.select_to_do("title", title);
 				if(group != null || group != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();

@@ -14,8 +14,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import junit.framework.Assert;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -36,7 +34,6 @@ import org.xml.sax.InputSource;
 import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.text.format.Time;
 import android.util.Log;
 
 public class ServerConnection extends Activity {
@@ -154,12 +151,12 @@ public class ServerConnection extends Activity {
 
 		/* Setting up the packet to be sent to server */
 		try {
-			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX));
-			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX));
-			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX));
-			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX));
-			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX));
-			details.put("group", entry.get(DatabaseHelper.GROUP_INDEX));
+			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX_T));
+			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX_T));
+			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX_T));
+			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX_T));
+			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX_T));
+			details.put("group", entry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 
 			posts.put("tododetail", details);
 
@@ -216,8 +213,8 @@ public class ServerConnection extends Activity {
 			JSONObject tododetailObject = jObject.getJSONObject("tododetail");
 			String railsID = tododetailObject.getString("id");
 			
-			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX));
-			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, null, null, null, null, railsID);
+			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
+			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, 0, null, null, null, null, railsID);
 		} catch (Exception e) {
 			Log.e("JSON E", ""+e);
 			e.printStackTrace();
@@ -232,7 +229,7 @@ public class ServerConnection extends Activity {
 	 */
 	public static int pushPut(List<String> entry) {
 		// For localhost use ip 10.0.2.2
-		String url = homeurl + todolink + entry.get(DatabaseHelper.RAILS_ID_INDEX); 
+		String url = homeurl + todolink + entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T); 
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
 		
@@ -244,12 +241,12 @@ public class ServerConnection extends Activity {
 
 		/* Setting up the packet to be sent to server */
 		try {
-			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX));
-			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX));
-			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX));
-			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX));
-			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX));
-			details.put("group", entry.get(DatabaseHelper.GROUP_INDEX));
+			details.put("todo", entry.get(DatabaseHelper.TITLE_INDEX_T));
+			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX_T));
+			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX_T));
+			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX_T));
+			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX_T));
+			details.put("group", entry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 
 			tododetail.put("tododetail", details);
 
@@ -307,7 +304,7 @@ public class ServerConnection extends Activity {
 	 * Send a DELETE request to the server in the case of a todo being deleted
 	 */
 	public static int pushDelete(List<String> entry) {
-		String url = homeurl + todolink + entry.get(DatabaseHelper.RAILS_ID_INDEX);
+		String url = homeurl + todolink + entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T);
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpDelete deleteRequest = new HttpDelete(url);
 		HttpResponse response = null;
@@ -409,8 +406,8 @@ public class ServerConnection extends Activity {
 						continue;
 					}
 					
-					else if (name.equalsIgnoreCase("group")){
-						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
+					else if (name.equalsIgnoreCase("group_id")){
+						todoList.get(i).setTodoGroupId((property.getFirstChild().getNodeValue()));
 					} 
 					
 					else if (name.equalsIgnoreCase("updated-at")){
@@ -431,8 +428,8 @@ public class ServerConnection extends Activity {
 						todoList.get(i).setTodoNote((property.getFirstChild().getNodeValue()));
 					}
 					
-					else if (name.equalsIgnoreCase("todo")){
-						todoList.get(i).setTodoName((property.getFirstChild().getNodeValue()));
+					else if (name.equalsIgnoreCase("title")){
+						todoList.get(i).setTodoTitle((property.getFirstChild().getNodeValue()));
 					} 
 					
 					else if (name.equalsIgnoreCase("place")){

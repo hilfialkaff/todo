@@ -60,7 +60,7 @@ public class ToDo_Lists extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = ToDo_Replica.dh.selectAll_to_do("title");
+		List<String> titles = ToDo_Replica.dh.select_all_to_do("title");
 
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		
@@ -89,8 +89,8 @@ public class ToDo_Lists extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
-		menu.add(0, ToDo_Replica.dh.select_primary_key(v.getContentDescription().toString()), 0, "edit");
-		menu.add(0, ToDo_Replica.dh.select_primary_key(v.getContentDescription().toString()), 1, "delete");
+		menu.add(0, ToDo_Replica.dh.select_to_do_primary_key(v.getContentDescription().toString()), 0, "edit");
+		menu.add(0, ToDo_Replica.dh.select_to_do_primary_key(v.getContentDescription().toString()), 1, "delete");
 	}
 
 	@Override
@@ -103,9 +103,9 @@ public class ToDo_Lists extends Activity {
 			return true;
 		case 1:
 			/* Push changes to remote if applicable */
-			List<String> oldEntry = ToDo_Replica.dh.select_to_do_pk(menuItem.getItemId());
-			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_INDEX));
-			if (oldEntry.get(DatabaseHelper.GROUP_INDEX) != null || oldEntry.get(DatabaseHelper.GROUP_INDEX) != "") {
+			List<String> oldEntry = ToDo_Replica.dh.select_to_do(menuItem.getItemId());
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
@@ -118,7 +118,7 @@ public class ToDo_Lists extends Activity {
 				}
 			}
 			
-			ToDo_Replica.dh.delete_to_do_pk(menuItem.getItemId());
+			ToDo_Replica.dh.delete_to_do(menuItem.getItemId());
 			tl_todo_lists.removeAllViews();
 			populate();
 			return true;

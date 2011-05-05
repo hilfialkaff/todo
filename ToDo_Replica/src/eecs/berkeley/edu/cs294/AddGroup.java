@@ -40,7 +40,7 @@ public class AddGroup extends Activity {
 			@Override
 			public void onClick(View v) {
 				name = et_name.getText().toString();
-				ToDo_Replica.dh.insert_group(name, members);
+				ToDo_Replica.dh.insert_group(name, "", members, Integer.toString(0));
 				setResult(RESULT_OK);
 				finish();
 			}

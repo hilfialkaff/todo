@@ -84,7 +84,7 @@ public class Maps extends MapActivity {
 
 		// Putting the to-do markers
 
-		List<String> places = ToDo_Replica.dh.selectAll_to_do(DatabaseHelper.PLACE);
+		List<String> places = ToDo_Replica.dh.select_all_to_do(DatabaseHelper.PLACE);
 
 		Drawable drawable = this.getResources().getDrawable(R.drawable.pushpin);
 		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());

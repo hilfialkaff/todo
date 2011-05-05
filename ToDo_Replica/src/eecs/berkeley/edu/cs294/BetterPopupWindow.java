@@ -1,8 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import eecs.berkeley.edu.cs294.R;
-import eecs.berkeley.edu.cs294.R.style;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;

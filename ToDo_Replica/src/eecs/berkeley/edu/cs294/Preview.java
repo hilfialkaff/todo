@@ -63,7 +63,7 @@ public class Preview extends Activity {
 		}
 		
 		String title = extras.getString("title_select");
-		List<String> row = ToDo_Replica.dh.select_to_do_title(title);
+		List<String> row = ToDo_Replica.dh.select_to_do("title", title);
 		
 		tv_title_preview2.setText(row.get(0));
 		tv_place_preview2.setText(row.get(1));

@@ -49,7 +49,7 @@ public class Groups extends Activity {
 		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 		ToDo_Replica.dh = new DatabaseHelper(this);
 		
-		List<String> titles = ToDo_Replica.dh.selectAll_group_name();
+		List<String> titles = ToDo_Replica.dh.select_all_group_name();
 		
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		
@@ -83,7 +83,7 @@ public class Groups extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = ToDo_Replica.dh.selectAll_group_name();
+		List<String> titles = ToDo_Replica.dh.select_all_group_name();
 
 		for (String title : titles) {
 			TableRow row = new TableRow(this);		

@@ -19,30 +19,30 @@ public class SynchDatabase extends Activity {
 	 * Synchronize local database w/ changes from the server
 	 */
 	public static void synchDb(ArrayList<MyTodo> todoList) {
-		List<String> deletedRailsID = ToDo_Replica.dh.selectAll_to_do("railsID");
+		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("railsID");
 		
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo currTodo = it.next();
 			
-			int currID = Integer.parseInt(currTodo.getTodoRailsID());
+			int currID = Integer.parseInt(currTodo.getTodoRailsId());
 			Time time = new Time();
 			Assert.assertTrue(time.parse(currTodo.getTodoTimestamp()));
 			long serverTimestamp = time.normalize(false);
-			List<String> entry = ToDo_Replica.dh.select_to_do_railsID(Integer.toString(currID));
+			List<String> entry = ToDo_Replica.dh.select_to_do("to_do_rails_id", Integer.toString(currID));
 			
 			/* The entry hasn't existed in the local db yet */
 			if(entry.size() == 0) {
 				Log.d("ServerDEBUG", "Server entry not inside local db yet");
-				ToDo_Replica.dh.insert_to_do(currTodo.getTodoName(), currTodo.getTodoPlace(), 
-						currTodo.getTodoNote(), currTodo.getTodoTag(), currTodo.getTodoGroup(), 
+				ToDo_Replica.dh.insert_to_do(currTodo.getTodoTitle(), currTodo.getTodoPlace(), 
+						currTodo.getTodoNote(), currTodo.getTodoTag(), Integer.parseInt(currTodo.getTodoGroupId()), 
 						currTodo.getTodoStatus(), currTodo.getTodoPriority(), 
-						Long.toString(serverTimestamp), currTodo.getTodoRailsID());
+						Long.toString(serverTimestamp), currTodo.getTodoDeadline(), currTodo.getTodoRailsId());
 				
 				continue;
 			}
 			
-			long dbTimestamp = Long.parseLong(entry.get(DatabaseHelper.TIMESTAMP_INDEX));
-			Log.d("ServerDEBUG", "comparing " + currTodo.getTodoName() + 
+			long dbTimestamp = Long.parseLong(entry.get(DatabaseHelper.TIMESTAMP_INDEX_T));
+			Log.d("ServerDEBUG", "comparing " + currTodo.getTodoTitle() + 
 					" server timestamp: " + serverTimestamp + " local timestamp: " + dbTimestamp);
 		
 			deletedRailsID.remove(Integer.toString(currID));
@@ -55,17 +55,18 @@ public class SynchDatabase extends Activity {
 
 			/* Need to update local database since changes in the server is more recent */
 			else {
-				String title = currTodo.getTodoName();
+				String title = currTodo.getTodoTitle();
 				String place = currTodo.getTodoPlace();
 				String note = currTodo.getTodoNote();
 				String tag = currTodo.getTodoTag();
-				String group = currTodo.getTodoGroup();
+				int group = Integer.parseInt(currTodo.getTodoGroupId());
 				String status = currTodo.getTodoStatus();
 				String priority = currTodo.getTodoPriority();
 				String dateStr = Long.toString(serverTimestamp);
-				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX));
+				String deadline = currTodo.getTodoDeadline();
+				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
 				
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, null);
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, deadline, dateStr, null);
 			}
 		}
 		
@@ -76,7 +77,7 @@ public class SynchDatabase extends Activity {
 		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
 			String railsID = it.next();
 			Log.d("ServerDEBUG", "deleting todo with id: " + railsID);
-			ToDo_Replica.dh.delete_to_do_railsID(railsID);
+			ToDo_Replica.dh.delete_to_do(railsID);
 		}	
 	}
 }
