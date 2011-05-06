@@ -22,14 +22,121 @@ public class SynchDatabase extends Activity {
 	 * Synchronize sent invitations in the local db w/ the server
 	 */
 	public static void SynchSentInvitations(ArrayList<MySentInvitation> sentInvitationList) {
+		List<String> deletedRailsID = ToDo_Replica.dh.select_all_sent_invitations("sent_rails_id");
 		
+		for(Iterator<MySentInvitation> it = sentInvitationList.iterator(); it.hasNext();) {
+			MySentInvitation currInvitation= it.next();
+			
+			int currID = Integer.parseInt(currInvitation.getRailsID());
+			Time time = new Time();
+			Assert.assertTrue(time.parse(currInvitation.getTimestamp()));
+			long serverTimestamp = time.normalize(false);
+			List<String> entry = ToDo_Replica.dh.select_sent_invitation("sent_rails_id", 
+					Integer.toString(currID));
+			
+			/* The entry hasn't existed in the local db yet */
+			if(entry.size() == 0) {
+				Log.d("ServerDEBUG", "Server entry not inside local db yet");
+				ToDo_Replica.dh.insert_sent_invitation(currInvitation.getRecipient(), 
+						currInvitation.getGroup(), currInvitation.getStatus(), currInvitation.getDescription(),
+						Long.toString(serverTimestamp), currInvitation.getRailsID());
+				
+				continue;
+			}
+			
+			long dbTimestamp = Long.parseLong(entry.get(DatabaseHelper.TIMESTAMP_INDEX_S));
+			Log.d("ServerDEBUG", "comparing " + currInvitation.getRailsID() + 
+					" server timestamp: " + serverTimestamp + " local timestamp: " + dbTimestamp);
+		
+			deletedRailsID.remove(Integer.toString(currID));
+			
+			/* No need for any local database update */
+			if(dbTimestamp >= serverTimestamp) {
+				Log.d("ServerDEBUG", "Local Db has the last update");
+				continue;
+			}
+
+			/* Need to update local database since changes in the server is more recent */
+			else {
+				String recipient = currInvitation.getRecipient(); 
+				String group = currInvitation.getGroup();
+				String status = currInvitation.getStatus();
+				String description = currInvitation.getDescription();
+				String timestamp = Long.toString(serverTimestamp);
+				String railsID = currInvitation.getRailsID();
+				int sent_id = Integer.parseInt(entry.get(DatabaseHelper.SENT_ID_INDEX_S));
+				
+				ToDo_Replica.dh.update_sent_invitation(sent_id, recipient, group, status, 
+						description, timestamp, railsID);
+			}
+		}
+		
+		pruneLocalSentInvitations(deletedRailsID);
+	}
+	
+	private static void pruneLocalSentInvitations(List<String> deletedRailsID)  {
+		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
+			String railsID = it.next();
+			Log.d("ServerDEBUG", "deleting todo with id: " + railsID);
+			ToDo_Replica.dh.delete_sent_invitation("sent_rails_id", railsID);
+		}	
 	}
 	
 	/*
 	 * Synchronize received invitations in the local db w/ the server
 	 */
 	public static void SynchRecvInvitations(ArrayList<MyRecvInvitation> recvInvitationList) {
-		
+//		List<String> deletedRailsID = ToDo_Replica.dh.
+//		select_all_recv_invitations("recv_rails_id");
+//		
+//		for(Iterator<MyRecvInvitation> it = recvInvitationList.iterator(); it.hasNext();) {
+//			MyRecvInvitation currInvitation= it.next();
+//			
+//			int currID = Integer.parseInt(currInvitation.getRailsID());
+//			Time time = new Time();
+//			Assert.assertTrue(time.parse(currInvitation.getTimestamp()));
+//			long serverTimestamp = time.normalize(false);
+//			List<String> entry = ToDo_Replica.dh.select_sent_invitation("sent_rails_id", 
+//					Integer.toString(currID));
+//			
+//			/* The entry hasn't existed in the local db yet */
+//			if(entry.size() == 0) {
+//				Log.d("ServerDEBUG", "Server entry not inside local db yet");
+//				ToDo_Replica.dh.insert_sent_invitation(currInvitation.getRecipient(), 
+//						currInvitation.getGroup(), currInvitation.getStatus(), currInvitation.getDescription(),
+//						Long.toString(serverTimestamp), currInvitation.getRailsID());
+//				
+//				continue;
+//			}
+//			
+//			long dbTimestamp = Long.parseLong(entry.get(DatabaseHelper.TIMESTAMP_INDEX_S));
+//			Log.d("ServerDEBUG", "comparing " + currInvitation.getRailsID() + 
+//					" server timestamp: " + serverTimestamp + " local timestamp: " + dbTimestamp);
+//		
+//			deletedRailsID.remove(Integer.toString(currID));
+//			
+//			/* No need for any local database update */
+//			if(dbTimestamp >= serverTimestamp) {
+//				Log.d("ServerDEBUG", "Local Db has the last update");
+//				continue;
+//			}
+//
+//			/* Need to update local database since changes in the server is more recent */
+//			else {
+//				String recipient = currInvitation.getRecipient(); 
+//				String group = currInvitation.getGroup();
+//				String status = currInvitation.getStatus();
+//				String description = currInvitation.getDescription();
+//				String timestamp = Long.toString(serverTimestamp);
+//				String railsID = currInvitation.getRailsID();
+//				int sent_id = Integer.parseInt(entry.get(DatabaseHelper.SENT_ID_INDEX_S));
+//				
+//				ToDo_Replica.dh.update_sent_invitation(sent_id, recipient, group, status, 
+//						description, timestamp, railsID);
+//			}
+//		}
+//		
+//		pruneLocalSentInvitations(deletedRailsID);		
 	}
 	
 	/*
@@ -56,9 +163,7 @@ public class SynchDatabase extends Activity {
 	/*
 	 * Synchronize local database w/ changes from the server
 	 */
-	public static void synchDb(ArrayList<MySentInvitation> sentInvitationList,
-							ArrayList<MyRecvInvitation> recvInvitationList,
-							ArrayList<MyTodo> todoList) {
+	public static void synchDb(ArrayList<MyTodo> todoList) {
 		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("railsID");
 		
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
@@ -110,14 +215,14 @@ public class SynchDatabase extends Activity {
 			}
 		}
 		
-		pruneLocalDb(deletedRailsID);				
+		pruneLocalTodos(deletedRailsID);				
 	}
 	
-	private static void pruneLocalDb(List<String> deletedRailsID)  {
+	private static void pruneLocalTodos(List<String> deletedRailsID)  {
 		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
 			String railsID = it.next();
 			Log.d("ServerDEBUG", "deleting todo with id: " + railsID);
-			ToDo_Replica.dh.delete_to_do(railsID);
+			ToDo_Replica.dh.delete_to_do("td_id", railsID);
 		}	
 	}
 }

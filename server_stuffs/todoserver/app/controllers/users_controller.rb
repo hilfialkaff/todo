@@ -2,7 +2,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    if params[:group_id].nil?
+      @users = User.all
+    else
+      @group = Group.find(params[:group_id])
+      @users = @group.users
+    end
 
     respond_to do |format|
       format.html # index.html.erb

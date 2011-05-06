@@ -51,13 +51,15 @@ public class ToDo_Replica extends Activity {
 
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
-					ServerConnection.pullAllRemote();
+					// ServerConnection.pullAllRemote();
+					ServerConnection.registerUser();
+					while(true);
 				}
 			}
 		};
 
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000); // Run every 5 minutes
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000);
 		/********************************************************************/
 
 

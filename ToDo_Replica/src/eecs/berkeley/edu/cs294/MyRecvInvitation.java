@@ -64,7 +64,7 @@ public class MyRecvInvitation implements Serializable{
 	 * Debugging function
 	 */
 	public void printMembers() {
-		Log.d("DbDEBUG", "MySenderInvitation Object group: " + group + " timestamp: " + timestamp + 
+		Log.d("DbDEBUG", "MyRecvInvitation Object group: " + group + " timestamp: " + timestamp + 
 				" rails_id: " + rails_id + " sender: " + sender + " user_id: " + user_id + 
 				" description: " + description);
 	}

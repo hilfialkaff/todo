@@ -2,51 +2,28 @@ package eecs.berkeley.edu.cs294;
 
 /* Should not have android.sax.element */
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import android.app.Activity;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 public class PullConnectionHelper extends Activity {
-	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
-	static final String users_link = "users/";
-	static final String groups_link = "groups/";
-	
-	static final String my_groups_link = "/groups?format=xml";
-	static final String my_sent_invs_link = "/sent_invitations?format=xml";
-	static final String my_recv_invs_link = "/recv_invitations?format=xml";
-	
-	static final String group_todo_link = "/tododetails?format=xml";
-	static final String group_members_link = "/users?format=xml";
 	/*
 	 * Get a list of updates in the invitations sent.
 	 */
@@ -54,7 +31,8 @@ public class PullConnectionHelper extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MySentInvitation> sentInvitationList = new ArrayList<MySentInvitation>();
-		String url = homeurl + users_link + /* TODO */ my_sent_invs_link;
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ServerConnection.userID + ServerConnection.my_sent_invs_link;
 
 		try
 		{	
@@ -64,8 +42,7 @@ public class PullConnectionHelper extends Activity {
 			HttpResponse response = httpClient.execute(method);
 			if ( response != null )
 			{
-				xmlResponse = getResponse(response.getEntity());
-				Log.d( "ServerDEBUG", "received " + xmlResponse);
+				xmlResponse = ServerConnection.getResponse(response.getEntity());
 				sentInvitationList = parseSentInvitationsXML(xmlResponse);
 			}
 			else
@@ -88,7 +65,8 @@ public class PullConnectionHelper extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyRecvInvitation> recvInvitationList = new ArrayList<MyRecvInvitation>();
-		String url = homeurl + users_link + /* TODO */ my_recv_invs_link;
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ServerConnection.userID + ServerConnection.my_recv_invs_link;
 
 		try
 		{	
@@ -98,8 +76,7 @@ public class PullConnectionHelper extends Activity {
 			HttpResponse response = httpClient.execute(method);
 			if ( response != null )
 			{
-				xmlResponse = getResponse(response.getEntity());
-				Log.d( "ServerDEBUG", "received " + xmlResponse);
+				xmlResponse = ServerConnection.getResponse(response.getEntity());
 				recvInvitationList = parseRecvInvitationsXML(xmlResponse);
 			}
 			else
@@ -122,7 +99,8 @@ public class PullConnectionHelper extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		ArrayList<MyGroup> groupsList = new ArrayList<MyGroup>();
-		String url = homeurl + users_link + /* TODO */ groups_link;
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ServerConnection.userID + ServerConnection.my_groups_link;
 
 		try
 		{	
@@ -132,8 +110,7 @@ public class PullConnectionHelper extends Activity {
 			HttpResponse response = httpClient.execute(method);
 			if ( response != null )
 			{
-				xmlResponse = getResponse(response.getEntity());
-				Log.d( "ServerDEBUG", "received " + xmlResponse);
+				xmlResponse = ServerConnection.getResponse(response.getEntity());
 				groupsList = parseGroupsXML(xmlResponse);
 			}
 			else
@@ -159,7 +136,8 @@ public class PullConnectionHelper extends Activity {
 		for(Iterator<MyGroup> it = groupList.iterator(); it.hasNext();) {
 			String groupID = it.next().getRailsID();		
 			String xmlResponse;
-			String url = homeurl + groups_link + groupID + group_todo_link;
+			String url = ServerConnection.homeurl + ServerConnection.groups_link + groupID + 
+			ServerConnection.group_todos_link;
 
 			try
 			{	
@@ -169,8 +147,7 @@ public class PullConnectionHelper extends Activity {
 				HttpResponse response = httpClient.execute(method);
 				if ( response != null )
 				{
-					xmlResponse = getResponse(response.getEntity());
-					Log.d( "ServerDEBUG", "received " + xmlResponse);
+					xmlResponse = ServerConnection.getResponse(response.getEntity());
 					todoList = parseTodoXML(xmlResponse);
 				}
 				else
@@ -198,7 +175,8 @@ public class PullConnectionHelper extends Activity {
 			String groupID = it.next().getRailsID();		
 			String xmlResponse;
 
-			String url = homeurl + groups_link + groupID + group_todo_link;
+			String url = ServerConnection.homeurl + ServerConnection.groups_link + groupID + 
+			ServerConnection.group_members_link;
 
 			try
 			{	
@@ -208,8 +186,7 @@ public class PullConnectionHelper extends Activity {
 				HttpResponse response = httpClient.execute(method);
 				if ( response != null )
 				{
-					xmlResponse = getResponse(response.getEntity());
-					Log.d( "ServerDEBUG", "received " + xmlResponse);
+					xmlResponse = ServerConnection.getResponse(response.getEntity());
 					groupMemberList = parseGroupMemberXML(xmlResponse);
 				}
 				else
@@ -582,9 +559,20 @@ public class PullConnectionHelper extends Activity {
 					if(property.getFirstChild() == null) {
 						continue;
 					}
+		
+					if (name.equalsIgnoreCase("id")) { 
+						if (property.getFirstChild().getNodeValue().equalsIgnoreCase(
+								ServerConnection.userID)) {
+							groupMemberList.remove(groupMemberList.size() - 1);
+							break;
+						}
+						else {
+							groupMemberList.get(i).setRailsID(property.getFirstChild().getNodeValue());
+						}
+					}
 					
 					else if (name.equalsIgnoreCase("name")){
-						groupMemberList.get(i).setName((property.getFirstChild().getNodeValue()));
+						groupMemberList.get(i).setName(property.getFirstChild().getNodeValue());
 					} 
 					
 					else if (name.equalsIgnoreCase("number")){
@@ -615,33 +603,5 @@ public class PullConnectionHelper extends Activity {
 		}
 
 		return groupMemberList;
-	}
-
-	/*
-	 * Get an xml response from the server
-	 */
-	private static String getResponse( HttpEntity entity )
-	{
-		String response = "";
-
-		try
-		{
-			int length = (int) entity.getContentLength();
-			StringBuffer sb = new StringBuffer( length );
-			InputStreamReader isr = new InputStreamReader(entity.getContent(), "UTF-8");
-			char buff[] = new char[length];
-			int cnt;
-			while ( ( cnt = isr.read( buff, 0, length - 1 ) ) > 0 )
-			{
-				sb.append( buff, 0, cnt );
-			}
-
-			response = sb.toString();
-			isr.close();
-		} catch ( IOException ioe ) {
-			ioe.printStackTrace();
-		}
-
-		return response;
 	}
 }
