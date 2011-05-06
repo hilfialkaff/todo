@@ -28,7 +28,7 @@ public class ServerConnection extends Activity {
 	static public final int DELETE_REQUEST = 3;
 	
 	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
-	static final String userID = "22";
+	static final String userID = "28";
 	static final String users_link = "users/";
 	static final String groups_link = "groups/";
 	
