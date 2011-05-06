@@ -23,7 +23,8 @@ import android.widget.TextView;
 public class ToDo_Lists extends Activity {
 	/** Called when the activity is first created. */
 	TableLayout tl_todo_lists;
-
+	TextView tv_custom_title;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +32,10 @@ public class ToDo_Lists extends Activity {
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.todo_lists);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-
+		
+		tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
+		tv_custom_title.setText("ToDo Lists");
+		
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {
 			ib_custom_add.setOnClickListener(new OnClickListener() {

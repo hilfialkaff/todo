@@ -49,6 +49,7 @@ public class DatabaseHelper {
 	private static final String TABLE_NAME_TO_DO = "to_do_table";
 	private static final String TABLE_NAME_GROUP = "group_table";
 	private static final String TABLE_NAME_MEMBER = "member_table";
+	private static final String TABLE_NAME_USER = "user_table";
 	private static final String TABLE_NAME_SENT_INVITATION = "sent_invitation_table";
 	private static final String TABLE_NAME_RECV_INVITATION = "recv_invitation_table";
 	private static final String TABLE_NAME_MAP_GROUP_T0_DO = "map_group_to_do";
@@ -57,6 +58,7 @@ public class DatabaseHelper {
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, description, member, group_rails_id) values (NULL, ?, ?, ?, ?)";
 	private static final String INSERT_MEMBER = "insert into " + TABLE_NAME_MEMBER + " (m_id, name, number, email, group_id, member_rails_id) values (NULL, ?, ?, ?, ?, ?)";
+	private static final String INSERT_USER = "insert into " + TABLE_NAME_USER + " (name, number, email, password) values (?, ?, ?, ?)";
 	private static final String INSERT_SENT_INVITATION = "insert into " + TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, sent_rails_id) values (NULL, ?, ?, ?, ?)";
 	private static final String INSERT_RECV_INVITATION = "insert into " + TABLE_NAME_RECV_INVITATION + " (recv_id, sender, groupz, recv_rails_id) values (NULL, ?, ?, ?)";
 	private static final String INSERT_MAP_GROUP_TO_DO = "insert into " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
@@ -67,7 +69,7 @@ public class DatabaseHelper {
 
 	private Context context;
 	private SQLiteDatabase db;
-	private SQLiteStatement insertStmt_to_do, insertStmt_group, insertStmt_member, insertStmt_sent, insertStmt_recv, insertStmt_map_group_to_do, insertStmt_map_group_member;
+	private SQLiteStatement insertStmt_to_do, insertStmt_group, insertStmt_member, insertStmt_sent, insertStmt_recv, insertStmt_map_group_to_do, insertStmt_map_group_member, insertStmt_user;
 
 	public DatabaseHelper(Context context) {
 		this.context = context;
@@ -76,12 +78,39 @@ public class DatabaseHelper {
 		this.insertStmt_to_do = this.db.compileStatement(INSERT_TO_DO);
 		this.insertStmt_group = this.db.compileStatement(INSERT_GROUP);
 		this.insertStmt_member = this.db.compileStatement(INSERT_MEMBER);
+		this.insertStmt_user = this.db.compileStatement(INSERT_USER);
 		this.insertStmt_sent = this.db.compileStatement(INSERT_SENT_INVITATION);
 		this.insertStmt_recv = this.db.compileStatement(INSERT_RECV_INVITATION);
 		this.insertStmt_map_group_to_do = this.db.compileStatement(INSERT_MAP_GROUP_TO_DO);
 		this.insertStmt_map_group_member = this.db.compileStatement(INSERT_MAP_GROUP_MEMBER);
 	}
-
+	
+	public long insert_user(String name, String number, String email, String password) {	
+		this.insertStmt_user.clearBindings();
+		this.insertStmt_user.bindString(1, name);
+		this.insertStmt_user.bindString(2, number);
+		this.insertStmt_user.bindString(3, email);
+		this.insertStmt_user.bindString(4, password);
+		return this.insertStmt_user.executeInsert();
+	}
+	
+	public List<String> select_user() {
+		List<String> list = new ArrayList<String>();
+		Cursor cursor = this.db.query(TABLE_NAME_USER, null, null, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("name")));
+				list.add(cursor.getString(cursor.getColumnIndex("number")));
+				list.add(cursor.getString(cursor.getColumnIndex("email")));
+				list.add(cursor.getString(cursor.getColumnIndex("password")));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null || !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+	
 	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
 
 		this.insertStmt_to_do.clearBindings();
@@ -166,7 +195,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex(column)));
 			} while (cursor.moveToNext());
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
 		return list;
@@ -206,7 +235,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("td_id")));
 			} while (cursor.moveToNext());
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
 		return list;
@@ -230,7 +259,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("to_do_rails_id")));
 			} while (cursor.moveToNext());
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
 		return list;
@@ -245,7 +274,7 @@ public class DatabaseHelper {
 				td_id = cursor.getInt(cursor.getColumnIndex("td_id"));
 			} while (cursor.moveToNext());
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
 		return td_id;
@@ -272,7 +301,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("name")));
 			} while (cursor.moveToNext());
 		}
-		if (cursor != null && !cursor.isClosed()) {
+		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
 		return list;
@@ -305,6 +334,7 @@ public class DatabaseHelper {
 			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, group_id TEXT, status TEXT, priority TEXT, timestamp TEXT, deadline TEXT, to_do_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, description TEXT, member TEXT, group_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_MEMBER + " (m_id INTEGER PRIMARY KEY, name TEXT, number TEXT, email TEXT, group_id INTEGER, member_rails_id TEXT)");			
+			db.execSQL("CREATE TABLE " + TABLE_NAME_USER + " (name TEXT, number TEXT, email TEXT, password TEXT)");			
 			db.execSQL("CREATE TABLE " + TABLE_NAME_SENT_INVITATION + " (sent_id INTEGER PRIMARY KEY, recipient TEXT, groupz TEXT, status INTEGER, sent_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_RECV_INVITATION + " (recv_id INTEGER PRIMARY KEY, sender TEXT, groupz TEXT, recv_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group INTEGER, map_to_do INTEGER, FOREIGN KEY(map_group) REFERENCES garden(g_id), FOREIGN KEY(map_to_do) REFERENCES plot(td_id))");
@@ -317,8 +347,11 @@ public class DatabaseHelper {
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_TO_DO);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_GROUP);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MEMBER);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_USER);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_SENT_INVITATION);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_RECV_INVITATION);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAP_GROUP_T0_DO);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME_MAP_GROUP_MEMBER);
 			onCreate(db);
 		}
 	}
