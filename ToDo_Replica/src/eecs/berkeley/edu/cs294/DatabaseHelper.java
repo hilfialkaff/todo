@@ -245,8 +245,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_to_do(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {value});
 	}
 	
 	public long insert_group(String name, String description, String member, String timestamp, 
@@ -350,8 +350,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_group(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_GROUP, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_GROUP, selection, new String[] {value});
 	}
 	
 	public long insert_member(String name, String number, String email, String group_id, 
@@ -443,8 +443,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_member(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_MEMBER, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_MEMBER, selection, new String[] {value});
 	}
 	
 	public long insert_sent_invitation(String recipient, String groupz, String status, 
@@ -536,8 +536,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_sent_invitation(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_SENT_INVITATION, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_SENT_INVITATION, selection, new String[] {value});
 	}
 	
 	public long insert_recv_invitation(String sender, String groupz, String timestamp, 
@@ -619,8 +619,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_recv_invitation(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_RECV_INVITATION, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_RECV_INVITATION, selection, new String[] {value});
 	}
 	
 	private static class OpenHelper extends SQLiteOpenHelper {

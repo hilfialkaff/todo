@@ -160,7 +160,7 @@ public class SynchDatabase extends Activity {
 	public static void SynchGroups(ArrayList<MyGroup> groupList) {
 		Log.d("ServerDEBUG", "SynchGroups");
 		
-		List<String> deletedRailsID = ToDo_Replica.dh.select_all_groups("group_rails_id");
+		List<String> deletedRailsID = ToDo_Replica.dh.select_all_groups("group_rails_id");	
 		
 		for(Iterator<MyGroup> it = groupList.iterator(); it.hasNext();) {
 			MyGroup currGroup = it.next();
