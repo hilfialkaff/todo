@@ -148,7 +148,7 @@ public class PullConnectionHelper extends Activity {
 				if ( response != null )
 				{
 					xmlResponse = ServerConnection.getResponse(response.getEntity());
-					todoList = parseTodoXML(xmlResponse);
+					todoList.addAll(parseTodoXML(xmlResponse));
 				}
 				else
 				{
@@ -159,6 +159,12 @@ public class PullConnectionHelper extends Activity {
 			} catch (URISyntaxException e) {
 				Log.e( "Error", "URISyntaxException " + e.getMessage() );
 			}
+		}
+
+		/* For debugging purpose */
+		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
+			MyTodo todo = it.next();
+			todo.printMembers();
 		}
 		
 		return todoList;
@@ -187,7 +193,7 @@ public class PullConnectionHelper extends Activity {
 				if ( response != null )
 				{
 					xmlResponse = ServerConnection.getResponse(response.getEntity());
-					groupMemberList = parseGroupMemberXML(xmlResponse);
+					groupMemberList.addAll(parseGroupMemberXML(xmlResponse));
 				}
 				else
 				{
@@ -198,6 +204,12 @@ public class PullConnectionHelper extends Activity {
 			} catch (URISyntaxException e) {
 				Log.e( "Error", "URISyntaxException " + e.getMessage() );
 			}
+		}
+		
+		/* For debugging purpose */
+		for(Iterator<MyGroupMember> it = groupMemberList.iterator(); it.hasNext();) {
+			MyGroupMember groupMember = it.next();
+			groupMember.printMembers();
 		}
 		
 		return groupMemberList;
@@ -222,8 +234,6 @@ public class PullConnectionHelper extends Activity {
 
 			/* Iterating each sent invitation node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
 				Node item = nodes.item(i);
 				NodeList properties = item.getChildNodes();
 				sentInvitationList.add(new MySentInvitation());
@@ -304,8 +314,6 @@ public class PullConnectionHelper extends Activity {
 
 			/* Iterating each received invitation node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
 				Node item = nodes.item(i);
 				NodeList properties = item.getChildNodes();
 				recvInvitationList.add(new MyRecvInvitation());
@@ -382,8 +390,6 @@ public class PullConnectionHelper extends Activity {
 
 			/* Iterating each group node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
 				Node item = nodes.item(i);
 				NodeList properties = item.getChildNodes();
 				groupList.add(new MyGroup());
@@ -451,8 +457,6 @@ public class PullConnectionHelper extends Activity {
 
 			/* Iterating each tododetail node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
 				Node item = nodes.item(i);
 				NodeList properties = item.getChildNodes();
 				todoList.add(new MyTodo());
@@ -516,12 +520,6 @@ public class PullConnectionHelper extends Activity {
 			e.printStackTrace();
 		}
 
-		/* For debugging purpose */
-		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
-			MyTodo todo = it.next();
-			todo.printMembers();
-		}
-
 		return todoList;
 	}
 
@@ -544,8 +542,6 @@ public class PullConnectionHelper extends Activity {
 
 			/* Iterating each group member node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
-				Log.d("ServerDEBUG", "iteration " + i);
-
 				Node item = nodes.item(i);
 				NodeList properties = item.getChildNodes();
 				groupMemberList.add(new MyGroupMember());
@@ -559,19 +555,8 @@ public class PullConnectionHelper extends Activity {
 					if(property.getFirstChild() == null) {
 						continue;
 					}
-		
-					if (name.equalsIgnoreCase("id")) { 
-						if (property.getFirstChild().getNodeValue().equalsIgnoreCase(
-								ServerConnection.userID)) {
-							groupMemberList.remove(groupMemberList.size() - 1);
-							break;
-						}
-						else {
-							groupMemberList.get(i).setRailsID(property.getFirstChild().getNodeValue());
-						}
-					}
 					
-					else if (name.equalsIgnoreCase("name")){
+					if (name.equalsIgnoreCase("name")){
 						groupMemberList.get(i).setName(property.getFirstChild().getNodeValue());
 					} 
 					
@@ -588,18 +573,20 @@ public class PullConnectionHelper extends Activity {
 					else if (name.equalsIgnoreCase("email")){
 						groupMemberList.get(i).setEmail((property.getFirstChild().getNodeValue()));
 					}
+					
+					else if (name.equalsIgnoreCase("group-id")){
+						groupMemberList.get(i).setGroupID((property.getFirstChild().getNodeValue()));
+					}
+					
+					else if (name.equalsIgnoreCase("id")){
+						groupMemberList.get(i).setRailsID((property.getFirstChild().getNodeValue()));
+					}
 				}
 			}
 		}
 
 		catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		/* For debugging purpose */
-		for(Iterator<MyGroupMember> it = groupMemberList.iterator(); it.hasNext();) {
-			MyGroupMember groupMember = it.next();
-			groupMember.printMembers();
 		}
 
 		return groupMemberList;

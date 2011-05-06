@@ -16,6 +16,7 @@ public class MyGroupMember implements Serializable{
 	private String timestamp = "";
 	private String rails_id = "";
 	private String email = "";
+	private String group_id = "";
 	
 	public String getName() {
 		return name;
@@ -52,11 +53,19 @@ public class MyGroupMember implements Serializable{
 		this.email = email;
 	}
 	
+	public String getGroupID() {
+		return group_id;
+	}
+	public void setGroupID(String group_id) {
+		this.group_id = group_id;
+	}
+	
 	/*
 	 * Debugging function
 	 */
 	public void printMembers() {
 		Log.d("DbDEBUG", "My GroupMember Object name: " + name + " number: " + number +
-				" timestamp: " + timestamp + " rails_id: " + rails_id + " email: " + email);
+				" timestamp: " + timestamp + " rails_id: " + rails_id + " email: " + email + 
+				" group_id: " + group_id);
 	}
 }

@@ -74,13 +74,25 @@ public class DatabaseHelper {
 	private static final String TABLE_NAME_MAP_GROUP_T0_DO = "map_group_to_do";
 	private static final String TABLE_NAME_MAP_GROUP_MEMBER = "map_group_member";
 	
-	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, description, member, timestamp, group_rails_id) values (NULL, ?, ?, ?, ?, ?)";
-	private static final String INSERT_MEMBER = "insert into " + TABLE_NAME_MEMBER + " (m_id, name, number, email, group_id, timestamp, member_rails_id) values (NULL, ?, ?, ?, ?, ?, ?)";
-	private static final String INSERT_SENT_INVITATION = "insert into " + TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, description, timestamp, sent_rails_id) values (NULL, ?, ?, ?, ?, ?, ?)";
-	private static final String INSERT_RECV_INVITATION = "insert into " + TABLE_NAME_RECV_INVITATION + " (recv_id, sender, groupz, timestamp, recv_rails_id) values (NULL, ?, ?, ?, ?)";
-	private static final String INSERT_MAP_GROUP_TO_DO = "insert into " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
-	private static final String INSERT_MAP_GROUP_MEMBER = "insert into " + TABLE_NAME_MAP_GROUP_MEMBER + " (map_group, map_member) values (?, ?)";
+	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + 
+	" (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, " +
+	"to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + 
+	" (g_id, name, description, member, timestamp, group_rails_id) " +
+	"values (NULL, ?, ?, ?, ?, ?)";
+	private static final String INSERT_MEMBER = "insert into " + TABLE_NAME_MEMBER + 
+	" (m_id, name, number, email, group_id, timestamp, member_rails_id) " +
+	"values (NULL, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_SENT_INVITATION = "insert into " + 
+	TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, description, " +
+			"timestamp, sent_rails_id) values (NULL, ?, ?, ?, ?, ?, ?)";
+	private static final String INSERT_RECV_INVITATION = "insert into " + 
+	TABLE_NAME_RECV_INVITATION + " (recv_id, sender, groupz, timestamp, recv_rails_id) " +
+			"values (NULL, ?, ?, ?, ?)";
+	private static final String INSERT_MAP_GROUP_TO_DO = "insert into " + 
+	TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
+	private static final String INSERT_MAP_GROUP_MEMBER = "insert into " + 
+	TABLE_NAME_MAP_GROUP_MEMBER + " (map_group, map_member) values (?, ?)";
 	
 	public static final String TITLE = "title";
 	public static final String PLACE = "place"; 
@@ -115,10 +127,6 @@ public class DatabaseHelper {
 		this.insertStmt_to_do.bindString(8, timestamp);
 		this.insertStmt_to_do.bindString(9, deadline);
 		this.insertStmt_to_do.bindString(10, to_do_rails_id);
-
-		Log.d("DbDEBUG", "INSERT title: " + title + " place: " + place + " note: " + note + 
-				" tag: " + tag + " group_id: " + group_id + " status: " + status + 
-				" priority: " + priority + " timestamp: " + timestamp + " deadline: " + deadline +  " to_do_rails_id: " + to_do_rails_id);
 		
 		return this.insertStmt_to_do.executeInsert();
 	}
@@ -237,11 +245,12 @@ public class DatabaseHelper {
 	}
 
 	public void delete_to_do(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {value});
 	}
 	
-	public long insert_group(String name, String description, String member, String timestamp, String group_rails_id) {
+	public long insert_group(String name, String description, String member, String timestamp, 
+			String group_rails_id) {
 		this.insertStmt_group.clearBindings();
 		this.insertStmt_group.bindString(1, name);
 		this.insertStmt_group.bindString(2, description);
@@ -341,25 +350,26 @@ public class DatabaseHelper {
 	}
 
 	public void delete_group(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_GROUP, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_GROUP, selection, new String[] {value});
 	}
 	
-	public long insert_member(String name, String number, String email, String group_id, String timestamp, String member_rails_id) {
-		this.insertStmt_sent.clearBindings();
-		this.insertStmt_sent.bindString(1, name);
-		this.insertStmt_sent.bindString(2, number);
-		this.insertStmt_sent.bindString(3, email);
-		this.insertStmt_sent.bindString(4, group_id);
-		this.insertStmt_sent.bindString(5, timestamp);
-		this.insertStmt_sent.bindString(6, member_rails_id);
+	public long insert_member(String name, String number, String email, String group_id, 
+			String timestamp, String member_rails_id) {
+		this.insertStmt_member.clearBindings();
+		this.insertStmt_member.bindString(1, name);
+		this.insertStmt_member.bindString(2, number);
+		this.insertStmt_member.bindString(3, email);
+		this.insertStmt_member.bindString(4, group_id);
+		this.insertStmt_member.bindString(5, timestamp);
+		this.insertStmt_member.bindString(6, member_rails_id);
 		
-		return this.insertStmt_sent.executeInsert();
+		return this.insertStmt_member.executeInsert();
 	}
 	
 	public List<String> select_all_members(String column) {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.db.query(TABLE_NAME_SENT_INVITATION, new String[] {column}, null, null, null, null, "m_id asc");
+		Cursor cursor = this.db.query(TABLE_NAME_MEMBER, new String[] {column}, null, null, null, null, "m_id asc");
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(cursor.getColumnIndex(column)));
@@ -379,6 +389,7 @@ public class DatabaseHelper {
 			do {
 				list.add(cursor.getString(cursor.getColumnIndex("m_id")));
 				list.add(cursor.getString(cursor.getColumnIndex("name")));
+				list.add(cursor.getString(cursor.getColumnIndex("number")));
 				list.add(cursor.getString(cursor.getColumnIndex("email")));
 				list.add(cursor.getString(cursor.getColumnIndex("group_id")));
 				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
@@ -432,8 +443,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_member(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_MEMBER, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_MEMBER, selection, new String[] {value});
 	}
 	
 	public long insert_sent_invitation(String recipient, String groupz, String status, 
@@ -525,8 +536,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_sent_invitation(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_SENT_INVITATION, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_SENT_INVITATION, selection, new String[] {value});
 	}
 	
 	public long insert_recv_invitation(String sender, String groupz, String timestamp, 
@@ -594,7 +605,7 @@ public class DatabaseHelper {
 			cv.put("recv_rails_id", recv_rails_id);
 		}
 		
-		Log.d("DbDEBUG", "UPDATE sent_id: " + recv_id + " sender: " + sender + 
+		Log.d("DbDEBUG", "UPDATE recv_id: " + recv_id + " sender: " + sender + 
 				" groupz: " + groupz + "timestamp: " + timestamp + "recv_rails_id: " 
 				+ recv_rails_id); 
 
@@ -608,8 +619,8 @@ public class DatabaseHelper {
 	}
 
 	public void delete_recv_invitation(String column, String value) {
-		String selection = column + " = '" + value + "'";
-		this.db.delete(TABLE_NAME_RECV_INVITATION, selection, new String[] {column});
+		String selection = column + " = ?";
+		this.db.delete(TABLE_NAME_RECV_INVITATION, selection, new String[] {value});
 	}
 	
 	private static class OpenHelper extends SQLiteOpenHelper {

@@ -51,9 +51,7 @@ public class ToDo_Replica extends Activity {
 
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
-					// ServerConnection.pullAllRemote();
-					ServerConnection.registerUser();
-					while(true);
+					ServerConnection.pullAllRemote();
 				}
 			}
 		};
