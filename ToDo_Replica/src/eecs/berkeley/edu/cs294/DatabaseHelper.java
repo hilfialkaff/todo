@@ -77,7 +77,7 @@ public class DatabaseHelper {
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + " (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_GROUP = "insert into " + TABLE_NAME_GROUP + " (g_id, name, description, member, timestamp, group_rails_id) values (NULL, ?, ?, ?, ?, ?)";
 	private static final String INSERT_MEMBER = "insert into " + TABLE_NAME_MEMBER + " (m_id, name, number, email, group_id, timestamp, member_rails_id) values (NULL, ?, ?, ?, ?, ?, ?)";
-	private static final String INSERT_SENT_INVITATION = "insert into " + TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, description, timestamp, sent_rails_id) values (NULL, ?, ?, ?, ?, ?)";
+	private static final String INSERT_SENT_INVITATION = "insert into " + TABLE_NAME_SENT_INVITATION + " (sent_id, recipient, groupz, status, description, timestamp, sent_rails_id) values (NULL, ?, ?, ?, ?, ?, ?)";
 	private static final String INSERT_RECV_INVITATION = "insert into " + TABLE_NAME_RECV_INVITATION + " (recv_id, sender, groupz, timestamp, recv_rails_id) values (NULL, ?, ?, ?, ?)";
 	private static final String INSERT_MAP_GROUP_TO_DO = "insert into " + TABLE_NAME_MAP_GROUP_T0_DO + " (map_group, map_to_do) values (?, ?)";
 	private static final String INSERT_MAP_GROUP_MEMBER = "insert into " + TABLE_NAME_MAP_GROUP_MEMBER + " (map_group, map_member) values (?, ?)";

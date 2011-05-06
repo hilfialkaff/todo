@@ -22,6 +22,7 @@
 		<activity android:name=".ToDo_Lists"> </activity>
 		<activity android:name=".Groups"> </activity>
 		<activity android:name=".Add"> </activity>
+		<activity android:name=".Invitations"> </activity>
 		<activity android:name=".Preview"> </activity>
 		<activity android:name=".AddGroup"> </activity>
 		<activity android:name=".Edit"> </activity>
