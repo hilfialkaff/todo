@@ -26,7 +26,7 @@ public class Edit extends Activity {
 	/** Called when the activity is first created. */
 	private String title, place, note, tag, group, status, priority;
 	private Date date = new Date();
-	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
+	private String array_spinner_group[];
 	ArrayAdapter<String> adapter;
 	
 	EditText et_title, et_place, et_note;
@@ -81,16 +81,6 @@ public class Edit extends Activity {
 		array_spinner_group[2] = "Group 2";
 		array_spinner_group[3] = "Group 3";
 		
-		array_spinner_status = new String[3];
-		array_spinner_status[0] = "Incomplete";
-		array_spinner_status[1] = "In Progress";
-		array_spinner_status[2] = "Complete";
-		
-		array_spinner_priority = new String[3];
-		array_spinner_priority[0] = "Low";
-		array_spinner_priority[1] = "Medium";
-		array_spinner_priority[2] = "High";
-		
 		et_title = (EditText) findViewById(R.id.et_title);
 		et_title.setText(row.get(0));
 		et_place = (EditText) findViewById(R.id.et_place);
@@ -134,11 +124,6 @@ public class Edit extends Activity {
 			}
 		});
 		
-		s_status = (Spinner) findViewById(R.id.s_status);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_status);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		s_status.setAdapter(adapter);
-		
 		if (row.get(5).equalsIgnoreCase("Incomplete")) {		
 			s_status.setSelection(0);
 			status = "Incomplete";
@@ -163,11 +148,6 @@ public class Edit extends Activity {
 				// do nothing
 			}
 		});
-		
-		s_priority = (Spinner) findViewById(R.id.s_priority);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_priority);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		s_priority.setAdapter(adapter);
 		
 		if (row.get(6).equalsIgnoreCase("Low")) {		
 			s_priority.setSelection(0);

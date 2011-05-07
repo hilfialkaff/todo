@@ -65,7 +65,7 @@
 			android:id="@+id/b_add_contact"
 			android:layout_width="350px"
 			android:layout_height="wrap_content"
-			android:text="Click here to edit members"
+			android:text="Click to edit"
 			android:textSize="20px">
 		</Button>
 	</TableRow>

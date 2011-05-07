@@ -21,10 +21,10 @@ import android.widget.EditText;
 
 public class AddGroup extends Activity {
 	/** Called when the activity is first created. */
-	private String name, members = "";
+	private String name, description, members = "";
 	ArrayAdapter<String> adapter;
 
-	EditText et_name;
+	EditText et_name, et_description;
 	Button b_add_members;
 	Button b_submit, b_add_contact;
 
@@ -37,16 +37,17 @@ public class AddGroup extends Activity {
 		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		et_name = (EditText) findViewById(R.id.et_name);
-		
+		et_description = (EditText) findViewById(R.id.et_description);
 		b_submit = (Button) findViewById(R.id.b_submitgroup);
 		b_submit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				name = et_name.getText().toString();	
+				name = et_name.getText().toString();
+				description = et_description.getText().toString();
 				Time time = new Time();
 				String timestamp = Long.toString(time.normalize(false));
-				
-				ToDo_Replica.dh.insert_group(name, "", members, timestamp, Integer.toString(0));
+
+				ToDo_Replica.dh.insert_group(name, description, members, timestamp, Integer.toString(0));
 				setResult(RESULT_OK);
 				finish();
 			}
@@ -82,6 +83,19 @@ public class AddGroup extends Activity {
 					candidate.add(new Contact(id, name, number, email));
 				}
 			}
+		}
+		
+		populateMembers();
+	}
+
+	private void populateMembers(){
+		if (!candidate.isEmpty()){
+			for(Contact cand : candidate){
+				b_add_contact.append(cand.getName() + "\n");
+			}
+		}
+		else {
+			b_add_contact.setText("click to edit");
 		}
 	}
 }
