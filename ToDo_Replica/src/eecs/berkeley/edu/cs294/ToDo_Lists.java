@@ -117,7 +117,8 @@ public class ToDo_Lists extends Activity {
 				}
 
 				if (netInfo.isConnected()) {
-					ServerConnection.pushRemote(oldEntry, ServerConnection.DELETE_REQUEST);
+					ServerConnection.pushRemote(oldEntry, ServerConnection.TODO_SERVER_UPDATE,
+							ServerConnection.DELETE_REQUEST);
 				}
 			}
 			

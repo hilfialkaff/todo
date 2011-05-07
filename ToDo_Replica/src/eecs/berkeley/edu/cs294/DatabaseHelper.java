@@ -28,7 +28,7 @@ public class DatabaseHelper {
 	public static final int STATUS_INDEX_T = 5;
 	public static final int PRIORITY_INDEX_T = 6;
 	public static final int TIMESTAMP_INDEX_T = 7;
-	public static final int DEADLINE_T = 8;
+	public static final int DEADLINE_INDEX_T = 8;
 	public static final int TO_DO_RAILS_ID_INDEX_T = 9;
 	public static final int TD_ID_INDEX_T = 10;
 	

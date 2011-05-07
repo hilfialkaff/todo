@@ -32,7 +32,7 @@ public class PullConnectionHelper extends Activity {
 		String xmlResponse;
 		ArrayList<MySentInvitation> sentInvitationList = new ArrayList<MySentInvitation>();
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.my_sent_invs_link;
+		ServerConnection.userID + ServerConnection.my_sent_invs_link + "?format=xml";
 
 		try
 		{	
@@ -66,7 +66,7 @@ public class PullConnectionHelper extends Activity {
 		String xmlResponse;
 		ArrayList<MyRecvInvitation> recvInvitationList = new ArrayList<MyRecvInvitation>();
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.my_recv_invs_link;
+		ServerConnection.userID + ServerConnection.my_recv_invs_link + "?format=xml";
 
 		try
 		{	

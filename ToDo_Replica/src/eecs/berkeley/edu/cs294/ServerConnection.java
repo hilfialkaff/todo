@@ -27,9 +27,19 @@ import android.util.Log;
 
 public class ServerConnection extends Activity {
 	
-	static public final int POST_REQUEST = 1;
-	static public final int PUT_REQUEST = 2;
+	static public final int GET_REQUEST = 0;
+	static public final int CREATE_REQUEST = 1;
+	static public final int UPDATE_REQUEST = 2;
 	static public final int DELETE_REQUEST = 3;
+	static public final int UNSUBSCRIBE_REQUEST = 4;
+	static public final int ACCEPT_REQUEST = 5;
+	static public final int REJECT_REQUEST = 6;
+	
+	static public final int SENT_INV_SERVER_UPDATE = 0;
+	static public final int RECV_INV_SERVER_UPDATE = 1;
+	static public final int GROUP_SERVER_UPDATE = 2;
+	static public final int TODO_SERVER_UPDATE = 3;
+	static public final int USER_SERVER_UPDATE = 4;
 	
 	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
 	static final String userID = "28";
@@ -38,11 +48,15 @@ public class ServerConnection extends Activity {
 	static final String todolink = "groups/1/tododetails";
 	
 	static final String my_groups_link = "/groups?format=xml";
-	static final String my_sent_invs_link = "/sent_invitations?format=xml";
-	static final String my_recv_invs_link = "/recv_invitations?format=xml";
+	static final String my_sent_invs_link = "/sent_invitations";
+	static final String my_recv_invs_link = "/recv_invitations";
 	
 	static final String group_todos_link = "/tododetails?format=xml";
 	static final String group_members_link = "/users?format=xml";
+	
+	static final String unsubscribe_link = "/unsubscribe";
+	static final String accept_link = "/accept";
+	static final String reject_link = "/reject";
 	
 	/*
 	 * Check if phone is connected to the internet
@@ -62,92 +76,6 @@ public class ServerConnection extends Activity {
 		}
 
 		return false;
-	}
-
-	/*
-	 * This gets called the first time the application starts as long as the user has not
-	 * registered 
-	 */
-	public static int registerUser() {
-		String url = homeurl + users_link;
-		DefaultHttpClient client = new DefaultHttpClient();
-		
-		HttpPost registerRequest = new HttpPost(url);
-		
-		JSONObject user = new JSONObject();
-		JSONObject details = new JSONObject();
-
-		/* Setting up the packet to be sent to server */
-		try {
-			details.put("name", "name1"); /* TODO */
-			details.put("number", "number1");
-			details.put("email", "email1");
-
-			user.put("user", details);
-
-			Log.d("ServerDEBUG", "User Register JSON = "+ user.toString());
-
-			StringEntity se = new StringEntity(user.toString());
-
-			registerRequest.setEntity(se);
-			registerRequest.setHeader("Content-Type","application/json");
-			registerRequest.setHeader("Accept", "application/json");
-			
-		} catch (UnsupportedEncodingException e) {
-			Log.e("Error",""+e);
-			e.printStackTrace();	
-			return -1;
-		
-		} catch (JSONException js) {
-			js.printStackTrace();	
-			return -1;
-		}
-
-		/* Sending... */
-		HttpResponse response = null;
-		try {
-			response = client.execute(registerRequest);
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			Log.e("ClientProtocol",""+e);
-			return -1;
-		} catch (IOException e) {
-			e.printStackTrace();
-			Log.e("IO",""+e);
-			return -1;
-		}
-
-		/* Parsing the response from the server */
-		HttpEntity entity = response.getEntity();
-		String stringResponse = getResponse(entity);
-		
-		if (entity != null) {
-			try {
-				entity.consumeContent();
-			} catch (IOException e) {
-				Log.e("IO E",""+e);
-				e.printStackTrace();
-				return -1;
-			}
-		}
-
-		Log.d("ServerDEBUG", "response: " + stringResponse);
-		
-		try {
-			JSONObject jObject = new JSONObject(stringResponse);
-			JSONObject tododetailObject = jObject.getJSONObject("user");
-			String railsID = tododetailObject.getString("id");
-			
-			/* TODO */
-			// int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
-			// ToDo_Replica.dh.update_to_do(pk, null, null, null, null, 0, null, null, null, null, railsID);
-		} catch (Exception e) {
-			Log.e("JSON E", ""+e);
-			e.printStackTrace();
-			return -1;
-		}
-
-		return 0;
 	}
 	
 	/*
@@ -255,7 +183,7 @@ public class ServerConnection extends Activity {
 	/*
 	 * Push local changes to the server
 	 */
-	public static void pushRemote(List<String> entry, int request_type) {
+	public static void pushRemote(List<String> entry, int entry_type, int request_type) {
 		
 		int retCode = 0;
 		
@@ -263,21 +191,101 @@ public class ServerConnection extends Activity {
 			Log.d("ServerDEBUG", "entry: null");
 		}
 		else {
-			Log.d("ServerDEBUG", "entry: " + entry.toString() + " with request type: " + request_type);
+			Log.d("ServerDEBUG", "entry: " + entry.toString() + " with entry type: " + 
+					entry_type + " with request type: " + request_type);
 		}	
 		
-		switch(request_type) {
-		case POST_REQUEST:
-			retCode = pushPost(entry);
+		switch(entry_type) {
+		case SENT_INV_SERVER_UPDATE:
+			switch(request_type) {
+			case CREATE_REQUEST:
+				retCode = PushServerSentInv.create(entry);
+				break;
+			case UPDATE_REQUEST:
+				retCode = PushServerSentInv.update(entry);
+				break;			
+			case DELETE_REQUEST:
+				retCode = PushServerSentInv.delete(entry);
+			
+			default:
+				Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
+			}
 			break;
-		case PUT_REQUEST:
-			retCode = pushPut(entry);
+		
+		case RECV_INV_SERVER_UPDATE:
+			switch(request_type) {
+			case CREATE_REQUEST:
+				retCode = PushServerRecvInv.accept(entry);
+				break;
+			case UPDATE_REQUEST:
+				retCode = PushServerRecvInv.reject(entry);
+				break;			
+			
+			default:
+				Log.d("ServerDEBUG", "! Wrong request_type" + request_type);				
+			}
+			
 			break;
-		case DELETE_REQUEST:
-			retCode = pushDelete(entry);
+			
+		case GROUP_SERVER_UPDATE:
+			switch(request_type) {
+			case CREATE_REQUEST:
+				retCode = PushServerGroup.create(entry);
+				break;
+			case UPDATE_REQUEST:
+				retCode = PushServerGroup.update(entry);
+				break;			
+			case DELETE_REQUEST:
+				retCode = PushServerGroup.delete(entry);
+				break;
+			case UNSUBSCRIBE_REQUEST:
+				retCode = PushServerGroup.unsubscribe(entry);
+				break;
+			
+			default:
+				Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
+			}
+			
 			break;
+			
+		case TODO_SERVER_UPDATE:
+			switch(request_type) {
+			case CREATE_REQUEST:
+				retCode = PushServerTodo.create(entry);
+				break;
+			case UPDATE_REQUEST:
+				retCode = PushServerTodo.update(entry);
+				break;			
+			case DELETE_REQUEST:
+				retCode = PushServerTodo.delete(entry);
+				break;
+				
+			default:
+				Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
+			}
+			
+			break;
+			
+		case USER_SERVER_UPDATE:
+			switch(request_type) {
+			case CREATE_REQUEST:
+				retCode = PushServerUser.create(entry);
+				break;
+			case UPDATE_REQUEST:
+				retCode = PushServerUser.update(entry);
+				break;			
+			case DELETE_REQUEST:
+				retCode = PushServerUser.delete(entry);
+				break;
+				
+			default:
+				Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
+			}
+			
+			break;
+		
 		default:
-			Log.d("ServerDEBUG", "! Wrong request_type" + request_type);
+			Log.d("ServerDEBUG", "! Wrong entry_type" + entry_type);
 		}
 		
 		if(retCode == 0) {
@@ -488,6 +496,5 @@ public class ServerConnection extends Activity {
 
 		Log.d("ServerDEBUG", "response: " + stringResponse);
 		return 0;
-	}		
-
+	}
 }

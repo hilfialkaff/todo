@@ -217,7 +217,8 @@ public class Edit extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(newEntry, ServerConnection.PUT_REQUEST);
+						ServerConnection.pushRemote(newEntry, ServerConnection.TODO_SERVER_UPDATE,
+								ServerConnection.UPDATE_REQUEST);
 					}
 				}
 				
