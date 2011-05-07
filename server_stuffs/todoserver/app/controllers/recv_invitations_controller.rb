@@ -7,14 +7,21 @@ class RecvInvitationsController < ApplicationController
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
 
-    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations
-    @sender_inv.find_by_recipient(@user.name).update_attributes(:status => "Accepted")
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(@user.name)
+    if @sender_inv.nil? == false:
+      @sender_inv.update_attributes(:status => "Accepted")
+    end
 
     @group = Group.find_by_name(@invitation.group)
     @user.groups << @group
 
     @user.recv_invitations.delete(@invitation)
-    redirect_to user_path(@user)
+
+    respond_to do |format|
+      format.html { redirect_to(@user, :notice => 'success') }
+      format.xml  { render :head => :ok }
+      format.json  { render :head => :ok }
+    end
   end
 
   def reject
@@ -24,12 +31,19 @@ class RecvInvitationsController < ApplicationController
     end
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
-    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations
-    @sender_inv.find_by_recipient(@user.name).update_attributes(:status => "Rejected")
+
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(@user.name)
+    if @sender_inv.nil? == false:
+      @sender_inv.update_attributes(:status => "Rejected")
+    end
 
     @user.recv_invitations.delete(@invitation)
 
-    redirect_to user_path(@user)
+    respond_to do |format|
+      format.html { redirect_to(@user, :notice => 'success') }
+      format.xml  { render :head => :ok }
+      format.json  { render :head => :Ok }
+    end
   end
 
   def index

@@ -59,15 +59,6 @@ public class ToDo_Replica extends Activity {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
 					
 					while(dh.select_user().size() == 0);
-					
-					ArrayList<String> groupList = new ArrayList<String>();
-					groupList.add(null);
-					groupList.add("group12311111");
-					groupList.add("description5141231111");
-					ServerConnection.pushRemote(groupList, ServerConnection.GROUP_SERVER_UPDATE, 
-							ServerConnection.UPDATE_REQUEST);
-					
-					while(true);
 				}
 			}
 		};

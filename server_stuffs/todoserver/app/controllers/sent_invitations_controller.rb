@@ -10,7 +10,7 @@ class SentInvitationsController < ApplicationController
 
     respond_to do |format|
       if @created_inv.save
-        format.html { redirect_to(@created_inv, :notice => 'Invitation was successfully created.') }
+        format.html { redirect_to(@sender, :notice => 'Invitation was successfully created.') }
         format.xml  { render :xml => @created_inv, :status => :created, :location => @created_inv }
         format.json  { render :json => @created_inv, :status => :created, :location => @created_inv }
 
@@ -25,9 +25,14 @@ class SentInvitationsController < ApplicationController
   def destroy
     @user = User.find(params[:user_id])
     @sent_inv = @user.sent_invitations.find(params[:id])
+
     @sent_inv.destroy
 
-    redirect_to user_path(@user)
+    respond_to do |format|
+      format.html { redirect_to(@user) }
+      format.xml  { head :ok }
+      format.json { head :ok }
+    end
   end
 
   def index
