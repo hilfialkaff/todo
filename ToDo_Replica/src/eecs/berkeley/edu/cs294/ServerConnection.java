@@ -200,10 +200,7 @@ public class ServerConnection extends Activity {
 			switch(request_type) {
 			case CREATE_REQUEST:
 				retCode = PushServerSentInv.create(entry);
-				break;
-			case UPDATE_REQUEST:
-				retCode = PushServerSentInv.update(entry);
-				break;			
+				break;	
 			case DELETE_REQUEST:
 				retCode = PushServerSentInv.delete(entry);
 			

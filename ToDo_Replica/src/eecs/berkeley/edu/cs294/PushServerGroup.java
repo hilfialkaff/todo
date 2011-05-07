@@ -29,9 +29,8 @@ public class PushServerGroup extends Activity {
 	 * Create a new group in the server. Called when a user create a corresponding one locally.
 	 */
 	public static int create(List<String> entry) {
-		/* TODO: user id database */
-		
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link;
 		
 		Log.d("ServerDEBUG", "POST to " + url);
@@ -100,8 +99,8 @@ public class PushServerGroup extends Activity {
 		
 		try {
 			JSONObject jObject = new JSONObject(stringResponse);
-			JSONObject tododetailObject = jObject.getJSONObject("group");
-			String railsID = tododetailObject.getString("id");
+			JSONObject groupObject = jObject.getJSONObject("group");
+			String railsID = groupObject.getString("id");
 			
 			int pk = Integer.parseInt(entry.get(DatabaseHelper.GROUP_ID_INDEX_G));
 			ToDo_Replica.dh.update_group(pk, null, null, null, null, railsID);
@@ -118,7 +117,8 @@ public class PushServerGroup extends Activity {
 	 * Updates a group in the server. Called when a user updates a corresponding one locally.
 	 */
 	public static int update(List<String> entry) {
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_G);  
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
@@ -134,7 +134,7 @@ public class PushServerGroup extends Activity {
 			details.put("name", entry.get(DatabaseHelper.NAME_INDEX_G));
 			details.put("description", entry.get(DatabaseHelper.DESCRIPTION_INDEX_G));
 			
-			group.put("tododetail", details);
+			group.put("group", details);
 
 			Log.d("ServerDEBUG", "Group JSON = "+ group.toString());
 
@@ -192,7 +192,7 @@ public class PushServerGroup extends Activity {
 	public static int delete(List<String> entry) {
 		/* TODO: user id database? " */
 		
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_G);
 		
 		Log.d("ServerDEBUG", "DELETE to " + url);
@@ -244,8 +244,9 @@ public class PushServerGroup extends Activity {
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.unsubscribe_link + "?group_name="
-		+ entry.get(0) + "&user_name=" + "31";
+		ServerConnection.userID + ServerConnection.unsubscribe_link + "?group_id="
+		+ entry.get(0) + "&user_name=" + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.NAME_INDEX_U);
 
 		try
 		{	

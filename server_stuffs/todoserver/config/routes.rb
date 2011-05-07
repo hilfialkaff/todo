@@ -22,16 +22,8 @@ Todoserver::Application.routes.draw do
 
   get "users/:id/unsubscribe" => "users#unsubscribe"
 
-  get "/users/:user_id/invitations/:inv_id/accept" => "recv_invitations#accept"
-  get "/users/:user_id/invitations/:inv_id/reject" => "recv_invitations#reject"
-
-#  scope :users do
-#    get 'unsubscribe/:id' => 'users#unsubscribe', :as => :unsubscribe
-
-#    get "/users/:user_id/invitations/:inv_id/accept" => "recv_invitations#accept", :as => :accept
-#    get "/users/:user_id/invitations/:inv_id/reject" => "recv_invitations#reject", :as => :reject
-#  end
-
+  get "/users/:user_id/recv_invitations/:inv_id/accept" => "recv_invitations#accept"
+  get "/users/:user_id/recv_invitations/:inv_id/reject" => "recv_invitations#reject"
 
   get "home/index"
 

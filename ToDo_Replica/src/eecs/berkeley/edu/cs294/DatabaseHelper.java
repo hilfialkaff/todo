@@ -17,8 +17,13 @@ public class DatabaseHelper {
 	private static final String DATABASE_NAME = "noctis.db";
 	private static final int DATABASE_VERSION = 1;
 
-	// public static final int NUM_ENTRIES = 7;
-
+	/* Indexes of the various entries in the user table */
+	public static final int NAME_INDEX_U = 0;
+	public static final int NUMBER_INDEX_U = 1;
+	public static final int EMAIL_INDEX_U = 2;
+	public static final int PASSWORD_INDEX_U = 3;
+	public static final int USER_RAILS_ID_INDEX_U = 4;
+	
 	/* Indexes of the various entries in the todo table */
 	public static final int TITLE_INDEX_T = 0;
 	public static final int PLACE_INDEX_T = 1;
@@ -76,7 +81,7 @@ public class DatabaseHelper {
 	private static final String TABLE_NAME_MAP_GROUP_MEMBER = "map_group_member";
 	
 	private static final String INSERT_USER = "insert into " + TABLE_NAME_USER + " " +
-			"(name, number, email, password) values (?, ?, ?, ?)";
+			"(name, number, email, password, user_rails_id) values (?, ?, ?, ?, ?)";
 	private static final String INSERT_TO_DO = "insert into " + TABLE_NAME_TO_DO + 
 	" (td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, " +
 	"to_do_rails_id) values (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -118,12 +123,14 @@ public class DatabaseHelper {
 		this.insertStmt_map_group_member = this.db.compileStatement(INSERT_MAP_GROUP_MEMBER);
 	}
 	
-	public long insert_user(String name, String number, String email, String password) {	
+	public long insert_user(String name, String number, String email, String password, 
+			String railsID) {	
 		this.insertStmt_user.clearBindings();
 		this.insertStmt_user.bindString(1, name);
 		this.insertStmt_user.bindString(2, number);
 		this.insertStmt_user.bindString(3, email);
 		this.insertStmt_user.bindString(4, password);
+		this.insertStmt_user.bindString(5, railsID);
 		return this.insertStmt_user.executeInsert();
 	}
 	
@@ -136,6 +143,7 @@ public class DatabaseHelper {
 				list.add(cursor.getString(cursor.getColumnIndex("number")));
 				list.add(cursor.getString(cursor.getColumnIndex("email")));
 				list.add(cursor.getString(cursor.getColumnIndex("password")));
+				list.add(cursor.getString(cursor.getColumnIndex("user_rails_id")));
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null || !cursor.isClosed()) {
@@ -143,9 +151,35 @@ public class DatabaseHelper {
 		}
 		return list;
 	}
-	
-	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
 
+	public long update_user(String name, String number, String email, String password,
+			String railsID) {
+		ContentValues cv = new ContentValues();
+		if(name != null) {
+			cv.put("name", name);
+		}
+		if(number != null) {
+			cv.put("number", number);
+		}
+		if(email != null) {
+			cv.put("email", email);
+		}
+		if(password != null) {
+			cv.put("password", password);
+		}
+		if(railsID != null) {
+			cv.put("railsID", railsID);
+		}
+		
+		Log.d("DbDEBUG", "UPDATE name: " + name + " number: " + number + " email: " + 
+				email + " password: " + password + " railsID: " + railsID);
+
+		String selection = "name = ?";
+		String old_name = select_user().get(DatabaseHelper.NAME_INDEX_U);
+		return db.update(TABLE_NAME_USER, cv, selection, new String[] {old_name});
+	}
+
+	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
 		this.insertStmt_to_do.clearBindings();
 		this.insertStmt_to_do.bindString(1, title);
 		this.insertStmt_to_do.bindString(2, place);
@@ -684,7 +718,7 @@ public class DatabaseHelper {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, group_id TEXT, status TEXT, priority TEXT, timestamp TEXT, deadline TEXT, to_do_rails_id TEXT)");			
-			db.execSQL("CREATE TABLE " + TABLE_NAME_USER + " (name TEXT, number TEXT, email TEXT, password TEXT)");			
+			db.execSQL("CREATE TABLE " + TABLE_NAME_USER + " (name TEXT, number TEXT, email TEXT, password TEXT)");	
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, description TEXT, member TEXT, timestamp TEXT, group_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_MEMBER + " (m_id INTEGER PRIMARY KEY, name TEXT, number TEXT, email TEXT, group_id INTEGER, timestamp TEXT, member_rails_id TEXT)");			
 			db.execSQL("CREATE TABLE " + TABLE_NAME_SENT_INVITATION + " (sent_id INTEGER PRIMARY KEY, recipient TEXT, groupz TEXT, status TEXT, description TEXT, timestamp TEXT, sent_rails_id TEXT)");
