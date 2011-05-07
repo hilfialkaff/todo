@@ -168,16 +168,12 @@ public class DatabaseHelper {
 			cv.put("password", password);
 		}
 		if(railsID != null) {
-			cv.put("railsID", railsID);
+			cv.put("user_rails_id", railsID);
 		}
 		
 		Log.d("DbDEBUG", "UPDATE name: " + name + " number: " + number + " email: " + 
 				email + " password: " + password + " railsID: " + railsID);
 
-		String selection = "name = ?";
-		String old_name = select_user().get(DatabaseHelper.NAME_INDEX_U);
-		
-		Log.d("DbDEBUG", "old_name: " + old_name);
 		return db.update(TABLE_NAME_USER, cv, null, null);
 	}
 

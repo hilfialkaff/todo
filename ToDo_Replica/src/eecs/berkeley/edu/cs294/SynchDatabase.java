@@ -303,7 +303,7 @@ public class SynchDatabase extends Activity {
 		for(Iterator<MyGroupMember> it = groupMemberList.iterator(); it.hasNext();) {
 			MyGroupMember currGroupMember = it.next();
 			
-			if(currGroupMember.getRailsID().equalsIgnoreCase(ServerConnection.userID)) {
+			if(currGroupMember.getRailsID().equalsIgnoreCase(ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U))) {
 				continue;
 			}
 			
