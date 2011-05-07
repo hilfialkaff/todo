@@ -35,7 +35,12 @@ public class ToDo_Replica extends Activity {
 		setContentView(R.layout.main);
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-
+		
+		if(dh.select_user().size() == 0) {
+			Intent intent = new Intent(ToDo_Replica.this, StartScreen.class);
+			startActivity(intent);
+		}
+		
 		/* Timer code */
 		/********************************************************************/
 		Timer serverTimer = new Timer("serverTimer", true);
