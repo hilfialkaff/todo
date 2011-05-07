@@ -740,7 +740,7 @@ public class DatabaseHelper {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL("CREATE TABLE " + TABLE_NAME_TO_DO + " (td_id INTEGER PRIMARY KEY, title TEXT, place TEXT, note TEXT, tag TEXT, group_id TEXT, status TEXT, priority TEXT, timestamp TEXT, deadline TEXT, to_do_rails_id TEXT)");			
-			db.execSQL("CREATE TABLE " + TABLE_NAME_USER + " (name TEXT, number TEXT, email TEXT, password TEXT)");	
+			db.execSQL("CREATE TABLE " + TABLE_NAME_USER + " (name TEXT, number TEXT, email TEXT, password TEXT, user_rails_id TEXT)");	
 			db.execSQL("CREATE TABLE " + TABLE_NAME_GROUP + " (g_id INTEGER PRIMARY KEY, name TEXT, description TEXT, member TEXT, timestamp TEXT, group_rails_id TEXT)");
 			db.execSQL("CREATE TABLE " + TABLE_NAME_MEMBER + " (m_id INTEGER PRIMARY KEY, name TEXT, number TEXT, email TEXT, group_id INTEGER, timestamp TEXT, member_rails_id TEXT)");			
 			db.execSQL("CREATE TABLE " + TABLE_NAME_SENT_INVITATION + " (sent_id INTEGER PRIMARY KEY, recipient TEXT, groupz TEXT, status TEXT, description TEXT, timestamp TEXT, sent_rails_id TEXT)");
