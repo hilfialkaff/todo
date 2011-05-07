@@ -22,7 +22,7 @@
 <% @group.tododetails.each do |todo| %>
   <p>
     <b>Name:</b>
-    <%= todo.todo %>
+    <%= todo.title %>
   </p>
   <p>
     <b>Place:</b>
@@ -44,6 +44,10 @@
     <b>Priority:</b>
     <%= todo.priority %>
   </p>
+  <p>
+    <b>Deadline:</b>
+    <%= todo.deadline %>
+  </p>
 
   <p>
     <%= link_to 'Delete todo', [todo.group, todo],
@@ -55,8 +59,8 @@
 <h2>Add a Todo</h2>
 <%= form_for([@group, @group.tododetails.build]) do |f| %>
   <div class="field">
-    <%= f.label :todo %><br />
-    <%= f.text_field :todo %>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
   </div>
   <div class="field">
     <%= f.label :place %><br />
@@ -77,6 +81,10 @@
   <div class="field">
     <%= f.label :priority %><br />
     <%= f.text_field :priority %>
+  </div>
+  <div class="field">
+    <%= f.label :deadline %><br />
+    <%= f.text_field :deadline %>
   </div>
 
   <div class="actions">

@@ -7,8 +7,8 @@ class RecvInvitationsController < ApplicationController
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
 
-    @sender_inv = User.find_by_name(@invitation.from).sent_invitations
-    @sender_inv.find_by_to(@user.name).update_attributes(:status => "Accepted")
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations
+    @sender_inv.find_by_recipient(@user.name).update_attributes(:status => "Accepted")
 
     @group = Group.find_by_name(@invitation.group)
     @user.groups << @group
@@ -24,8 +24,8 @@ class RecvInvitationsController < ApplicationController
     end
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
-    @sender_inv = User.find_by_name(@invitation.from).sent_invitations
-    @sender_inv.find_by_to(@user.name).update_attributes(:status => "Rejected")
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations
+    @sender_inv.find_by_recipient(@user.name).update_attributes(:status => "Rejected")
 
     @user.recv_invitations.delete(@invitation)
 

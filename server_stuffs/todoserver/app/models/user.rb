@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :recv_invitations, :dependent => :destroy
 
   validates :name, :presence => true, :uniqueness => true
+  validates :number, :presence => true, :uniqueness => true
+  validates :email, :presence => true, :uniqueness => true
 
-  attr_accessible :name
+  attr_accessible :name, :number, :email
 end

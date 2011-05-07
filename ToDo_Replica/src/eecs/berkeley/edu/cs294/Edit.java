@@ -49,7 +49,7 @@ public class Edit extends Activity {
 		
 		final int pk = extras.getInt("pk_select");
 		ToDo_Replica.dh = new DatabaseHelper(this);	
-		List<String> row = ToDo_Replica.dh.select_to_do(pk);
+		List<String> row = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
@@ -207,7 +207,7 @@ public class Edit extends Activity {
 				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, dateStr, "", "");
 				
 				/* Push changes to remote if applicable */
-				List<String> newEntry = ToDo_Replica.dh.select_to_do(pk);				
+				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));				
 				if (group != null || group != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
@@ -217,7 +217,8 @@ public class Edit extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(newEntry, ServerConnection.PUT_REQUEST);
+						ServerConnection.pushRemote(newEntry, ServerConnection.TODO_SERVER_UPDATE,
+								ServerConnection.UPDATE_REQUEST);
 					}
 				}
 				

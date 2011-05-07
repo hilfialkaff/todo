@@ -2,7 +2,7 @@ class TododetailsController < ApplicationController
   # GET /tododetails
   # GET /tododetails.xml
   def index
-    @tododetails = Tododetail.all
+    @tododetails = Group.find(params[:group_id]).tododetails 
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,7 +58,7 @@ class TododetailsController < ApplicationController
       if @tododetail.update_attributes(params[:tododetail])
         format.html { redirect_to(@tododetail, :notice => 'Tododetail was successfully updated.') }
         format.xml  { head :ok }
-	format.json { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @tododetail.errors, :status => :unprocessable_entity }

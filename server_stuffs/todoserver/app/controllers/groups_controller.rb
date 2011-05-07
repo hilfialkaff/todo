@@ -2,11 +2,21 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.xml
   def index
-    @groups = Group.all
+    if params[:user_id].nil? == false:
+      @groups = User.find(params[:user_id]).groups
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @groups }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @groups }
+        format.json  { render :json => @groups }
+      end
+    else
+      @groups = Group.all
+
+      respond_to do |format|
+        format.html # index.html.erb
+        format.xml  { render :xml => @groups }
+      end
     end
   end
 

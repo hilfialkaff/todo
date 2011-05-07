@@ -51,13 +51,13 @@ public class ToDo_Replica extends Activity {
 
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
-					ServerConnection.pullRemote();
+					// ServerConnection.pullAllRemote();
 				}
 			}
 		};
 
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000); // Run every 5 minutes
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000);
 		/********************************************************************/
 
 
@@ -140,6 +140,9 @@ public class ToDo_Replica extends Activity {
 			intent.setData(Uri.parse("mailto:" + "dicz.hack@gmail.com, filbert.hansel@gmail.com, hilfialkaff@gmail.com"));
 			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ToDo Feedback");
 			startActivity(intent); 
+			return true;
+		case R.id.m_invitations:
+			startActivity(new Intent(this, InvitationWindow.class));
 			return true;
 		}
 		return false;
