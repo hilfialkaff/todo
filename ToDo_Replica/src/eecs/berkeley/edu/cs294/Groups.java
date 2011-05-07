@@ -9,30 +9,32 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 public class Groups extends Activity {
-	/** Called when the activity is first created. */
-	TableLayout group_list;
-	
+	TableLayout tl_group_list;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.groups);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-		
+
+		TextView tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
+		tv_custom_title.setText("Groups");
+
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
@@ -43,26 +45,17 @@ public class Groups extends Activity {
 				}
 			});
 		}
-		
-		Button addGroup = (Button) findViewById(R.id.addGroup);
-		addGroup.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), AddGroup.class);
-				startActivityForResult(intent, 1);
-			}
-		});
-		
-		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
-		ToDo_Replica.dh = new DatabaseHelper(this);
-		
+
+		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
+
 		populate();
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 
 		if (resultCode == Activity.RESULT_OK) {
-			group_list.removeAllViews();
+			tl_group_list.removeAllViews();
 			populate();
 		}
 	}
@@ -89,10 +82,10 @@ public class Groups extends Activity {
 				}
 			});
 			registerForContextMenu(row);
-			group_list.addView(row);
+			tl_group_list.addView(row);
 		}
 	}
-	
+
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
@@ -104,7 +97,7 @@ public class Groups extends Activity {
 		switch(menuItem.getOrder()) {
 		case 0:
 			List<String> groups = ToDo_Replica.dh.select_all_groups("g_id");
-			
+
 			/* Push changes to remote if applicable */
 			List<String> oldEntry = ToDo_Replica.dh.select_group("name", 
 					groups.get(menuItem.getItemId()));
@@ -122,14 +115,31 @@ public class Groups extends Activity {
 							ServerConnection.UNSUBSCRIBE_REQUEST);
 				}
 			}
-			
+
 			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
-			
+
 			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
-			group_list.removeAllViews();
+			tl_group_list.removeAllViews();
 			populate();
 			return true;
 		}
 		return false;
 	};
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.group_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case R.id.m_add_group:
+			startActivityForResult(new Intent(this, AddGroup.class), 1);
+			return true;
+		}
+		return false;
+	}
 }

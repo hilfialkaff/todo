@@ -241,7 +241,7 @@ public class SynchDatabase extends Activity {
 			if(entry.size() == 0) {
 				Log.d("ServerDEBUG", "Server entry not inside local db yet");
 				ToDo_Replica.dh.insert_to_do(currTodo.getTodoTitle(), currTodo.getTodoPlace(), 
-						currTodo.getTodoNote(), currTodo.getTodoTag(), Integer.parseInt(currTodo.getTodoGroupId()), 
+						currTodo.getTodoNote(), currTodo.getTodoTag(), currTodo.getTodoGroupId(), 
 						currTodo.getTodoStatus(), currTodo.getTodoPriority(), 
 						Long.toString(serverTimestamp), currTodo.getTodoDeadline(), currTodo.getTodoRailsId());
 				

@@ -177,13 +177,13 @@ public class DatabaseHelper {
 		return db.update(TABLE_NAME_USER, cv, null, null);
 	}
 
-	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
+	public long insert_to_do(String title, String place, String note, String tag, String group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
 		this.insertStmt_to_do.clearBindings();
 		this.insertStmt_to_do.bindString(1, title);
 		this.insertStmt_to_do.bindString(2, place);
 		this.insertStmt_to_do.bindString(3, note);
 		this.insertStmt_to_do.bindString(4, tag);
-		this.insertStmt_to_do.bindLong(5, group_id);
+		this.insertStmt_to_do.bindString(5, group_id);
 		this.insertStmt_to_do.bindString(6, status);
 		this.insertStmt_to_do.bindString(7, priority);
 		this.insertStmt_to_do.bindString(8, timestamp);
@@ -356,6 +356,21 @@ public class DatabaseHelper {
 		return rtn;
 	}
 	
+	public int select_group_id(String name) {
+		int g_id = -1;
+		String selection = "name = " + name;
+		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				g_id = cursor.getInt(cursor.getColumnIndex("g_id"));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null || !cursor.isClosed()) {
+			cursor.close();
+		}
+		return g_id;
+	}
+	
 	public long insert_group(String name, String description, String member, String timestamp, 
 			String group_rails_id) {
 		this.insertStmt_group.clearBindings();
@@ -373,7 +388,7 @@ public class DatabaseHelper {
 
 	public List<String> select_all_group_name() {
 		List<String> list = new ArrayList<String>();
-		Cursor cursor = this.db.query(TABLE_NAME_GROUP, new String[] {"name"}, null, null, null, null, "name asc");
+		Cursor cursor = this.db.query(TABLE_NAME_GROUP, new String[] {"name"}, null, null, null, null, "g_id asc");
 		if (cursor.moveToFirst()) {
 			do {
 				list.add(cursor.getString(cursor.getColumnIndex("name")));

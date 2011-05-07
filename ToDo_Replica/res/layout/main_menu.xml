@@ -3,12 +3,9 @@
           android:icon="@drawable/menu_settings"
           android:title="Settings" />
     <item android:id="@+id/m_invitations"
-    	  android:icon="@drawable/menu_invitations"
+    	  android:icon="@drawable/menu_pending_request"
     	  android:title="Invitations" />
     <item android:id="@+id/m_feedback"
           android:icon="@drawable/menu_feedback"
           android:title="Feedback" />
-    <item android:id="@+id/m_pending_request"
-          android:icon="@drawable/menu_pending_request"
-          android:title="Pending Request" />
 </menu>
