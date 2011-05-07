@@ -37,9 +37,9 @@ public class PushServerUser extends Activity {
 
 		/* Setting up the packet to be sent to server */
 		try {
-			details.put("name", "name1"); /* TODO: Should not be hardcoded */
-			details.put("number", "number1");
-			details.put("email", "email1");
+			details.put("name", entry.get(DatabaseHelper.NAME_INDEX_U));
+			details.put("number", entry.get(DatabaseHelper.NUMBER_INDEX_U));
+			details.put("email", entry.get(DatabaseHelper.EMAIL_INDEX_U));
 
 			user.put("user", details);
 

@@ -48,7 +48,8 @@
 		android:layout_below="@+id/et_start_email"
 		android:hint="Password"
 		android:layout_marginLeft="10px"
-		android:layout_marginRight="150px">
+		android:layout_marginRight="150px"
+		android:password="true">
 	</EditText>
 	<Button
 		android:id="@+id/b_start_sign_up"

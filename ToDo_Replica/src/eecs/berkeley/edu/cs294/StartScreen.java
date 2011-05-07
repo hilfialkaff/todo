@@ -1,14 +1,19 @@
 package eecs.berkeley.edu.cs294;
 
 
+import java.util.List;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,16 +26,12 @@ public class StartScreen extends Activity {
 	EditText et_start_password;
 	Button b_start_sign_up;
 	
-	DatabaseHelper dh;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
-		
-		dh = new DatabaseHelper(this);
 
-		if(dh.select_user().size() != 0) {
+		if(ToDo_Replica.dh.select_user().size() != 0) {
 			Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
 			startActivity(intent);
 		}
@@ -52,7 +53,6 @@ public class StartScreen extends Activity {
 		b_start_sign_up.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.err.println(et_start_name.getText().length() + " " + et_start_number.getText().length() + " " + et_start_email.getText().length() + " " + et_start_password.getText().length());
 				if(et_start_name.getText().length() == 0 || et_start_number.getText().length() == 0 || et_start_email.getText().length() == 0 || et_start_password.getText().length() == 0) {
 					AlertDialog.Builder dialog = new AlertDialog.Builder(StartScreen.this);
 					dialog.setTitle("Warning");
@@ -61,8 +61,26 @@ public class StartScreen extends Activity {
 				}
 				else{
 					Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
-					dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString());
+					ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
 					System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
+					
+					/* Push changes to the remote if applicable */
+					List<String> userEntry = ToDo_Replica.dh.select_user();
+					if(userEntry != null) {
+						ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+						NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+						if(netInfo == null) {
+							Log.d("DEBUG", "--------------- No internet connection --------- ");
+						}
+
+						if (netInfo.isConnected()) {
+							ServerConnection.pushRemote(userEntry, 
+									ServerConnection.USER_SERVER_UPDATE,
+									ServerConnection.CREATE_REQUEST);
+						}
+					}
+
 					startActivity(intent);
 				}
 			}
