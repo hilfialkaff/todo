@@ -49,9 +49,6 @@ public class Groups extends Activity {
 		}
 
 		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
-		ToDo_Replica.dh = new DatabaseHelper(this);
-
-		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 
 		populate();
 	}

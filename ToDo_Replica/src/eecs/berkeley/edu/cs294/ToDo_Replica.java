@@ -39,7 +39,6 @@ public class ToDo_Replica extends Activity {
 		/********************************************************************/
 		
 		/*Timer serverTimer = new Timer("serverTimer", true);
->>>>>>> aa0f47e2a9d0015589d0fa76d64abdf5dc9941b3
 		TimerTask serverTimerTask = new TimerTask() {
 			public void run() {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);

@@ -62,7 +62,7 @@ public class StartScreen extends Activity {
 					dialog.show();
 				}
 				else{
-					if (sc.isConnected()){
+					//if (sc.isConnected()){
 						Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
 						ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
 						System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
@@ -87,12 +87,12 @@ public class StartScreen extends Activity {
 
 						startActivity(intent);
 					}
-					else {
+					/*else {
 						AlertDialog.Builder dialog = new AlertDialog.Builder(StartScreen.this);
 						dialog.setTitle("Error in connection");
 						dialog.show();
-					}
-				}
+					}*/
+				//}
 			}
 		});
 	}

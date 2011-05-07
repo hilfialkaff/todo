@@ -19,19 +19,14 @@ import android.widget.EditText;
 
 public class AddGroup extends Activity {
 	/** Called when the activity is first created. */
-<<<<<<< HEAD
-	private String name, description, members = "";
 	ArrayAdapter<String> adapter;
 
 	EditText et_name, et_description;
 	Button b_add_members;
 	Button b_submit, b_add_contact;
-=======
-	ArrayAdapter<String> adapter;
 
 	EditText et_group_name, et_group_description;
 	Button b_group_next;
->>>>>>> aa0f47e2a9d0015589d0fa76d64abdf5dc9941b3
 
 	public static ArrayList<Contact> candidate = new ArrayList<Contact>();
 
@@ -39,27 +34,6 @@ public class AddGroup extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_group);
-
-<<<<<<< HEAD
-		et_name = (EditText) findViewById(R.id.et_name);
-		et_description = (EditText) findViewById(R.id.et_description);
-		b_submit = (Button) findViewById(R.id.b_submitgroup);
-		b_submit.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				name = et_name.getText().toString();
-				description = et_description.getText().toString();
-				Time time = new Time();
-				String timestamp = Long.toString(time.normalize(false));
-
-				ToDo_Replica.dh.insert_group(name, description, members, timestamp, Integer.toString(0));
-				setResult(RESULT_OK);
-				finish();
-			}
-		});
-=======
-		setTitle("Add Group");
->>>>>>> aa0f47e2a9d0015589d0fa76d64abdf5dc9941b3
 
 		et_group_name = (EditText) findViewById(R.id.et_group_name);
 		et_group_description = (EditText) findViewById(R.id.et_group_description);
@@ -106,8 +80,6 @@ public class AddGroup extends Activity {
 				}
 			}
 		}
-		
-		populateMembers();
 	}
 
 	private void populateMembers(){
