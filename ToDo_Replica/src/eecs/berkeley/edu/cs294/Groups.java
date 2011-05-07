@@ -51,26 +51,7 @@ public class Groups extends Activity {
 		
 		List<String> titles = ToDo_Replica.dh.select_all_group_name();
 		
-		for (String title : titles) {
-			TableRow row = new TableRow(this);		
-			row.setLayoutParams(new TableLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			
-			LinearLayout ll_title = new LinearLayout(this);
-			ll_title.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			
-			TextView tv_title = new TextView(this);
-			tv_title.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			tv_title.setText(title);
-			
-			View ruler = new View(this);
-			ruler.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT, 1));
-			
-			ll_title.addView(tv_title);
-			row.addView(ll_title);
-
-			group_list.addView(row);
-			group_list.addView(ruler);
-		}
+		populate();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -83,23 +64,23 @@ public class Groups extends Activity {
 	}
 
 	private void populate() {
-		List<String> titles = ToDo_Replica.dh.select_all_group_name();
+		List<String> groupnames = ToDo_Replica.dh.select_all_group_name();
 
-		for (String title : titles) {
+		for (String groupname : groupnames) {
 			TableRow row = new TableRow(this);		
 			row.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
-			TextView tv_title = new TextView(this);
-			tv_title.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
-			tv_title.setText(title);
+			TextView tv_groupname= new TextView(this);
+			tv_groupname.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
+			tv_groupname.setText(groupname);
 
-			row.addView(tv_title);
-			row.setContentDescription(tv_title.getText());
+			row.addView(tv_groupname);
+			row.setContentDescription(tv_groupname.getText());
 			row.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), Preview.class);
-					intent.putExtra("title_select", v.getContentDescription());
+					Intent intent = new Intent(v.getContext(), PreviewGroup.class);
+					intent.putExtra("group_select", v.getContentDescription());
 					startActivityForResult(intent, 3);
 				}
 			});

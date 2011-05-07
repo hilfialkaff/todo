@@ -156,7 +156,8 @@ public class Add extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(newEntry, ServerConnection.POST_REQUEST);
+						ServerConnection.pushRemote(newEntry, ServerConnection.TODO_SERVER_UPDATE,
+								ServerConnection.CREATE_REQUEST);
 					}
 				}
 				

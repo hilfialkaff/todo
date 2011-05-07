@@ -106,8 +106,11 @@ public class ToDo_Lists extends Activity {
 			startActivityForResult(intent, 4);
 			return true;
 		case 1:
+			List<String> todo_ids = ToDo_Replica.dh.select_all_to_do("td_id");
+			
 			/* Push changes to remote if applicable */
-			List<String> oldEntry = ToDo_Replica.dh.select_to_do(menuItem.getItemId());
+			List<String> oldEntry = ToDo_Replica.dh.select_to_do("td_id", 
+					todo_ids.get(menuItem.getItemId()));
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -118,11 +121,14 @@ public class ToDo_Lists extends Activity {
 				}
 
 				if (netInfo.isConnected()) {
-					ServerConnection.pushRemote(oldEntry, ServerConnection.DELETE_REQUEST);
+					ServerConnection.pushRemote(oldEntry, ServerConnection.TODO_SERVER_UPDATE,
+							ServerConnection.DELETE_REQUEST);
 				}
 			}
 			
-			ToDo_Replica.dh.delete_to_do(menuItem.getItemId());
+			Log.d("DEBUG", "td_id: " + menuItem.getItemId());
+			
+			ToDo_Replica.dh.delete_to_do("td_id", todo_ids.get(menuItem.getItemId()));
 			tl_todo_lists.removeAllViews();
 			populate();
 			return true;

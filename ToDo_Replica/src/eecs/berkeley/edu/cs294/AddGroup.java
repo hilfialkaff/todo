@@ -4,12 +4,15 @@ package eecs.berkeley.edu.cs294;
 
 import java.util.ArrayList;
 
+import junit.framework.Assert;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.format.Time;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -39,8 +42,11 @@ public class AddGroup extends Activity {
 		b_submit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				name = et_name.getText().toString();
-				ToDo_Replica.dh.insert_group(name, "", members, Integer.toString(0));
+				name = et_name.getText().toString();	
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
+				
+				ToDo_Replica.dh.insert_group(name, "", members, timestamp, Integer.toString(0));
 				setResult(RESULT_OK);
 				finish();
 			}

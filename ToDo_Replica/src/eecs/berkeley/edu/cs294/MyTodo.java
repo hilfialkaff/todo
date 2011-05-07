@@ -8,20 +8,19 @@ import android.util.Log;
  * Serializing the object todo so that the code would be more readable
  * 
  * TODO: Error-checking on the parameters.
- * TODO: Adjust with the actual server
  */
 public class MyTodo implements Serializable{
 
-	public String title = "";
-	public String place = "";
-	public String note = "";
-	public String tag = "";
-	public int group_id = 0;
-	public String status = "";
-	public String priority = "";
-	public String timestamp = "";
-	public String deadline = "";
-	public String to_do_rails_id = "";
+	private String title = "";
+	private String place = "";
+	private String note = "";
+	private String tag = "";
+	private int group_id = 0;
+	private String status = "";
+	private String priority = "";
+	private String timestamp = "";
+	private String deadline = "";
+	private String to_do_rails_id = "";
 	
 	public String getTodoTitle() {
 		return title;

@@ -13,7 +13,11 @@ Todoserver::Application.routes.draw do
   end
 
   resources :groups do
-    resources :tododetails
+    resources :tododetails do
+    end
+
+    resources :users do
+    end
   end
 
   get "users/:id/unsubscribe" => "users#unsubscribe"
