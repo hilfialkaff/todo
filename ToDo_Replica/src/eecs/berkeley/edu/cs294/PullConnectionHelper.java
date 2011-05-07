@@ -32,7 +32,8 @@ public class PullConnectionHelper extends Activity {
 		String xmlResponse;
 		ArrayList<MySentInvitation> sentInvitationList = new ArrayList<MySentInvitation>();
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.my_sent_invs_link + "?format=xml";
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) +
+		ServerConnection.my_sent_invs_link + "?format=xml";
 
 		try
 		{	
@@ -66,7 +67,8 @@ public class PullConnectionHelper extends Activity {
 		String xmlResponse;
 		ArrayList<MyRecvInvitation> recvInvitationList = new ArrayList<MyRecvInvitation>();
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.my_recv_invs_link + "?format=xml";
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
+		ServerConnection.my_recv_invs_link + "?format=xml";
 
 		try
 		{	
@@ -100,7 +102,8 @@ public class PullConnectionHelper extends Activity {
 		String xmlResponse;
 		ArrayList<MyGroup> groupsList = new ArrayList<MyGroup>();
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
-		ServerConnection.userID + ServerConnection.my_groups_link;
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
+		ServerConnection.my_groups_link;
 
 		try
 		{	

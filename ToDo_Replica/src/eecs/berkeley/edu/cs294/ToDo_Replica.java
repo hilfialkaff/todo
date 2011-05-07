@@ -62,10 +62,10 @@ public class ToDo_Replica extends Activity {
 					
 					ArrayList<String> groupList = new ArrayList<String>();
 					groupList.add(null);
-					groupList.add("group1231");
-					groupList.add("description514123");
+					groupList.add("group12311111");
+					groupList.add("description5141231111");
 					ServerConnection.pushRemote(groupList, ServerConnection.GROUP_SERVER_UPDATE, 
-							ServerConnection.CREATE_REQUEST);
+							ServerConnection.UPDATE_REQUEST);
 					
 					while(true);
 				}
