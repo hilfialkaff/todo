@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/th_preview_group"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<LinearLayout
+	android:id="@+id/ll_preview_group"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+<TabWidget
+	android:id="@android:id/tabs"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+</TabWidget>
+<FrameLayout
+	android:id="@android:id/tabcontent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<ScrollView
+	android:id="@+id/sv_preview_group"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+<TableLayout
+	android:id="@+id/tl_preview_group_info"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+	<TableRow
+		android:id="@+id/tr_name_preview_group"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_name_preview_group1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Group Name"
+			android:textSize="20px">
+		</TextView>
+		<TextView
+			android:id="@+id/tv_name_preview_group2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20px">
+		</TextView>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_description_preview_group"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_description_preview_group1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Description"
+			android:textSize="20px">
+		</TextView>
+		<TextView
+			android:id="@+id/tv_description_preview_group2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20px">
+		</TextView>
+	</TableRow>
+</TableLayout>
+</ScrollView>
+</FrameLayout>
+<FrameLayout
+	android:id="@android:id/tabcontent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<ScrollView
+	android:id="@+id/sv_preview"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+<TableLayout
+	android:id="@+id/tl_preview_group_members"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+</TableLayout>
+</ScrollView>
+</FrameLayout>
+</LinearLayout>
+</TabHost>
