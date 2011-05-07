@@ -336,6 +336,24 @@ public class DatabaseHelper {
 		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {value});
 	}
 	
+	public List<Integer> select_group_member(String name) {
+		List<Integer> list = new ArrayList<Integer>();
+		String selection = "name = " + name;
+		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				String member_s = cursor.getString(cursor.getColumnIndex("member"));
+				String[] member_sa = member_s.split(" ");
+				for(int i = 0; i < member_sa.length; i++)
+					list.add(Integer.parseInt(member_sa[i]));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null || !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+	
 	public long insert_group(String name, String description, String member, String timestamp, 
 			String group_rails_id) {
 		this.insertStmt_group.clearBindings();

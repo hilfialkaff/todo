@@ -18,14 +18,14 @@
 	android:id="@android:id/tabcontent"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
+
 <ScrollView
-	android:id="@+id/sv_add"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:scrollbars="vertical"
 	android:paddingTop="13dp">
 <TableLayout
-	android:id="@+id/tl_add"
+	android:id="@+id/tl_add_1"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
@@ -68,6 +68,68 @@
 		</EditText>
 	</TableRow>
 	<TableRow
+		android:id="@+id/tr_group"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<TextView
+			android:id="@+id/tv_group"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Group"
+			android:textSize="20px">
+		</TextView>
+		<Spinner
+			android:id="@+id/s_group"
+			android:layout_width="350px"
+			android:layout_height="wrap_content">
+		</Spinner>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_status"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical">
+		<TextView
+			android:id="@+id/tv_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Status"
+			android:textSize="20px">
+		</TextView>
+		<Spinner
+			android:id="@+id/s_status"
+			android:layout_width="350px"
+			android:layout_height="wrap_content">
+		</Spinner>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_submit_1"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center">
+		<Button
+			android:id="@+id/b_submit_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Submit"
+			android:textSize="20px">
+		</Button>
+	</TableRow>
+</TableLayout>
+</ScrollView>
+
+<ScrollView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical"
+	android:paddingTop="13dp">
+<TableLayout
+	android:id="@+id/tl_add_2"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+	<TableRow
 		android:id="@+id/tr_note"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -108,42 +170,6 @@
 		</AutoCompleteTextView>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_group"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-		<TextView
-			android:id="@+id/tv_group"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Group"
-			android:textSize="20px">
-		</TextView>
-		<Spinner
-			android:id="@+id/s_group"
-			android:layout_width="350px"
-			android:layout_height="wrap_content">
-		</Spinner>
-	</TableRow>
-	<TableRow
-		android:id="@+id/tr_status"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center_vertical">
-		<TextView
-			android:id="@+id/tv_status"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Status"
-			android:textSize="20px">
-		</TextView>
-		<Spinner
-			android:id="@+id/s_status"
-			android:layout_width="350px"
-			android:layout_height="wrap_content">
-		</Spinner>
-	</TableRow>
-	<TableRow
 		android:id="@+id/tr_priority"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -180,12 +206,12 @@
 		</Spinner>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_submit"
+		android:id="@+id/tr_submit_2"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center">
 		<Button
-			android:id="@+id/b_submit"
+			android:id="@+id/b_submit2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Submit"
@@ -194,6 +220,7 @@
 	</TableRow>
 </TableLayout>
 </ScrollView>
+
 </FrameLayout>
 </LinearLayout>
 </TabHost>

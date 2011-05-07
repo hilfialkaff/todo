@@ -11,16 +11,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AnalogClock;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TableLayout;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
+import android.widget.TableLayout;
 
 public class Add extends Activity {
 	/** Called when the activity is first created. */
@@ -32,9 +32,9 @@ public class Add extends Activity {
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_status, s_priority;
-	Button b_submit;
+	Button b_submit_1;
 	TabHost th_add;
-	TableLayout tl_todo_lists;
+	TableLayout tl_add_1, tl_add_2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,24 +43,31 @@ public class Add extends Activity {
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
+		
+		th_add.setOnTabChangedListener(new OnTabChangeListener() {
+			@Override
+			public void onTabChanged(String tabId) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
+		tl_add_1 = (TableLayout) findViewById(R.id.tl_add_1);
+		tl_add_2 = (TableLayout) findViewById(R.id.tl_add_2);
+		
 		TabSpec tab_one = th_add.newTabSpec("tab_one_btn_tab");
-		tab_one.setContent(R.id.tl_add);
+		tab_one.setContent(R.id.tl_add_1);
 		tab_one.setIndicator("Basic");
 		th_add.addTab(tab_one);
 		
 		TabSpec tab_two = th_add.newTabSpec("tab_two_btn_tab");
-		tab_two.setContent(new TabHost.TabContentFactory() {  
-			public View createTabContent(String tag) {  
-				return(new AnalogClock(Add.this));  
-			}  
-		}); 
-		tab_two.setIndicator("Advanced");
+		tab_two.setContent(R.id.tl_add_2);
+		tab_two.setIndicator("More");
 		th_add.addTab(tab_two);
 		
 		th_add.setCurrentTab(0);
 		
-		tl_todo_lists = (TableLayout) findViewById(R.id.tl_add);
+		
 		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		array_spinner_group = new String[4];
@@ -133,9 +140,9 @@ public class Add extends Activity {
 			}
 		});
 
-		b_submit = (Button) findViewById(R.id.b_submit);
+		b_submit_1 = (Button) findViewById(R.id.b_submit_1);
 
-		b_submit.setOnClickListener(new OnClickListener() {
+		b_submit_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				title = et_title.getText().toString();

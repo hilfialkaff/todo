@@ -56,12 +56,12 @@ public class PreviewGroup extends Activity {
 			return;
 		}
 
-		String title = extras.getString("title_select");
-		List<String> row = ToDo_Replica.dh.select_to_do("title", title);
+		String name = extras.getString("group_select");
+		List<String> row = ToDo_Replica.dh.select_group("name", name);
 
 		if(!row.isEmpty()){
-			tv_name_preview_group2.setText(row.get(0));
-			tv_description_preview_group2.setText(row.get(1));
+			tv_name_preview_group2.setText(row.get(1));
+			tv_description_preview_group2.setText(row.get(2));
 		}
 		
 		populateMembers();
