@@ -134,6 +134,7 @@ public class Edit extends Activity {
 			}
 		});
 		
+		
 		s_status = (Spinner) findViewById(R.id.s_status);
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_status);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,15 +18,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
 
 public class Add extends Activity {
-	/** Called when the activity is first created. */
-	private String title, place, note, tag, group, status, priority;
-	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
+	private String title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id;
+	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[], array_spinner_deadline[];
 	private Date date = new Date();
+	
 	ArrayAdapter<String> adapter;
 	
 	EditText et_title, et_place, et_note;
@@ -93,7 +91,7 @@ public class Add extends Activity {
 		s_group.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-				group =  parent.getItemAtPosition(pos).toString();
+				group_id =  parent.getItemAtPosition(pos).toString();
 			}
 
 			@Override
@@ -150,7 +148,7 @@ public class Add extends Activity {
 
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("title", title);
-				if(group != null || group != "") {
+				if(group_id != null || group_id != "") {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
