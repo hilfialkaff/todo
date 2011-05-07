@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -50,13 +51,12 @@ public class Add extends Activity {
 		
 		TabSpec tab_one = th_add.newTabSpec("tab_one_btn_tab");
 		tab_one.setContent(R.id.tl_add_1);
-		tab_one.setIndicator("Basic");
-		//tab_one.setIndicator("Basic", R.drawable.tab_simple);
+		tab_one.setIndicator("Basic", getResources().getDrawable(R.drawable.tab_simple));
 		th_add.addTab(tab_one);
 		
 		TabSpec tab_two = th_add.newTabSpec("tab_two_btn_tab");
 		tab_two.setContent(R.id.tl_add_2);
-		tab_two.setIndicator("More");
+		tab_two.setIndicator("More", getResources().getDrawable(R.drawable.tab_more));
 		th_add.addTab(tab_two);
 		
 		th_add.setCurrentTab(0);

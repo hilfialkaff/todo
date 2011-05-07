@@ -21,19 +21,10 @@ public class StartScreen extends Activity {
 	EditText et_start_password;
 	Button b_start_sign_up;
 	
-	DatabaseHelper dh;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start_screen);
-		
-		dh = new DatabaseHelper(this);
-
-		if(dh.select_user().size() != 0) {
-			Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
-			startActivity(intent);
-		}
 		
 		et_start_name = (EditText) findViewById(R.id.et_start_name);
 		et_start_number = (EditText) findViewById(R.id.et_start_number);
@@ -60,10 +51,8 @@ public class StartScreen extends Activity {
 					dialog.show();
 				}
 				else{
-					Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
-					dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString());
-					System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
-					startActivity(intent);
+					ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
+					finish();
 				}
 			}
 	});

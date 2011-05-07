@@ -4,69 +4,82 @@
 	android:id="@+id/th_add"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
+	
 <LinearLayout
-	android:id="@+id/ll_add"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
+	
 <TabWidget
 	android:id="@android:id/tabs"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 </TabWidget>
+
 <FrameLayout
 	android:id="@android:id/tabcontent"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="wrap_content">
 
 <ScrollView
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:scrollbars="vertical"
 	android:paddingTop="13dp">
+	
 <TableLayout
 	android:id="@+id/tl_add_1"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
+	
 	<TableRow
-		android:id="@+id/tr_title"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
 		<TextView
-			android:id="@+id/tv_title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Title"
 			android:textSize="20px">
 		</TextView>
-		<EditText
-			android:id="@+id/et_title"
-			android:layout_width="350px"
-			android:layout_height="wrap_content"
-			android:hint="Touch here to edit the title"
-			android:textSize="20px">
-		</EditText>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_place"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<EditText
+			android:id="@+id/et_title"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the title"
+			android:textSize="20px"
+			android:layout_marginRight="50px">
+		</EditText>
+	</TableRow>
+	
+	<TableRow
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
 		<TextView
-			android:id="@+id/tv_place"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Place"
 			android:textSize="20px">
 		</TextView>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_place"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
 		<EditText
 			android:id="@+id/et_place"
-			android:layout_width="350px"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:hint="Touch here to edit the place"
-			android:textSize="20px">
+			android:textSize="20px"
+			android:layout_marginRight="50px">
 		</EditText>
 	</TableRow>
+	
 	<TableRow
 		android:id="@+id/tr_group"
 		android:layout_width="fill_parent"
