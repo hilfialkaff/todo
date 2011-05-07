@@ -22,14 +22,14 @@
 	android:layout_height="wrap_content">
 
 <ScrollView
-	android:layout_width="wrap_content"
+	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:scrollbars="vertical"
 	android:paddingTop="13dp">
 	
 <TableLayout
 	android:id="@+id/tl_add_1"
-	android:layout_width="fill_parent"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
 	
@@ -37,7 +37,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
 		<TextView
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="Title"
 			android:textSize="20px">
@@ -58,7 +58,8 @@
 	
 	<TableRow
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:paddingTop="13dp">
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
