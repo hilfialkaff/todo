@@ -31,16 +31,12 @@ public class Preview extends Activity {
 		th_preview.setup();
 
 		TabSpec tab_one = th_preview.newTabSpec("tab_one_btn_tab");
-		tab_one.setContent(R.id.tl_preview);
+		tab_one.setContent(R.id.tl_preview_1);
 		tab_one.setIndicator("Basic");
 		th_preview.addTab(tab_one);
 		
 		TabSpec tab_two = th_preview.newTabSpec("tab_two_btn_tab");
-		tab_two.setContent(new TabHost.TabContentFactory() {  
-			public View createTabContent(String tag) {  
-				return(new AnalogClock(Preview.this));  
-			}  
-		}); 
+		tab_two.setContent(R.id.tl_preview_2);
 		tab_two.setIndicator("Advanced");
 		th_preview.addTab(tab_two);
 		

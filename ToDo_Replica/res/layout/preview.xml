@@ -14,17 +14,17 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 </TabWidget>
+
 <FrameLayout
 	android:id="@android:id/tabcontent"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 <ScrollView
-	android:id="@+id/sv_preview"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:scrollbars="vertical">
 <TableLayout
-	android:id="@+id/tl_preview"
+	android:id="@+id/tl_preview_1"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
@@ -65,42 +65,6 @@
 		</TextView>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_note_preview"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<TextView
-			android:id="@+id/tv_note_preview1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Note"
-			android:textSize="20px">
-		</TextView>
-		<TextView
-			android:id="@+id/tv_note_preview2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="20px">
-		</TextView>
-	</TableRow>
-	<TableRow
-		android:id="@+id/tr_tag_preview"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<TextView
-			android:id="@+id/tv_tag_preview1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Tag"
-			android:textSize="20px">
-		</TextView>
-		<TextView
-			android:id="@+id/tv_tag_preview2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="20px">
-		</TextView>
-	</TableRow>
-	<TableRow
 		android:id="@+id/tr_group_preview"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content">
@@ -131,6 +95,59 @@
 		</TextView>
 		<TextView
 			android:id="@+id/tv_status_preview2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20px">
+		</TextView>
+	</TableRow>
+</TableLayout>
+</ScrollView>
+</FrameLayout>
+
+<FrameLayout
+	android:id="@android:id/tabcontent"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+<ScrollView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+<TableLayout
+	android:id="@+id/tl_preview_2"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+	<TableRow
+		android:id="@+id/tr_note_preview"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_note_preview1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Note"
+			android:textSize="20px">
+		</TextView>
+		<TextView
+			android:id="@+id/tv_note_preview2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="20px">
+		</TextView>
+	</TableRow>
+	<TableRow
+		android:id="@+id/tr_tag_preview"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<TextView
+			android:id="@+id/tv_tag_preview1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Tag"
+			android:textSize="20px">
+		</TextView>
+		<TextView
+			android:id="@+id/tv_tag_preview2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textSize="20px">
@@ -175,5 +192,6 @@
 </TableLayout>
 </ScrollView>
 </FrameLayout>
+
 </LinearLayout>
 </TabHost>

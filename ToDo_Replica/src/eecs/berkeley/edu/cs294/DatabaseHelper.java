@@ -218,7 +218,7 @@ public class DatabaseHelper {
 
 	public List<String> select_to_do(String column, String value) {
 		List<String> list = new ArrayList<String>();
-		String selection = "column" + " = '" + value + "'";
+		String selection = column + " = '" + value + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_TO_DO, null, selection, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {

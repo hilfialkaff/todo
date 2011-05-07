@@ -5,4 +5,7 @@
     <item android:id="@+id/m_feedback"
           android:icon="@drawable/menu_feedback"
           android:title="Feedback" />
+    <item android:id="@+id/m_pending_request"
+          android:icon="@drawable/menu_pending_request"
+          android:title="Pending Request" />
 </menu>

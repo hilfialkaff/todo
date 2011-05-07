@@ -194,7 +194,7 @@ public class Edit extends Activity {
 			}
 		});
 		
-		b_submit = (Button) findViewById(R.id.b_submit);
+		b_submit = (Button) findViewById(R.id.b_submit_1);
 		
 		b_submit.setOnClickListener(new OnClickListener() {
 			@Override
