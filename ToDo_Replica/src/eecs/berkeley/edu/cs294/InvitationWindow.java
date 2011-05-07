@@ -29,11 +29,6 @@ import android.widget.TextView;
 
 public class InvitationWindow extends Activity {
 	/** Called when the activity is first created. */
-	private String title, place, note, tag, group, status, priority;
-	private Date date = new Date();
-	private String array_spinner_group[], array_spinner_status[], array_spinner_priority[];
-	ArrayAdapter<String> adapter;
-	
 	TextView tv_sender, tv_recipient, tv_group, tv_description;
 	Button accept, reject;
 	TabHost th_invitation;

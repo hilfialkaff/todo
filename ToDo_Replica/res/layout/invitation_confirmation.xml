@@ -82,6 +82,25 @@
 			android:textSize="20px">
 		</TextView>
 	</TableRow>
+	<TableRow
+		android:id="@+id/tr_accept_reject_confirmation"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/b_accept_invitation"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Accept"
+			android:textSize="20px">
+		</Button>
+		<Button
+			android:id="@+id/b_reject_invitation"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Reject"
+			android:textSize="20px">
+		</Button>
+	</TableRow>
 </TableLayout>
 </ScrollView>
 </FrameLayout>

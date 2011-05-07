@@ -141,6 +141,9 @@ public class ToDo_Replica extends Activity {
 			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ToDo Feedback");
 			startActivity(intent); 
 			return true;
+		case R.id.m_invitations:
+			startActivity(new Intent(this, InvitationWindow.class));
+			return true;
 		}
 		return false;
 	}
