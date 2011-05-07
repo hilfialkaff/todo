@@ -44,13 +44,6 @@ public class Add extends Activity {
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
 		
-		th_add.setOnTabChangedListener(new OnTabChangeListener() {
-			@Override
-			public void onTabChanged(String tabId) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 
 		tl_add_1 = (TableLayout) findViewById(R.id.tl_add_1);
 		tl_add_2 = (TableLayout) findViewById(R.id.tl_add_2);
@@ -58,6 +51,7 @@ public class Add extends Activity {
 		TabSpec tab_one = th_add.newTabSpec("tab_one_btn_tab");
 		tab_one.setContent(R.id.tl_add_1);
 		tab_one.setIndicator("Basic");
+		//tab_one.setIndicator("Basic", R.drawable.tab_simple);
 		th_add.addTab(tab_one);
 		
 		TabSpec tab_two = th_add.newTabSpec("tab_two_btn_tab");
