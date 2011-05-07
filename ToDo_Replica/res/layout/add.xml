@@ -14,11 +14,11 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content">
 </TabWidget>
-
 <FrameLayout
 	android:id="@android:id/tabcontent"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
+
 <ScrollView
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -118,11 +118,7 @@
 	</TableRow>
 </TableLayout>
 </ScrollView>
-</FrameLayout>
-<FrameLayout
-	android:id="@android:id/tabcontent"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+
 <ScrollView
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -224,6 +220,7 @@
 	</TableRow>
 </TableLayout>
 </ScrollView>
+
 </FrameLayout>
 </LinearLayout>
 </TabHost>

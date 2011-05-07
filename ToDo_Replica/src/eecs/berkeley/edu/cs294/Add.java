@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
 
@@ -42,6 +43,14 @@ public class Add extends Activity {
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
+		
+		th_add.setOnTabChangedListener(new OnTabChangeListener() {
+			@Override
+			public void onTabChanged(String tabId) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
 		tl_add_1 = (TableLayout) findViewById(R.id.tl_add_1);
 		tl_add_2 = (TableLayout) findViewById(R.id.tl_add_2);
