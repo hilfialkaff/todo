@@ -168,15 +168,13 @@ public class DatabaseHelper {
 			cv.put("password", password);
 		}
 		if(railsID != null) {
-			cv.put("railsID", railsID);
+			cv.put("user_rails_id", railsID);
 		}
 		
 		Log.d("DbDEBUG", "UPDATE name: " + name + " number: " + number + " email: " + 
 				email + " password: " + password + " railsID: " + railsID);
 
-		String selection = "name = ?";
-		String old_name = select_user().get(DatabaseHelper.NAME_INDEX_U);
-		return db.update(TABLE_NAME_USER, cv, selection, new String[] {old_name});
+		return db.update(TABLE_NAME_USER, cv, null, null);
 	}
 
 	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
@@ -336,7 +334,7 @@ public class DatabaseHelper {
 		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {value});
 	}
 	
-	public List<Integer> select_group_member(String name) {
+	public List<String> select_group_member(String name) {
 		List<Integer> list = new ArrayList<Integer>();
 		String selection = "name = " + name;
 		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
@@ -351,7 +349,11 @@ public class DatabaseHelper {
 		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
-		return list;
+		List<String> rtn = new ArrayList<String>();
+		for (int m_id : list){
+			rtn.add(this.db.query(TABLE_NAME_MEMBER, new String[]{"name"}, "m_id = '" + m_id + "'", null, null, null, null).getString(NAME_INDEX_M));
+		}
+		return rtn;
 	}
 	
 	public long insert_group(String name, String description, String member, String timestamp, 

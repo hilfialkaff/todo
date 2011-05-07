@@ -1,5 +1,6 @@
 package eecs.berkeley.edu.cs294;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -14,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,14 +57,23 @@ public class ToDo_Replica extends Activity {
 
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
-					ServerConnection.pushRemote(null, ServerConnection.USER_SERVER_UPDATE, 
-							ServerConnection.CREATE_REQUEST);
+					
+					while(dh.select_user().size() == 0);
+					
+					ArrayList<String> groupList = new ArrayList<String>();
+					groupList.add(null);
+					groupList.add("group12311111");
+					groupList.add("description5141231111");
+					ServerConnection.pushRemote(groupList, ServerConnection.GROUP_SERVER_UPDATE, 
+							ServerConnection.UPDATE_REQUEST);
+					
+					while(true);
 				}
 			}
 		};
 
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 10000, 10000);
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 40000, 10000);
 		/********************************************************************/
 
 

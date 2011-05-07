@@ -44,9 +44,20 @@ class TododetailsController < ApplicationController
   # POST /tododetails.xml
   def create
     @group = Group.find(params[:group_id])
-    @tododetail = @group.tododetails.create(params[:tododetail])
+    @tododetail = @group.tododetails.new(params[:tododetail])
 
-    redirect_to group_path(@group)
+    respond_to do |format|
+      if @tododetail.save
+        format.html { redirect_to(@tododetail, :notice => 'User was successfully created.') }
+        format.xml  { render :xml => @tododetail, :status => :created, :location => @tododetail }
+        format.json  { render :json => @tododetail, :status => :created, :location => @tododetail }
+
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @tododetail.errors, :status => :unprocessable_entity }
+        format.json  { render :json => @tododetail.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
   # PUT /tododetails/1

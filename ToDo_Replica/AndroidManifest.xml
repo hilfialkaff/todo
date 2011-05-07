@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-		<activity android:name=".StartScreen"></activity>	
+		<activity android:name=".StartScreen"> </activity> 		
 		<activity android:name=".Maps"></activity>
 		<activity android:name=".ToDo_Lists"></activity>
 		<activity android:name=".Groups"></activity>
