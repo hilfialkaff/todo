@@ -48,14 +48,6 @@ public class Groups extends Activity {
 			});
 		}
 
-		Button addGroup = (Button) findViewById(R.id.addGroup);
-		addGroup.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), AddGroup.class);
-				startActivityForResult(intent, 1);
-			}
-		});
-
 		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 		ToDo_Replica.dh = new DatabaseHelper(this);
 

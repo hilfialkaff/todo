@@ -9,79 +9,84 @@
 	android:scrollbars="vertical">
 <TableLayout
 	android:id="@+id/tl_add_group"
+<TableLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:stretchColumns="0">
+	android:layout_height="fill_parent">
 	<TableRow
-		android:id="@+id/tr_name"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="13px">
 		<TextView
-			android:id="@+id/tv_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Group Name"
-			android:textSize="20px">
+			android:text="Name"
+			android:textSize="20px"
+			android:layout_marginLeft="60px">
 		</TextView>
-		<EditText
-			android:id="@+id/et_name"
-			android:layout_width="350px"
-			android:layout_height="wrap_content"
-			android:hint="Touch here to edit group name"
-			android:textSize="20px">
-		</EditText>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_description"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+		<EditText
+			android:id="@+id/et_group_name"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the group name"
+			android:textSize="20px"
+			android:layout_marginLeft="60px"
+			android:layout_marginRight="60px">
+		</EditText>
+		</LinearLayout>
+	</TableRow>
+	
+	<TableRow
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="13px">
 		<TextView
-			android:id="@+id/tv_description"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Description"
-			android:textSize="20px">
+			android:textSize="20px"
+			android:layout_marginLeft="60px">
 		</TextView>
-		<EditText
-			android:id="@+id/et_description"
-			android:layout_width="350px"
-			android:layout_height="wrap_content"
-			android:hint="Touch here to edit description"
-			android:textSize="20px">
-		</EditText>
-	</TableRow>	
-	<TableRow
-		android:id="@+id/tr_members"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<TextView
-			android:id="@+id/tv_members"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Members"
-			android:textSize="20px">
-		</TextView>
-		<Button
-			android:id="@+id/b_add_contact"
-			android:layout_width="350px"
-			android:layout_height="wrap_content"
-			android:text="Click to edit"
-			android:textSize="20px">
-		</Button>
 	</TableRow>
 	<TableRow
-		android:id="@+id/tr_submitgroup"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:gravity="center">
-		<Button
-			android:id="@+id/b_submitgroup"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<LinearLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Submit"
-			android:textSize="20px">
+			android:orientation="horizontal">
+		<EditText
+			android:id="@+id/et_group_description"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="Touch here to edit the description"
+			android:textSize="20px"
+			android:layout_marginLeft="60px"
+			android:layout_marginRight="60px">
+		</EditText>
+		</LinearLayout>
+	</TableRow>
+	<TableRow
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:paddingTop="13px">
+		<Button
+			android:id="@+id/b_group_next"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Next"
+			android:textSize="20px"
+			android:layout_marginLeft="150px"
+			android:layout_marginRight="150px">
 		</Button>
 	</TableRow>
 </TableLayout>
-</ScrollView>
-</LinearLayout>
