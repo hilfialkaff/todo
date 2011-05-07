@@ -1,22 +1,15 @@
 package eecs.berkeley.edu.cs294;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,10 +34,11 @@ public class ToDo_Replica extends Activity {
 			Intent intent = new Intent(ToDo_Replica.this, StartScreen.class);
 			startActivity(intent);
 		}
-		
+
 		/* Timer code */
 		/********************************************************************/
-		Timer serverTimer = new Timer("serverTimer", true);
+		
+		/*Timer serverTimer = new Timer("serverTimer", true);
 		TimerTask serverTimerTask = new TimerTask() {
 			public void run() {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -66,7 +60,7 @@ public class ToDo_Replica extends Activity {
 		// TODO: Need to be un-hardcoded
 		serverTimer.scheduleAtFixedRate(serverTimerTask, 40000, 10000);
 		/********************************************************************/
-
+		
 
 		final TextView tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
 		if (tv_custom_title != null)

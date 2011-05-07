@@ -55,7 +55,7 @@ public class Edit extends Activity {
 		th_add.setup();
 
 		TabSpec tab_one = th_add.newTabSpec("tab_one_btn_tab");
-		tab_one.setContent(R.id.tl_add);
+		tab_one.setContent(R.id.tl_add_1);
 		tab_one.setIndicator("Basic");
 		th_add.addTab(tab_one);
 		

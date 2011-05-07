@@ -13,12 +13,6 @@ public class Contact {
 		this.email = email;
 	}
 	
-	public Contact(String name, String number, String email) {
-		this.name = name;
-		this.number = number;
-		this.email = email;
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -26,6 +20,7 @@ public class Contact {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
 	
 	public String getName() {
 		return name;

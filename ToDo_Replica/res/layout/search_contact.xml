@@ -6,17 +6,27 @@
     android:layout_height="wrap_content"
     android:background="#ffffff"
     android:padding="10px">
-		<LinearLayout
+		<RelativeLayout
 			android:id="@+id/textContent"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content" 
 			android:background="#ffffff"
-			android:orientation="vertical">
+			android:orientation="vertical"
+			android:gravity="center_vertical">
+			<TextView
+				android:id="@+id/tv_id"
+				android:layout_width="fill_parent"
+				android:layout_height="22px"
+				android:textSize="18px"
+				android:layout_marginLeft="10px"
+				android:layout_marginRight="10px"
+				android:textColor="#000000"
+				android:visibility="gone">
+			</TextView>
 			<TextView
 				android:id="@+id/tv_name"
 				android:layout_width="fill_parent"
 				android:layout_height="22px"
-				android:gravity="center_vertical"
 				android:textSize="18px"
 				android:layout_marginLeft="10px"
 				android:layout_marginRight="10px"
@@ -26,7 +36,7 @@
 				android:id="@+id/tv_number"
 				android:layout_width="fill_parent"
 				android:layout_height="22px"
-				android:gravity="center_vertical"
+				android:layout_below="@+id/tv_name"
 				android:textSize="14px"
 				android:layout_marginLeft="10px"
 				android:layout_marginRight="10px"
@@ -37,25 +47,20 @@
 				android:id="@+id/tv_email"
 				android:layout_width="fill_parent"
 				android:layout_height="22px"
-				android:gravity="center_vertical"
+				android:layout_below="@+id/tv_number"
 				android:textSize="14px"
 				android:layout_marginLeft="10px"
 				android:layout_marginRight="10px"
 				android:layout_marginTop="5px"
 				android:textColor="#000000">
 			</TextView>
-			<TextView
-				android:id="@+id/tv_contact_click"
-				android:layout_width="fill_parent"
-				android:layout_height="22px"
-				android:gravity="center_vertical"
-				android:textSize="14px"
-				android:layout_marginLeft="10px"
-				android:layout_marginRight="10px"
-				android:layout_marginTop="5px"
-				android:textColor="#00FFFF"
-				android:visibility="invisible"
-				android:text="added">
-			</TextView>
-		</LinearLayout>
+			<ImageView
+				android:id="@+id/iv_add_member"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:background="@drawable/member_normal"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true">
+			</ImageView>
+		</RelativeLayout>
 </LinearLayout>
