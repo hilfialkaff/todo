@@ -358,7 +358,7 @@ public class DatabaseHelper {
 	
 	public int select_group_id(String name) {
 		int g_id = -1;
-		String selection = "name = " + name;
+		String selection = "name" + " = '" + name + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
