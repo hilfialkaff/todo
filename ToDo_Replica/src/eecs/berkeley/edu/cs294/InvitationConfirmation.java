@@ -2,15 +2,12 @@ package eecs.berkeley.edu.cs294;
 
 import java.util.List;
 
-import eecs.berkeley.edu.cs294.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AnalogClock;
+import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.TabHost.TabSpec;
 
 public class InvitationConfirmation extends Activity {
 	/** Called when the activity is first created. */
@@ -18,6 +15,7 @@ public class InvitationConfirmation extends Activity {
 	TextView tv_group_confirmation2;
 	TextView tv_desc_confirmation2;
 	TabHost th_invitation_confirmation;
+	Button b_accept, b_reject;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,5 +43,8 @@ public class InvitationConfirmation extends Activity {
 		tv_sender_confirmation2.setText(row.get(0));
 		tv_group_confirmation2.setText(row.get(1));
 		tv_desc_confirmation2.setText(row.get(2));
+		
+		b_accept = (Button) findViewById(R.id.b_accept_invitation);
+		b_reject = (Button) findViewById(R.id.b_reject_invitation);
 	}
 }
