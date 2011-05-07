@@ -96,8 +96,8 @@ public class PushServerUser extends Activity {
 			JSONObject tododetailObject = jObject.getJSONObject("user");
 			String railsID = tododetailObject.getString("id");
 			
-			/* TODO: insert user id to database */
-			// int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
+			ToDo_Replica.dh.update_user(null, null, null, null, railsID);
+			
 		} catch (Exception e) {
 			Log.e("JSON E", ""+e);
 			e.printStackTrace();
@@ -112,8 +112,8 @@ public class PushServerUser extends Activity {
 	 * locally.
 	 */
 	public static int update(List<String> entry) {
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31"; 
-		/* TODO: User database? */
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U); 
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
 		
@@ -125,7 +125,7 @@ public class PushServerUser extends Activity {
 
 		/* Setting up the packet to be sent to server */
 		try {
-			details.put("name", "name31"); /* TODO: Should not be hardcoded */
+			details.put("name", "name31");
 			details.put("number", "number31");
 			details.put("email", "email31");
 
@@ -186,8 +186,8 @@ public class PushServerUser extends Activity {
 	 * Called when user wants to uninstall the application.
 	 */
 	public static int delete(List<String> entry) {
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" 
-		/* TODO: user database?  */;
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U); 
 		
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpDelete deleteRequest = new HttpDelete(url);

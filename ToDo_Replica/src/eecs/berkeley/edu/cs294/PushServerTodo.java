@@ -25,7 +25,7 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int create(List<String> entry) {
 		/* TODO: user id database? */
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_T) + 
 		ServerConnection.todolink;
 		
@@ -118,7 +118,7 @@ public class PushServerTodo extends Activity {
 	 * Updates a todo in the server. Called when a user updates a corresponding one locally.
 	 */
 	public static int update(List<String> entry) {		
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_T) + 
 		ServerConnection.todolink + entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T);  
 		
@@ -199,7 +199,8 @@ public class PushServerTodo extends Activity {
 	public static int delete(List<String> entry) {
 		/* TODO: user id database? " */
 		
-		String url = ServerConnection.homeurl + ServerConnection.users_link + "31" + 
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_T) + 
 		ServerConnection.todolink + entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T);
 		
