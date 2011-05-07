@@ -1,7 +1,6 @@
 package eecs.berkeley.edu.cs294;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.accounts.Account;
