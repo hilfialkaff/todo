@@ -51,26 +51,7 @@ public class Groups extends Activity {
 		
 		List<String> titles = ToDo_Replica.dh.select_all_group_name();
 		
-		for (String title : titles) {
-			TableRow row = new TableRow(this);		
-			row.setLayoutParams(new TableLayout.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			
-			LinearLayout ll_title = new LinearLayout(this);
-			ll_title.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			
-			TextView tv_title = new TextView(this);
-			tv_title.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
-			tv_title.setText(title);
-			
-			View ruler = new View(this);
-			ruler.setLayoutParams(new LayoutParams(android.view.ViewGroup.LayoutParams.FILL_PARENT, 1));
-			
-			ll_title.addView(tv_title);
-			row.addView(ll_title);
-
-			group_list.addView(row);
-			group_list.addView(ruler);
-		}
+		populate();
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
