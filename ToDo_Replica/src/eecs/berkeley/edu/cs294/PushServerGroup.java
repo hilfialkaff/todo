@@ -29,6 +29,10 @@ public class PushServerGroup extends Activity {
 	 * Create a new group in the server. Called when a user create a corresponding one locally.
 	 */
 	public static int create(List<String> entry) {
+		
+		List<String> entry_tmp = ToDo_Replica.dh.select_user();
+		Log.d("ServerDEBUG", entry_tmp.get(0) + entry_tmp.get(1) + entry_tmp.get(2) + entry_tmp.get(3) + entry_tmp.get(4));
+		
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.groups_link;

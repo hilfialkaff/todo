@@ -176,7 +176,9 @@ public class DatabaseHelper {
 
 		String selection = "name = ?";
 		String old_name = select_user().get(DatabaseHelper.NAME_INDEX_U);
-		return db.update(TABLE_NAME_USER, cv, selection, new String[] {old_name});
+		
+		Log.d("DbDEBUG", "old_name: " + old_name);
+		return db.update(TABLE_NAME_USER, cv, null, null);
 	}
 
 	public long insert_to_do(String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {	
