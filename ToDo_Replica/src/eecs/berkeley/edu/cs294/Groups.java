@@ -4,8 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
@@ -49,8 +55,6 @@ public class Groups extends Activity {
 		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 		ToDo_Replica.dh = new DatabaseHelper(this);
 		
-		List<String> titles = ToDo_Replica.dh.select_all_group_name();
-		
 		populate();
 	}
 	
@@ -88,4 +92,44 @@ public class Groups extends Activity {
 			group_list.addView(row);
 		}
 	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		menu.setHeaderTitle(v.getContentDescription());
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("name", v.getContentDescription().toString()).get(DatabaseHelper.GROUP_ID_INDEX_G)), 0, "leave group");
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem menuItem) {
+		switch(menuItem.getOrder()) {
+		case 0:
+			List<String> groups = ToDo_Replica.dh.select_all_groups("g_id");
+			
+			/* Push changes to remote if applicable */
+			List<String> oldEntry = ToDo_Replica.dh.select_group("name", 
+					groups.get(menuItem.getItemId()));
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+				}
+
+				if (netInfo.isConnected()) {
+					ServerConnection.pushRemote(oldEntry, ServerConnection.GROUP_SERVER_UPDATE,
+							ServerConnection.UNSUBSCRIBE_REQUEST);
+				}
+			}
+			
+			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
+			
+			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
+			group_list.removeAllViews();
+			populate();
+			return true;
+		}
+		return false;
+	};
 }

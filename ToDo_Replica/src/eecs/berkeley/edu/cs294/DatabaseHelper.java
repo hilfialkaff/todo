@@ -336,7 +336,7 @@ public class DatabaseHelper {
 		this.db.delete(TABLE_NAME_TO_DO, selection, new String[] {value});
 	}
 	
-	public List<Integer> select_group_member(String name) {
+	public List<String> select_group_member(String name) {
 		List<Integer> list = new ArrayList<Integer>();
 		String selection = "name = " + name;
 		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
@@ -351,7 +351,11 @@ public class DatabaseHelper {
 		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
-		return list;
+		List<String> rtn = new ArrayList<String>();
+		for (int m_id : list){
+			rtn.add(this.db.query(TABLE_NAME_MEMBER, new String[]{"name"}, "m_id = '" + m_id + "'", null, null, null, null).getString(NAME_INDEX_M));
+		}
+		return rtn;
 	}
 	
 	public long insert_group(String name, String description, String member, String timestamp, 
