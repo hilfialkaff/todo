@@ -21,12 +21,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class StartScreen extends Activity {
+	ServerConnection sc;
+
 	EditText et_start_name;
 	EditText et_start_number;
 	EditText et_start_email;
 	EditText et_start_password;
 	Button b_start_sign_up;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class StartScreen extends Activity {
 			Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
 			startActivity(intent);
 		}
-		
+
 		et_start_name = (EditText) findViewById(R.id.et_start_name);
 		et_start_number = (EditText) findViewById(R.id.et_start_number);
 		et_start_email = (EditText) findViewById(R.id.et_start_email);
@@ -45,7 +47,7 @@ public class StartScreen extends Activity {
 
 		TelephonyManager mTelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE); 
 		et_start_number.setText(mTelephonyMgr.getLine1Number());
-		
+
 		Account[] accounts = AccountManager.get(this).getAccounts();
 		if(accounts.length > 0)
 			et_start_email.setText(accounts[0].name);
@@ -61,31 +63,38 @@ public class StartScreen extends Activity {
 					dialog.show();
 				}
 				else{
-					Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
-					ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
-					System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
-	
-					
-					/* Push changes to the remote if applicable */
-					List<String> userEntry = ToDo_Replica.dh.select_user();
-					if(userEntry != null) {
-						ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-						NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+					if (sc.isConnected()){
+						Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
+						ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
+						System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
 
-						if(netInfo == null) {
-							Log.d("DEBUG", "--------------- No internet connection --------- ");
+
+						/* Push changes to the remote if applicable */
+						List<String> userEntry = ToDo_Replica.dh.select_user();
+						if(userEntry != null) {
+							ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+							NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+							if(netInfo == null) {
+								Log.d("DEBUG", "--------------- No internet connection --------- ");
+							}
+
+							if (netInfo.isConnected()) {
+								ServerConnection.pushRemote(userEntry, 
+										ServerConnection.USER_SERVER_UPDATE,
+										ServerConnection.CREATE_REQUEST);
+							}
 						}
 
-						if (netInfo.isConnected()) {
-							ServerConnection.pushRemote(userEntry, 
-									ServerConnection.USER_SERVER_UPDATE,
-									ServerConnection.CREATE_REQUEST);
-						}
+						startActivity(intent);
 					}
-
-					startActivity(intent);
+					else {
+						AlertDialog.Builder dialog = new AlertDialog.Builder(StartScreen.this);
+						dialog.setTitle("Error in connection");
+						dialog.show();
+					}
 				}
 			}
-	});
-}
+		});
+	}
 }

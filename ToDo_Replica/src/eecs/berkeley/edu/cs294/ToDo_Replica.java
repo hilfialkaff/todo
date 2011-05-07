@@ -44,6 +44,7 @@ public class ToDo_Replica extends Activity {
 		
 		/* Timer code */
 		/********************************************************************/
+		
 		Timer serverTimer = new Timer("serverTimer", true);
 		TimerTask serverTimerTask = new TimerTask() {
 			public void run() {
@@ -74,6 +75,7 @@ public class ToDo_Replica extends Activity {
 
 		// TODO: Need to be un-hardcoded
 		serverTimer.scheduleAtFixedRate(serverTimerTask, 40000, 10000);
+		
 		/********************************************************************/
 
 

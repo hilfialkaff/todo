@@ -45,6 +45,8 @@ public class ServerConnection extends Activity {
 	static final String users_link = "users/";
 	static final String groups_link = "/groups/";
 	static final String todolink = "groups/1/tododetails";
+	static String user_id;
+	static String group_id;
 	
 	static final String my_groups_link = "/groups?format=xml";
 	static final String my_sent_invs_link = "/sent_invitations";

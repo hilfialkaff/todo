@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -23,12 +24,8 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 public class Groups extends Activity {
-<<<<<<< HEAD
 	/** Called when the activity is first created. */
-	TableLayout group_list;
-=======
 	TableLayout tl_group_list;
->>>>>>> 48c6f831d6765420b1e937b0fa37490784f34c79
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,12 +34,9 @@ public class Groups extends Activity {
 		setContentView(R.layout.groups);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
 
-<<<<<<< HEAD
-=======
 		TextView tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
 		tv_custom_title.setText("Groups");
 
->>>>>>> 48c6f831d6765420b1e937b0fa37490784f34c79
 		final ImageButton ib_custom_add = (ImageButton) findViewById(R.id.ib_custom_add);
 		if (ib_custom_add != null) {
 			ib_custom_add.setOnClickListener(new OnClickListener() {
@@ -54,7 +48,6 @@ public class Groups extends Activity {
 			});
 		}
 
-<<<<<<< HEAD
 		Button addGroup = (Button) findViewById(R.id.addGroup);
 		addGroup.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -63,11 +56,10 @@ public class Groups extends Activity {
 			}
 		});
 
-		group_list = (TableLayout) findViewById(R.id.tl_group_lists);
-		ToDo_Replica.dh = new DatabaseHelper(this);
-=======
 		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
->>>>>>> 48c6f831d6765420b1e937b0fa37490784f34c79
+		ToDo_Replica.dh = new DatabaseHelper(this);
+
+		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 
 		populate();
 	}
@@ -121,15 +113,6 @@ public class Groups extends Activity {
 				groups.get(menuItem.getItemId()-1));
 		switch(menuItem.getOrder()) {
 		case 0:
-<<<<<<< HEAD
-			/* Push changes to remote if applicable */	
-=======
-			List<String> groups = ToDo_Replica.dh.select_all_groups("g_id");
-
-			/* Push changes to remote if applicable */
-			List<String> oldEntry = ToDo_Replica.dh.select_group("name", 
-					groups.get(menuItem.getItemId()));
->>>>>>> 48c6f831d6765420b1e937b0fa37490784f34c79
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -147,9 +130,8 @@ public class Groups extends Activity {
 
 			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
 
-<<<<<<< HEAD
 			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
-			group_list.removeAllViews();
+			tl_group_list.removeAllViews();
 			populate();
 			return true;
 		case 1:
@@ -169,8 +151,6 @@ public class Groups extends Activity {
 			}
 			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
 
-=======
->>>>>>> 48c6f831d6765420b1e937b0fa37490784f34c79
 			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
 			tl_group_list.removeAllViews();
 			populate();
