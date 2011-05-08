@@ -233,8 +233,6 @@ public class PullConnectionHelper extends Activity {
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("sent-invitation");
 
-			Log.d("ServerDEBUG", "Begin iterating nodes");
-
 			/* Iterating each sent invitation node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
 				Node item = nodes.item(i);
@@ -313,8 +311,6 @@ public class PullConnectionHelper extends Activity {
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("recv-invitation");
 
-			Log.d("ServerDEBUG", "Begin iterating nodes");
-
 			/* Iterating each received invitation node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
 				Node item = nodes.item(i);
@@ -389,8 +385,6 @@ public class PullConnectionHelper extends Activity {
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("group");
 
-			Log.d("ServerDEBUG", "Begin iterating nodes");
-
 			/* Iterating each group node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
 				Node item = nodes.item(i);
@@ -455,8 +449,6 @@ public class PullConnectionHelper extends Activity {
 			is.setCharacterStream(new StringReader(xmlString));
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("tododetail");
-
-			Log.d("ServerDEBUG", "Begin iterating nodes");
 
 			/* Iterating each tododetail node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {
@@ -540,8 +532,6 @@ public class PullConnectionHelper extends Activity {
 			is.setCharacterStream(new StringReader(xmlString));
 			Document doc = builder.parse(is);
 			NodeList nodes = doc.getElementsByTagName("user");
-
-			Log.d("ServerDEBUG", "Begin iterating nodes");
 
 			/* Iterating each group member node in the xml */
 			for (int i = 0; i < nodes.getLength(); i++) {

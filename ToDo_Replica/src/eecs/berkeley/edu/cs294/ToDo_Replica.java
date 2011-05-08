@@ -1,15 +1,21 @@
 package eecs.berkeley.edu.cs294;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,7 +34,7 @@ public class ToDo_Replica extends Activity {
 		
 		/* Group "None" always exists and not shared */
 		if(dh.select_group("name", "None").size() == 0) {
-			dh.insert_group("None", "User Private Group", "", "", "");
+			dh.insert_group("None", "User Private Group", "", "", "0");
 		}
 		
 		setContentView(R.layout.main);
@@ -43,7 +49,7 @@ public class ToDo_Replica extends Activity {
 		/* Timer code */
 		/********************************************************************/
 		
-		/*Timer serverTimer = new Timer("serverTimer", true);
+		Timer serverTimer = new Timer("serverTimer", true);
 		TimerTask serverTimerTask = new TimerTask() {
 			public void run() {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -58,12 +64,13 @@ public class ToDo_Replica extends Activity {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
 					
 					while(dh.select_user().size() == 0);
+					ServerConnection.pullAllRemote();
 				}
 			}
 		};
 
 		// TODO: Need to be un-hardcoded
-		serverTimer.scheduleAtFixedRate(serverTimerTask, 40000, 10000);
+		serverTimer.scheduleAtFixedRate(serverTimerTask, 50000, 50000);
 		
 		/********************************************************************/
 		

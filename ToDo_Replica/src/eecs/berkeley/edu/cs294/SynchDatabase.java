@@ -229,6 +229,10 @@ public class SynchDatabase extends Activity {
 	private static void pruneLocalGroups(List<String> deletedRailsID)  {
 		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
 			String railsID = it.next();
+			if(railsID.equalsIgnoreCase("0")) {
+				continue;
+			}
+			
 			Log.d("ServerDEBUG", "deleting group with id: " + railsID);
 			ToDo_Replica.dh.delete_group("group_rails_id", railsID);
 		}	
@@ -238,7 +242,11 @@ public class SynchDatabase extends Activity {
 	 * Synchronize local database w/ changes from the server
 	 */
 	public static void SynchTodos(ArrayList<MyTodo> todoList) {
+		
+		Log.d("ServerDEBUG", "SynchGroupMembers");
+		
 		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("to_do_rails_id");
+		List<String> deletedGroupsID = ToDo_Replica.dh.select_all_to_do("group_id");
 		
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo currTodo = it.next();
@@ -292,13 +300,15 @@ public class SynchDatabase extends Activity {
 			}
 		}
 		
-		pruneLocalTodos(deletedRailsID);				
+		pruneLocalTodos(deletedRailsID, deletedGroupsID);				
 	}
 
 	/*
 	 * Delete local todos that do not exist in the server anymore 
 	 */
-	private static void pruneLocalTodos(List<String> deletedRailsID)  {
+	private static void pruneLocalTodos(List<String> deletedRailsID, 
+			List<String> deletedGroupsID)  
+	{
 		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
 			String railsID = it.next();
 			Log.d("ServerDEBUG", "deleting todo with id: " + railsID);

@@ -112,7 +112,7 @@ public class DatabaseHelper {
 	private SQLiteDatabase db;
 	private SQLiteStatement insertStmt_to_do, insertStmt_group, insertStmt_member, insertStmt_sent, insertStmt_recv, insertStmt_map_group_to_do, insertStmt_map_group_member, insertStmt_user;
 
-	public static List<String> recent_updates;
+	public static List<String> recent_updates = new ArrayList<String>();
 	
 	public DatabaseHelper(Context context) {
 		this.context = context;

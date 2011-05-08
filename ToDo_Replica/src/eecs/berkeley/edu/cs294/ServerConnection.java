@@ -41,8 +41,7 @@ public class ServerConnection extends Activity {
 	static public final int TODO_SERVER_UPDATE = 3;
 	static public final int USER_SERVER_UPDATE = 4;
 	
-	///use 10.0.2.2 for localhost ip
-	static final String homeurl = "http://blazing-galaxy-902.heroku.com/";
+	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
 	static final String users_link = "users/";
 	static final String groups_link = "/groups/";
 	static final String todolink = "/tododetails/";
