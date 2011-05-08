@@ -4,21 +4,17 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AnalogClock;
 import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.TabHost.TabSpec;
 import android.widget.TableRow.LayoutParams;
+import android.widget.TextView;
 
 public class PreviewGroup extends Activity {
 	/** Called when the activity is first created. */

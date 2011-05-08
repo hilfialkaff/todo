@@ -56,8 +56,8 @@ public class AddGroup extends Activity {
 				}
 			}
 		});
-		if(candidate.size() == 0)
-			initiateContact();
+		candidate.clear();
+		initiateContact();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
