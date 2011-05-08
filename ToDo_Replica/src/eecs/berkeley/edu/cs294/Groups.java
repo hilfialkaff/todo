@@ -59,7 +59,6 @@ public class Groups extends Activity {
 		if (resultCode == Activity.RESULT_OK) {
 			tl_group_list.removeAllViews();
 			populate();
-			
 		}
 	}
 
@@ -110,28 +109,29 @@ public class Groups extends Activity {
 		
 		switch(menuItem.getOrder()) {
 		case 0:
-			
-			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_G).equalsIgnoreCase("1") == false) {
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-
 				if(netInfo == null) {
 					Log.d("DEBUG", "--------------- No internet connection --------- ");
 				}
 
 				if (netInfo.isConnected()) {
-					ServerConnection.pushRemote(oldEntry, 
-							ServerConnection.GROUP_SERVER_UPDATE,
+					ServerConnection.pushRemote(oldEntry, ServerConnection.GROUP_SERVER_UPDATE,
 							ServerConnection.UNSUBSCRIBE_REQUEST);
 				}
 			}
-			
+
+			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
+
 			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
 			tl_group_list.removeAllViews();
 			populate();
 			return true;
 		case 1:
-			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_G).equalsIgnoreCase("1") == false) {
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
@@ -140,8 +140,7 @@ public class Groups extends Activity {
 				}
 
 				if (netInfo.isConnected()) {
-					ServerConnection.pushRemote(oldEntry, 
-							ServerConnection.GROUP_SERVER_UPDATE,
+					ServerConnection.pushRemote(oldEntry, ServerConnection.GROUP_SERVER_UPDATE,
 							ServerConnection.DELETE_REQUEST);
 				}
 			}
