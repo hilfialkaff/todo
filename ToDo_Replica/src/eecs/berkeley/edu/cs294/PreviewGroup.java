@@ -4,8 +4,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AnalogClock;
@@ -82,5 +86,24 @@ public class PreviewGroup extends Activity {
 			registerForContextMenu(row);
 			member_list.addView(row);
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.group_preview_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case R.id.m_edit_group:
+			Intent intent = new Intent(this, EditGroup.class);
+			intent.putExtra("group_select", tv_name_preview_group2.getText().toString());
+			startActivityForResult(intent, 1);
+			return true;
+		}
+		return false;
 	}
 }
