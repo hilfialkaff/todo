@@ -190,10 +190,9 @@ public class PushServerGroup extends Activity {
 	 * Deletes a group in the server. Called when a user deletes a corresponding one locally.
 	 */
 	public static int delete(List<String> entry) {
-		/* TODO: user id database? " */
-		
-		String url = ServerConnection.homeurl + ServerConnection.users_link + ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_G);
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
+		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		
 		Log.d("ServerDEBUG", "DELETE to " + url);
 		
@@ -239,13 +238,12 @@ public class PushServerGroup extends Activity {
 	 * Unsubscribe from a group in the server.
 	 */
 	public static int unsubscribe(List<String> entry) {
-		/* TODO: user id database? */
-		
 		HttpClient httpClient = new DefaultHttpClient();
 		String xmlResponse;
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.unsubscribe_link + "?group_id=" + entry.get(0) + "&user_name=" + 
+		ServerConnection.unsubscribe_link + "?group_id=" + 
+		entry.get(DatabaseHelper.GROUP_RAILS_ID_INDEX_G) + "&user_name=" + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.NAME_INDEX_U);
 
 		try
