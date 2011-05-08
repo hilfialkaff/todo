@@ -53,7 +53,7 @@ class GroupsController < ApplicationController
   # POST /groups.xml
   def create
     @user = User.find(params[:user_id])
-    @group = @user.groups.create(params[:group])
+    @group = @user.groups.create(:name => params[:group][:name], :description => params[:group][:description])
 
     respond_to do |format|
       format.html { redirect_to(@user, :notice => 'Group was successfully created.') }

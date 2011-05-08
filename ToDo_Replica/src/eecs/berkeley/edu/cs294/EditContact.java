@@ -7,8 +7,11 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,12 +47,30 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 				Time time = new Time();
 				String timestamp = Long.toString(time.normalize(false));
 				String members = "";
-				for(int i = 0; i < selected.size(); i++) {
+				for(int i = 0; i < id.size(); i++) {
 					members += selected.get(id.get(i)).getName() + " ";
 				}
 				System.out.println("members: " + members);
 				Bundle temp = getIntent().getExtras();
 				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), temp.getString("name"), temp.getString("description"), members, timestamp, Integer.toString(0));
+				
+				/* Push changes to the remote if applicable */
+				List<String> newEntry = ToDo_Replica.dh.select_group("name", 
+						temp.getString("name"));
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+				
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+				}
+
+				if (netInfo.isConnected()) {
+					ServerConnection.pushRemote(newEntry, 
+							ServerConnection.GROUP_SERVER_UPDATE,
+							ServerConnection.UPDATE_REQUEST);
+				}
+
+				
 				setResult(RESULT_OK);
 				finish();
 			}

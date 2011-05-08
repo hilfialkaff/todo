@@ -40,7 +40,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br />
-    <%= f.text_area :description %>
+    <%= f.text_field :description %>
   </div>
   <div class="actions">
     <%= f.submit %>
@@ -65,8 +65,8 @@
   </p>
 
   <p>
-    <%= link_to "Accept", "/users/" + "#{@user.id}" + "/recv_invitations/" + "#{inv.id}" + "/accept" + "?user_id=#{@user.id}&inv_id=#{inv.id}" %>
-    <%= link_to "Reject", "/users/" + "#{@user.id}" + "/recv_invitations/" + "#{inv.id}" + "/reject" + "?user_id=#{@user.id}&inv_id=#{inv.id}" %>
+    <%= link_to "Accept", "/users/" + "#{@user.id}" + "/recv_invitations/" + "#{inv.id}" + "/accept" + "?user_name=#{@user.name}&inv_id=#{inv.id}" %>
+    <%= link_to "Reject", "/users/" + "#{@user.id}" + "/recv_invitations/" + "#{inv.id}" + "/reject" + "?user_name=#{@user.name}&inv_id=#{inv.id}" %>
 
   </p>
 <% end %>

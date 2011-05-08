@@ -25,17 +25,19 @@ public class PushServerSentInv extends Activity {
 	 * one locally
 	 */
 	public static int create(List<String> entry) {
-		/* TODO: user id database */
-		
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.my_sent_invs_link;
+		ServerConnection.my_sent_invs_link + "?group=" + 
+		entry.get(DatabaseHelper.GROUPZ_ID_INDEX_S) +"&recipient=" + 
+		entry.get(DatabaseHelper.RECIPIENT_ID_INDEX_S) + "&description=" + 
+		entry.get(DatabaseHelper.DESCRIPTION_INDEX_S) + "&status=" + 
+		entry.get(DatabaseHelper.STATUS_INDEX_S);
 		
 		Log.d("ServerDEBUG", "POST to " + url);
 		
 		DefaultHttpClient client = new DefaultHttpClient();
-		
-		HttpPost registerRequest = new HttpPost(url);
+
+		HttpPost registerRequest;
 		
 		JSONObject sentInvitation = new JSONObject();
 		JSONObject details = new JSONObject();
@@ -49,7 +51,7 @@ public class PushServerSentInv extends Activity {
 			details.put("group", entry.get(DatabaseHelper.GROUPZ_ID_INDEX_S));
 			details.put("recipient", entry.get(DatabaseHelper.RECIPIENT_ID_INDEX_S));
 			details.put("description", entry.get(DatabaseHelper.DESCRIPTION_INDEX_S));
-			details.put("status", "Pending");
+			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX_S));
 			
 			sentInvitation.put("sent-invitation", details);
 
@@ -57,7 +59,8 @@ public class PushServerSentInv extends Activity {
 					sentInvitation.toString());
 
 			StringEntity se = new StringEntity(group.toString());
-
+			
+			registerRequest = new HttpPost(url);
 			registerRequest.setEntity(se);
 			registerRequest.setHeader("Content-Type","application/json");
 			registerRequest.setHeader("Accept", "application/json");
@@ -104,11 +107,11 @@ public class PushServerSentInv extends Activity {
 		
 		try {
 			JSONObject jObject = new JSONObject(stringResponse);
-			JSONObject sentInvitationObject = jObject.getJSONObject("sent-invitation");
+			JSONObject sentInvitationObject = jObject.getJSONObject("sent_invitation");
 			String railsID = sentInvitationObject.getString("id");
 			
 			int pk = Integer.parseInt(entry.get(DatabaseHelper.SENT_ID_INDEX_S));
-			ToDo_Replica.dh.update_group(pk, null, null, null, null, railsID);
+			ToDo_Replica.dh.update_sent_invitation(pk, null, null, null, null, null, railsID);
 		} catch (Exception e) {
 			Log.e("JSON E", ""+e);
 			e.printStackTrace();
@@ -123,8 +126,6 @@ public class PushServerSentInv extends Activity {
 	 * one locally
 	 */
 	public static int delete(List<String> entry) {
-/* TODO: user id database? " */
-		
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.my_sent_invs_link + entry.get(DatabaseHelper.SENT_RAILS_ID_INDEX_S);

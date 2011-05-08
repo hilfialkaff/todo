@@ -79,6 +79,8 @@ public class DatabaseHelper {
 	private static final String TABLE_NAME_RECV_INVITATION = "recv_invitation_table";
 	private static final String TABLE_NAME_MAP_GROUP_T0_DO = "map_group_to_do";
 	private static final String TABLE_NAME_MAP_GROUP_MEMBER = "map_group_member";
+
+	public static final String INITIAL_INVITATION_STATUS = "Pending"; 
 	
 	private static final String INSERT_USER = "insert into " + TABLE_NAME_USER + " " +
 			"(name, number, email, password, user_rails_id) values (?, ?, ?, ?, ?)";
@@ -594,6 +596,29 @@ public class DatabaseHelper {
 	public List<String> select_sent_invitation(String column, String value) {
 		List<String> list = new ArrayList<String>();
 		String selection = column + " = '" + value + "'";
+		Cursor cursor = this.db.query(TABLE_NAME_SENT_INVITATION, null, selection, null, null, null, null);
+		if (cursor.moveToFirst()) {
+			do {
+				list.add(cursor.getString(cursor.getColumnIndex("sent_id")));
+				list.add(cursor.getString(cursor.getColumnIndex("recipient")));
+				list.add(cursor.getString(cursor.getColumnIndex("groupz")));
+				list.add(cursor.getString(cursor.getColumnIndex("status")));
+				list.add(cursor.getString(cursor.getColumnIndex("description")));
+				list.add(cursor.getString(cursor.getColumnIndex("timestamp")));
+				list.add(cursor.getString(cursor.getColumnIndex("sent_rails_id")));
+			} while (cursor.moveToNext());
+		}
+		if (cursor != null && !cursor.isClosed()) {
+			cursor.close();
+		}
+		return list;
+	}
+
+	public List<String> select_sent_invitation(String column1, String value1, String column2,
+			String value2) {
+		List<String> list = new ArrayList<String>();
+		String selection = column1 + " = '" + value1 + "'" + " AND " + 
+		column2 + " = '" + value2 + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_SENT_INVITATION, null, selection, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {

@@ -2,7 +2,13 @@ class RecvInvitationsController < ApplicationController
   def accept
     @user = User.find_by_name(params[:user_name])
     if @user.nil?
-      error.add "User doesn't exist"
+      # TODO: @user.errors.add "User doesn't exist"
+
+      respond_to do |format|
+        format.html { redirect_to(users_url, :notice => 'fail') }
+        format.xml  { render :head => :ok }
+        format.json  { render :head => :ok }
+      end
     end
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
@@ -27,7 +33,13 @@ class RecvInvitationsController < ApplicationController
   def reject
     @user = User.find_by_name(params[:user_name])
     if @user.nil?
-      error.add "User doesn't exist"
+       # TODO: @user.errors.add "User doesn't exist"
+
+      respond_to do |format|
+        format.html { redirect_to(@user, :notice => 'fail') }
+        format.xml  { render :head => :ok }
+        format.json  { render :head => :ok }
+      end
     end
 
     @invitation = @user.recv_invitations.find(params[:inv_id])

@@ -66,6 +66,10 @@ public class Groups extends Activity {
 		List<String> groupnames = ToDo_Replica.dh.select_all_group_name();
 
 		for (String groupname : groupnames) {
+			if(groupname.equalsIgnoreCase("None")) {
+				continue;
+			}
+			
 			TableRow row = new TableRow(this);		
 			row.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 

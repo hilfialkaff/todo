@@ -242,8 +242,8 @@ public class PushServerGroup extends Activity {
 		String xmlResponse;
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.unsubscribe_link + "?group_id=" + 
-		entry.get(DatabaseHelper.GROUP_RAILS_ID_INDEX_G) + "&user_name=" + 
+		ServerConnection.unsubscribe_link + "?group_name=" + 
+		entry.get(DatabaseHelper.NAME_INDEX_G) + "&user_name=" + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.NAME_INDEX_U);
 
 		try

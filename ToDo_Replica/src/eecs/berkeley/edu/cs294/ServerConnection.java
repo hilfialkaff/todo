@@ -287,10 +287,6 @@ public class ServerConnection extends Activity {
 		default:
 			Log.d("ServerDEBUG", "! Wrong entry_type" + entry_type);
 		}
-		
-		if(retCode == 0) {
-			Log.d("ServerDEBUG", "Your post was successfully uploaded");
-		}
 	}
 	
 	/*

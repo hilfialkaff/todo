@@ -40,7 +40,6 @@ public class AddContact extends ListActivity implements OnItemLongClickListener 
 		adapter = new ResultAdapter(AddContact.this, R.layout.search_contact, AddGroup.candidate);
 		setListAdapter(adapter);
 
-
 		b_member_next = (Button) findViewById(R.id.b_member_next);
 		b_member_next.setOnClickListener(new OnClickListener() {
 			@Override
@@ -48,20 +47,25 @@ public class AddContact extends ListActivity implements OnItemLongClickListener 
 				Time time = new Time();
 				String timestamp = Long.toString(time.normalize(false));
 				String members = "";
-				for(int i = 0; i < selected.size(); i++) {
-					members += selected.get(id.get(i)).getName() + " ";
+				Bundle temp = getIntent().getExtras();
+				String group_name = temp.getString("name");
+				String description = temp.getString("description");
+				
+				for(int i = 0; i < id.size(); i++) {
+					String member_name = selected.get(id.get(i)).getName();
+					members += member_name + " ";
 				}
 				System.out.println("members: " + members);
-				Bundle temp = getIntent().getExtras();
-				ToDo_Replica.dh.insert_group(temp.getString("name"), 
-						temp.getString("description"), members, timestamp, Integer.toString(0));
-
+				
+				ToDo_Replica.dh.insert_group(group_name, description, members, timestamp, 
+						Integer.toString(0));
+				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_group("name", 
 						temp.getString("name"));
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-
+				
 				if(netInfo == null) {
 					Log.d("DEBUG", "--------------- No internet connection --------- ");
 				}
@@ -70,6 +74,27 @@ public class AddContact extends ListActivity implements OnItemLongClickListener 
 					ServerConnection.pushRemote(newEntry, 
 							ServerConnection.GROUP_SERVER_UPDATE,
 							ServerConnection.CREATE_REQUEST);
+			
+					for(int i = 0; i < id.size(); i++) {
+						String invitee = selected.get(id.get(i)).getName();
+						
+						/* User has been invited before */
+						if(ToDo_Replica.dh.select_sent_invitation("recipient", invitee, 
+								"groupz", group_name).size() != 0) {
+							continue;
+						}
+
+						ToDo_Replica.dh.insert_sent_invitation(invitee, group_name, 
+								DatabaseHelper.INITIAL_INVITATION_STATUS, description, 
+								timestamp, Integer.toString(0));
+						
+						List<String> sentInvitation = ToDo_Replica.dh.
+						select_sent_invitation("recipient", invitee, "groupz", group_name);
+						
+						ServerConnection.pushRemote(sentInvitation, 
+								ServerConnection.SENT_INV_SERVER_UPDATE, 
+								ServerConnection.CREATE_REQUEST);
+					}
 				}
 
 				setResult(RESULT_OK);
