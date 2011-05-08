@@ -2,23 +2,24 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">	
+	android:layout_height="fill_parent">	
 	<ListView
 		android:id="@+id/android:list"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/b_member_next"
+		android:layout_marginBottom="75px"
 		android:scrollbars="vertical"
 		android:layout_alignParentTop="true">
 	</ListView>
 	<Button
 		android:id="@+id/b_member_next"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="Finish"
 		android:textSize="20px"
-		android:layout_marginLeft="150px"
-		android:layout_marginRight="150px"
+		android:layout_marginLeft="100px"
+		android:layout_marginRight="100px"
 		android:layout_alignParentBottom="true"
 		android:layout_centerHorizontal="true">
 	</Button>

@@ -27,7 +27,8 @@ public class PreviewGroup extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview_group);
-
+		
+		setTitle("Preview Group");
 		th_preview_group = (TabHost) findViewById(R.id.th_preview_group);
 		th_preview_group.setup();
 
