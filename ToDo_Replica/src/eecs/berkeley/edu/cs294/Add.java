@@ -1,5 +1,6 @@
 package eecs.berkeley.edu.cs294;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,9 +25,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
 import android.widget.TimePicker;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.TabHost.TabSpec;
 
 public class Add extends Activity {
 	private String title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id;
@@ -96,7 +97,7 @@ public class Add extends Activity {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				String group_name =  parent.getItemAtPosition(pos).toString();
 				if(group_name.equalsIgnoreCase("None"))
-					group_id = Integer.toString(0);
+					group_id = Integer.toString(1);
 				else
 					group_id = Integer.toString(ToDo_Replica.dh.select_group_id(group_name));
 			}
@@ -182,13 +183,12 @@ public class Add extends Activity {
 				timestamp = Long.toString(date.getTime());
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = "";
-				/* Retrieve to_do_rails_id */
 
 				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
-
+				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("title", title);
-				if(group_id != null || group_id != "") {
+				if(group_id.equalsIgnoreCase("1") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
@@ -197,7 +197,8 @@ public class Add extends Activity {
 					}
 
 					if (netInfo.isConnected()) {
-						ServerConnection.pushRemote(newEntry, ServerConnection.TODO_SERVER_UPDATE,
+						ServerConnection.pushRemote(newEntry, 
+								ServerConnection.TODO_SERVER_UPDATE,
 								ServerConnection.CREATE_REQUEST);
 					}
 				}

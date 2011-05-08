@@ -25,7 +25,9 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		dh = new DatabaseHelper(this); 
-
+		dh.insert_group("None", "User Private Group", 
+				"", "", ""); /* Group "None" not shared */
+		
 		setContentView(R.layout.main);
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);

@@ -24,10 +24,13 @@ public class PushServerTodo extends Activity {
 	 * Create a new todo in the server. Called when a user create a corresponding one locally.
 	 */
 	public static int create(List<String> entry) {
-		/* TODO: user id database? */
-		String url = ServerConnection.homeurl + ServerConnection.users_link + ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.groups_link + entry.get(DatabaseHelper.GROUP_ID_INDEX_T) + 
-		ServerConnection.todolink;
+		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
+		String groupRailsID = ToDo_Replica.dh.select_group("g_id", groupID).get(
+				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
+		
+		String url = ServerConnection.homeurl + ServerConnection.users_link + 
+		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
+		ServerConnection.groups_link + groupRailsID + ServerConnection.todolink;
 		
 		Log.d("ServerDEBUG", "POST to " + url);
 		
@@ -100,7 +103,7 @@ public class PushServerTodo extends Activity {
 		
 		try {
 			JSONObject jObject = new JSONObject(stringResponse);
-/*TODO*/	JSONObject tododetailObject = jObject.getJSONObject("tododetail");
+			JSONObject tododetailObject = jObject.getJSONObject("tododetail");
 			String railsID = tododetailObject.getString("id");
 			
 			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));

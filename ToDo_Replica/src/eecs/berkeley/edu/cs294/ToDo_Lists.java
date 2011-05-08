@@ -112,7 +112,7 @@ public class ToDo_Lists extends Activity {
 			List<String> oldEntry = ToDo_Replica.dh.select_to_do("td_id", 
 					todo_ids.get(menuItem.getItemId()));
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
-			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
