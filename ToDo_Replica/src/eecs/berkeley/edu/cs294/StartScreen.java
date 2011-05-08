@@ -20,14 +20,30 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class StartScreen extends Activity {
-	ServerConnection sc;
-
 	EditText et_start_name;
 	EditText et_start_number;
 	EditText et_start_email;
 	EditText et_start_password;
 	Button b_start_sign_up;
 
+	public boolean isConnected() {
+		System.out.println("CONNECTED CALLED");
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+		if(netInfo == null) {
+			Log.d("ServerDEBUG", "--------------- No internet connection --------- ");
+			return false;
+		}
+
+		if (netInfo.isConnected()) {
+			Log.d("ServerDEBUG", "------------- Connected to internet -------------");
+			return true;
+		}
+
+		return false;
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +78,9 @@ public class StartScreen extends Activity {
 					dialog.show();
 				}
 				else{
-					//if (sc.isConnected()){
+					if (isConnected()){
+						
+						
 						Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
 						ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
 						System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
@@ -87,12 +105,12 @@ public class StartScreen extends Activity {
 
 						startActivity(intent);
 					}
-					/*else {
+					else {
 						AlertDialog.Builder dialog = new AlertDialog.Builder(StartScreen.this);
 						dialog.setTitle("Error in connection");
 						dialog.show();
-					}*/
-				//}
+					}
+				}
 			}
 		});
 	}

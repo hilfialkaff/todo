@@ -63,6 +63,7 @@ public class ServerConnection extends Activity {
 	 * Check if phone is connected to the internet
 	 */
 	public boolean isConnected() {
+		System.out.println("CONNECTED CALLED");
 		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

@@ -72,6 +72,7 @@ public class Groups extends Activity {
 			TextView tv_groupname= new TextView(this);
 			tv_groupname.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
 			tv_groupname.setText(groupname);
+			tv_groupname.setTextSize(30);
 
 			row.addView(tv_groupname);
 			row.setContentDescription(tv_groupname.getText());
