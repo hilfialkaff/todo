@@ -3,7 +3,8 @@ class Group < ActiveRecord::Base
   has_many :tododetails, :dependent => :destroy
 
   validates :name, :presence => true, :uniqueness => true
+  validate :description
 
-  attr_accessible :name => true
-  attr_accessible :description => true
+#  attr_accessible :name => true
+#  attr_accessible :description => true
 end
