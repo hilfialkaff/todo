@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/m_edit_group"
+          android:icon="@drawable/menu_add_group"
+          android:title="Edit Group" />
+</menu>
