@@ -53,15 +53,15 @@ class GroupsController < ApplicationController
   # POST /groups.xml
   def create
     @user = User.find(params[:user_id])
-    @group = @user.groups.new(params[:group])
+    @group = @user.groups.create(params[:group])
 
     respond_to do |format|
-      if @group.save
-        format.html { redirect_to(@user, :notice => 'Group was successfully created.') }
-        format.xml  { render :xml => @group, :status => :created, :location => @group }
-        format.json  { render :json => @group, :status => :created, :location => @group }
+      format.html { redirect_to(@user, :notice => 'Group was successfully created.') }
+      format.xml  { render :xml => @group, :status => :created, :location => @group }
+      format.json  { render :json => @group, :status => :created, :location => @group }
 
-      else
+      # TODO
+      if true == false:
         format.html { render :action => "new" }
         format.xml  { render :xml => @group.errors, :status => :unprocessable_entity }
         format.json  { render :json => @group.errors, :status => :unprocessable_entity }

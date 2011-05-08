@@ -110,7 +110,7 @@ public class ToDo_Lists extends Activity {
 			
 			/* Push changes to remote if applicable */
 			List<String> oldEntry = ToDo_Replica.dh.select_to_do("td_id", 
-					todo_ids.get(menuItem.getItemId()));
+					todo_ids.get(menuItem.getItemId() - 1));
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -126,9 +126,7 @@ public class ToDo_Lists extends Activity {
 				}
 			}
 			
-			Log.d("DEBUG", "td_id: " + menuItem.getItemId());
-			
-			ToDo_Replica.dh.delete_to_do("td_id", todo_ids.get(menuItem.getItemId()));
+			ToDo_Replica.dh.delete_to_do("td_id", todo_ids.get(menuItem.getItemId() - 1));
 			tl_todo_lists.removeAllViews();
 			populate();
 			return true;

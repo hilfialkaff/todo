@@ -78,13 +78,10 @@ public class StartScreen extends Activity {
 					dialog.show();
 				}
 				else{
-					if (isConnected()){
-						
-						
+					if (isConnected()){		
 						Intent intent = new Intent(StartScreen.this, ToDo_Replica.class);
 						ToDo_Replica.dh.insert_user(et_start_name.getText().toString(), et_start_number.getText().toString(), et_start_email.getText().toString(), et_start_password.getText().toString(), "");
 						System.out.println(et_start_name.getText().toString() + " " + et_start_number.getText().toString() + " " + et_start_email.getText().toString() + " " + et_start_password.getText().toString());
-
 
 						/* Push changes to the remote if applicable */
 						List<String> userEntry = ToDo_Replica.dh.select_user();

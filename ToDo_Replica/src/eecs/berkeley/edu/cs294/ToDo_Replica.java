@@ -24,9 +24,12 @@ public class ToDo_Replica extends Activity {
 		super.onCreate(savedInstanceState);
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
-		dh = new DatabaseHelper(this); 
-		dh.insert_group("None", "User Private Group", 
-				"", "", ""); /* Group "None" not shared */
+		dh = new DatabaseHelper(this);
+		
+		/* Group "None" always exists and not shared */
+		if(dh.select_group("name", "None").size() == 0) {
+			dh.insert_group("None", "User Private Group", "", "", "");
+		}
 		
 		setContentView(R.layout.main);
 		if (customTitle)

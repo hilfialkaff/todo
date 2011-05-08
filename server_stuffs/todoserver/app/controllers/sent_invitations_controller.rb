@@ -6,15 +6,14 @@ class SentInvitationsController < ApplicationController
     @receiver = User.find_by_name(params[:sent_invitation][:recipient])
 
     @receiver.recv_invitations.create(:group => params[:sent_invitation][:group], :description => params[:sent_invitation][:description], :sender => @sender.name)
-    @created_inv = @sender.sent_invitations.new(:group => params[:sent_invitation][:group], :description => params[:sent_invitation][:description], :recipient => @receiver.name, :status => "Pending" )
+    @created_inv = @sender.sent_invitations.create(:group => params[:sent_invitation][:group], :description => params[:sent_invitation][:description], :recipient => @receiver.name, :status => "Pending" )
 
     respond_to do |format|
-      if @created_inv.save
-        format.html { redirect_to(@sender, :notice => 'Invitation was successfully created.') }
-        format.xml  { render :xml => @created_inv, :status => :created, :location => @created_inv }
-        format.json  { render :json => @created_inv, :status => :created, :location => @created_inv }
+      format.html { redirect_to(@sender, :notice => 'Invitation was successfully created.') }
+      format.xml  { render :xml => @created_inv, :status => :created, :location => @created_inv }
+      format.json  { render :json => @created_inv, :status => :created, :location => @created_inv }
 
-      else
+      if true == false:
         format.html { render :action => "new" }
         format.xml  { render :xml => @created_inv.errors, :status => :unprocessable_entity }
         format.json  { render :json => @created_inv.errors, :status => :unprocessable_entity }
