@@ -64,11 +64,11 @@ public class PreviewGroup extends Activity {
 			tv_description_preview_group2.setText(row.get(2));
 		}
 		
-		populateMembers();
+		populateMembers(name);
 	}
 	
-	private void populateMembers() {
-		List<String> members = ToDo_Replica.dh.select_all_members("name");
+	private void populateMembers(String groupname) {
+		List<String> members = ToDo_Replica.dh.select_group_member(groupname);
 
 		for (String member : members) {
 			TableRow row = new TableRow(this);		

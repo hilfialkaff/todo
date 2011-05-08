@@ -102,24 +102,32 @@ public class InvitationWindow extends Activity {
 	public void populateOutgoingRequests(){
 		List<String> recipients = ToDo_Replica.dh.select_all_sent_invitations("recipient");
 		List<String> groups = ToDo_Replica.dh.select_all_sent_invitations("groupz");
+		List<String> statuses = ToDo_Replica.dh.select_all_sent_invitations("status");
 
-		String recipient, group;
+		String recipient, group, status;
 		for (int i=0; i<recipients.size(); i++) {
 			recipient = recipients.get(i);
 			group = groups.get(i);
+			status = statuses.get(i);
+			
 			TableRow row = new TableRow(this);		
 			row.setLayoutParams(new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
 			TextView tv_recipient = new TextView(this);
 			tv_recipient.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
 			tv_recipient.setText(recipient);
-			tv_recipient.setTextSize(30);
+			tv_recipient.setTextSize(20);
 			
 			TextView tv_group = new TextView(this);
 			tv_group.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			tv_group.setText(group);
-			tv_group.setTextSize(30);
+			tv_group.setTextSize(20);
 
+			TextView tv_status = new TextView(this);
+			tv_status.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			tv_status.setText(status);
+			tv_status.setTextSize(20);
+			
 			row.addView(tv_recipient);
 			row.addView(tv_group);
 			row.setContentDescription(recipient);

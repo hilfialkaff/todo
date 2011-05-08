@@ -45,6 +45,8 @@ public class ServerConnection extends Activity {
 	static final String users_link = "users/";
 	static final String groups_link = "/groups/";
 	static final String todolink = "/tododetails";
+
+
 	
 	static final String my_groups_link = "/groups?format=xml";
 	static final String my_sent_invs_link = "/sent_invitations";
@@ -61,6 +63,7 @@ public class ServerConnection extends Activity {
 	 * Check if phone is connected to the internet
 	 */
 	public boolean isConnected() {
+		System.out.println("CONNECTED CALLED");
 		ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

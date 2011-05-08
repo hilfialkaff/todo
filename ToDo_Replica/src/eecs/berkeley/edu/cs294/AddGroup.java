@@ -21,6 +21,10 @@ public class AddGroup extends Activity {
 	/** Called when the activity is first created. */
 	ArrayAdapter<String> adapter;
 
+	EditText et_name, et_description;
+	Button b_add_members;
+	Button b_submit, b_add_contact;
+
 	EditText et_group_name, et_group_description;
 	Button b_group_next;
 
@@ -30,8 +34,6 @@ public class AddGroup extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_group);
-
-		setTitle("Add Group");
 
 		et_group_name = (EditText) findViewById(R.id.et_group_name);
 		et_group_description = (EditText) findViewById(R.id.et_group_description);
@@ -77,6 +79,17 @@ public class AddGroup extends Activity {
 					candidate.add(new Contact(id, name, number, email));
 				}
 			}
+		}
+	}
+
+	private void populateMembers(){
+		if (!candidate.isEmpty()){
+			for(Contact cand : candidate){
+				b_add_contact.append(cand.getName() + "\n");
+			}
+		}
+		else {
+			b_add_contact.setText("click to edit");
 		}
 	}
 }

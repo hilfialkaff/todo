@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -23,6 +24,7 @@ import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 public class Groups extends Activity {
+	/** Called when the activity is first created. */
 	TableLayout tl_group_list;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class Groups extends Activity {
 			TextView tv_groupname= new TextView(this);
 			tv_groupname.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
 			tv_groupname.setText(groupname);
+			tv_groupname.setTextSize(30);
 
 			row.addView(tv_groupname);
 			row.setContentDescription(tv_groupname.getText());
@@ -90,17 +93,16 @@ public class Groups extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
 		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("name", v.getContentDescription().toString()).get(DatabaseHelper.GROUP_ID_INDEX_G)), 0, "leave group");
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("name", v.getContentDescription().toString()).get(DatabaseHelper.GROUP_ID_INDEX_G)), 1, "delete group");
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem menuItem) {
+		List<String> groups = ToDo_Replica.dh.select_all_groups("g_id");
+		List<String> oldEntry = ToDo_Replica.dh.select_group("g_id", 
+				groups.get(menuItem.getItemId()-1));
 		switch(menuItem.getOrder()) {
 		case 0:
-			List<String> groups = ToDo_Replica.dh.select_all_groups("g_id");
-
-			/* Push changes to remote if applicable */
-			List<String> oldEntry = ToDo_Replica.dh.select_group("name", 
-					groups.get(menuItem.getItemId()));
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
 			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -116,6 +118,27 @@ public class Groups extends Activity {
 				}
 			}
 
+			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
+
+			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());
+			tl_group_list.removeAllViews();
+			populate();
+			return true;
+		case 1:
+			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != null || oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T) != "") {
+				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+
+				if(netInfo == null) {
+					Log.d("DEBUG", "--------------- No internet connection --------- ");
+				}
+
+				if (netInfo.isConnected()) {
+					ServerConnection.pushRemote(oldEntry, ServerConnection.GROUP_SERVER_UPDATE,
+							ServerConnection.DELETE_REQUEST);
+				}
+			}
 			Log.d("DEBUG", "g_id: " + menuItem.getItemId());
 
 			ToDo_Replica.dh.delete_group("g_id", ""+menuItem.getItemId());

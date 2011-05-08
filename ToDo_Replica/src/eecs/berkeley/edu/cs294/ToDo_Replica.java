@@ -61,6 +61,7 @@ public class ToDo_Replica extends Activity {
 
 		// TODO: Need to be un-hardcoded
 		serverTimer.scheduleAtFixedRate(serverTimerTask, 40000, 10000);
+		
 		/********************************************************************/
 		
 
