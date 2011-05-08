@@ -177,6 +177,7 @@ public class Add extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
+				System.err.println(status);
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				timestamp = Long.toString(date.getTime());
