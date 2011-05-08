@@ -53,7 +53,9 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 				System.out.println("members: " + members);
 				Bundle temp = getIntent().getExtras();
 
-				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), temp.getString("name"), temp.getString("description"), members, timestamp, null);
+				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), 
+						temp.getString("name"), temp.getString("description"), members, 
+						timestamp, null);
 				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_group("name", 

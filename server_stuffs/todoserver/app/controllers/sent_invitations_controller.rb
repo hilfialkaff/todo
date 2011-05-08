@@ -3,10 +3,10 @@ class SentInvitationsController < ApplicationController
     @sender = User.find(params[:user_id])
     @sent_inv = params[:sent_invitations]
 
-    @receiver = User.find_by_name(params[:recipient])
+    @receiver = User.find_by_name(params[:sent_invitation][:recipient])
 
-    @receiver.recv_invitations.create(:group => params[:group], :description => params[:description], :sender => @sender.name)
-    @created_inv = @sender.sent_invitations.create(:group => params[:group], :description => params[:description], :recipient => @receiver.name, :status => "Pending" )
+    @receiver.recv_invitations.create(:group => params[:sent_invitation][:group], :description => params[:sent_invitation][:description], :sender => @sender.name)
+    @created_inv = @sender.sent_invitations.create(:group => params[:sent_invitation][:group], :description => params[:sent_invitation][:description], :recipient => @receiver.name, :status => "Pending" )
 
     respond_to do |format|
       format.html { redirect_to(@sender, :notice => 'Invitation was successfully created.') }

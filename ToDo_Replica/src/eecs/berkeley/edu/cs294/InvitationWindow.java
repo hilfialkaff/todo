@@ -48,14 +48,17 @@ public class InvitationWindow extends Activity {
 		th_invitation = (TabHost) findViewById(R.id.th_invitation);
 		th_invitation.setup();
 		
+		tl_outgoing = (TableLayout) findViewById(R.id.tl_outgoing);
+		tl_incoming = (TableLayout) findViewById(R.id.tl_incoming);
+		
 		TabSpec in_req_tab = th_invitation.newTabSpec("in_req_btn_tab");
-		in_req_tab.setContent(R.id.tl_invitation);
+		in_req_tab.setContent(R.id.tl_incoming);
 		in_req_tab.setIndicator("Incoming");
 		populateIncomingRequests();
 		th_invitation.addTab(in_req_tab);
 		
 		TabSpec out_req_tab = th_invitation.newTabSpec("out_req_btn_tab");
-		out_req_tab.setContent(R.id.tl_invitation);
+		out_req_tab.setContent(R.id.tl_outgoing);
 		out_req_tab.setIndicator("Outgoing");
 		populateOutgoingRequests();
 		th_invitation.addTab(out_req_tab);
@@ -130,6 +133,7 @@ public class InvitationWindow extends Activity {
 			
 			row.addView(tv_recipient);
 			row.addView(tv_group);
+			row.addView(tv_status);
 			row.setContentDescription(recipient);
 			row.setOnClickListener(new OnClickListener() {
 				@Override

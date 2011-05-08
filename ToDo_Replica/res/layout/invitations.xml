@@ -19,13 +19,26 @@
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 <ScrollView
-	android:id="@+id/sv_invitation"
+	android:id="@+id/sv_incoming"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:scrollbars="vertical"
 	android:paddingTop="13dp">
 <TableLayout
-	android:id="@+id/tl_invitation"
+	android:id="@+id/tl_incoming"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:stretchColumns="0">
+</TableLayout>
+</ScrollView>
+<ScrollView
+	android:id="@+id/sv_outgoing"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical"
+	android:paddingTop="13dp">
+<TableLayout
+	android:id="@+id/tl_outgoing"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:stretchColumns="0">
