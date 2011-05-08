@@ -17,29 +17,30 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AddContact extends ListActivity implements AdapterView.OnItemClickListener {
+public class AddContact extends ListActivity implements OnItemLongClickListener {
 	static ResultAdapter adapter;
 	public static HashMap<Integer, Contact> selected = new HashMap<Integer, Contact>();
 	List<Integer> id = new ArrayList<Integer>();
 	Button b_member_next;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_contact);
-		
+
 		setTitle("Add Member");
-		
-		getListView().setOnItemClickListener(this);
+
+		getListView().setOnItemLongClickListener(this);
 		adapter = new ResultAdapter(AddContact.this, R.layout.search_contact, AddGroup.candidate);
 		setListAdapter(adapter);
-		
-		
+
+
 		b_member_next = (Button) findViewById(R.id.b_member_next);
 		b_member_next.setOnClickListener(new OnClickListener() {
 			@Override
@@ -70,12 +71,12 @@ public class AddContact extends ListActivity implements AdapterView.OnItemClickL
 							ServerConnection.GROUP_SERVER_UPDATE,
 							ServerConnection.CREATE_REQUEST);
 				}
-				
+
 				setResult(RESULT_OK);
 				finish();
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -83,10 +84,11 @@ public class AddContact extends ListActivity implements AdapterView.OnItemClickL
 		Intent setIntent = new Intent(Intent.ACTION_MAIN);
 		setIntent.addCategory(Intent.CATEGORY_HOME);
 		setIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		
+
 		finish();
 	}
 
+	/*
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		ImageView temp = ((ImageView) arg1.findViewById(R.id.iv_add_member));
@@ -94,9 +96,9 @@ public class AddContact extends ListActivity implements AdapterView.OnItemClickL
 			temp.setTag("add");
 			selected.put(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()),
 					new Contact(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString(), 
-					((TextView)arg1.findViewById(R.id.tv_name)).getText().toString(), 
-					((TextView)arg1.findViewById(R.id.tv_number)).getText().toString(),
-					((TextView)arg1.findViewById(R.id.tv_email)).getText().toString()));
+							((TextView)arg1.findViewById(R.id.tv_name)).getText().toString(), 
+							((TextView)arg1.findViewById(R.id.tv_number)).getText().toString(),
+							((TextView)arg1.findViewById(R.id.tv_email)).getText().toString()));
 			temp.setBackgroundResource(R.drawable.member_add);
 			id.add(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
 		}
@@ -106,7 +108,7 @@ public class AddContact extends ListActivity implements AdapterView.OnItemClickL
 			id.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
 			temp.setBackgroundResource(R.drawable.member_minus);
 		}
-	}     
+	}*/     
 
 	class ResultAdapter extends ArrayAdapter<Contact> {
 		private ArrayList<Contact> contact;
@@ -131,5 +133,27 @@ public class AddContact extends ListActivity implements AdapterView.OnItemClickL
 			((ImageView) v.findViewById(R.id.iv_add_member)).setTag("normal");
 			return v;
 		}
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		ImageView temp = ((ImageView) arg1.findViewById(R.id.iv_add_member));
+		if(temp.getTag().toString().equalsIgnoreCase("normal") ||temp.getTag().toString().equalsIgnoreCase("minus")) {
+			temp.setTag("add");
+			selected.put(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()),
+					new Contact(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString(), 
+							((TextView)arg1.findViewById(R.id.tv_name)).getText().toString(), 
+							((TextView)arg1.findViewById(R.id.tv_number)).getText().toString(),
+							((TextView)arg1.findViewById(R.id.tv_email)).getText().toString()));
+			temp.setBackgroundResource(R.drawable.member_add);
+			id.add(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
+		}
+		else if(temp.getTag().toString().equalsIgnoreCase("add")) {
+			temp.setTag("minus");
+			selected.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
+			id.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
+			temp.setBackgroundResource(R.drawable.member_minus);
+		}
+		return false;
 	}
 }

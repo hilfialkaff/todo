@@ -56,6 +56,7 @@ public class AddGroup extends Activity {
 				}
 			}
 		});
+		candidate.clear();
 		initiateContact();
 	}
 

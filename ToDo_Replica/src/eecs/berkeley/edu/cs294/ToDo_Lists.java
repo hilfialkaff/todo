@@ -48,8 +48,6 @@ public class ToDo_Lists extends Activity {
 		}
 
 		tl_todo_lists = (TableLayout) findViewById(R.id.tl_todo_lists);
-		ToDo_Replica.dh = new DatabaseHelper(this);	
-
 		populate();
 	}
 
