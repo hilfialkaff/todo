@@ -1,6 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,10 +25,9 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 import android.widget.TableLayout;
 import android.widget.TimePicker;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TabHost.TabSpec;
 
 public class Add extends Activity {
 	private String title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id;
@@ -82,11 +81,11 @@ public class Add extends Activity {
 		et_place = (EditText) findViewById(R.id.et_place);
 
 		List<String> groups = ToDo_Replica.dh.select_all_group_name();
-		array_spinner_group = new String[groups.size() + 1];
-		array_spinner_group[0] = "None";
+		array_spinner_group = new String[groups.size()];
+		//array_spinner_group[0] = "None";
 
 		for(int i = 0; i < groups.size(); i++)
-			array_spinner_group[i + 1] = groups.get(i);
+			array_spinner_group[i] = groups.get(i);
 
 		s_group = (Spinner) findViewById(R.id.s_group);
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, array_spinner_group);
