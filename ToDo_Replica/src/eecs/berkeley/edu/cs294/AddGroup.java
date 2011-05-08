@@ -56,7 +56,8 @@ public class AddGroup extends Activity {
 				}
 			}
 		});
-		initiateContact();
+		if(candidate.size() == 0)
+			initiateContact();
 	}
 
 	private void initiateContact() {
