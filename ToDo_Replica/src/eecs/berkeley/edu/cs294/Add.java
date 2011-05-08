@@ -117,6 +117,7 @@ public class Add extends Activity {
 			@Override
 			public void onClick(View v) {
 				priority = "Low";
+
 				b_priority_low.setTextColor(Color.YELLOW);
 				b_priority_medium.setTextColor(Color.BLACK);
 				b_priority_high.setTextColor(Color.BLACK);

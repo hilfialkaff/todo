@@ -47,7 +47,10 @@ public class InvitationWindow extends Activity {
 		
 		th_invitation = (TabHost) findViewById(R.id.th_invitation);
 		th_invitation.setup();
-		
+	
+		tl_outgoing = (TableLayout) findViewById(R.id.tl_invitation);
+		tl_incoming = (TableLayout) findViewById(R.id.tl_invitation);
+			
 		TabSpec in_req_tab = th_invitation.newTabSpec("in_req_btn_tab");
 		in_req_tab.setContent(R.id.tl_invitation);
 		in_req_tab.setIndicator("Incoming");
