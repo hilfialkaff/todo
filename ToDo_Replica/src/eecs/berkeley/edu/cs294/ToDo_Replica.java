@@ -24,8 +24,13 @@ public class ToDo_Replica extends Activity {
 		super.onCreate(savedInstanceState);
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
-		dh = new DatabaseHelper(this); 
-
+		dh = new DatabaseHelper(this);
+		
+		/* Group "None" always exists and not shared */
+		if(dh.select_group("name", "None").size() == 0) {
+			dh.insert_group("None", "User Private Group", "", "", "");
+		}
+		
 		setContentView(R.layout.main);
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
@@ -53,15 +58,6 @@ public class ToDo_Replica extends Activity {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
 					
 					while(dh.select_user().size() == 0);
-					
-					ArrayList<String> groupList = new ArrayList<String>();
-					groupList.add(null);
-					groupList.add("group12311111");
-					groupList.add("description5141231111");
-					//ServerConnection.pushRemote(groupList, ServerConnection.GROUP_SERVER_UPDATE, 
-					//		ServerConnection.UPDATE_REQUEST);
-					
-					while(true);
 				}
 			}
 		};

@@ -452,7 +452,7 @@ public class DatabaseHelper {
 			cv.put("timestamp", timestamp);
 		}
 		if(group_rails_id != null) {
-			cv.put("group_id", group_rails_id);
+			cv.put("group_rails_id", group_rails_id);
 		}
 
 		Log.d("DbDEBUG", "UPDATE name: " + name + " description: " + description + 

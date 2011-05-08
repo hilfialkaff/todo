@@ -44,9 +44,9 @@ public class ServerConnection extends Activity {
 	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
 	static final String users_link = "users/";
 	static final String groups_link = "/groups/";
-	static final String todolink = "groups/1/tododetails";
-	static String user_id;
-	static String group_id;
+	static final String todolink = "/tododetails/";
+	static final String tmp_groups_link = "groups/";
+
 	
 	static final String my_groups_link = "/groups?format=xml";
 	static final String my_sent_invs_link = "/sent_invitations";
@@ -191,6 +191,7 @@ public class ServerConnection extends Activity {
 		
 		if(entry == null) {
 			Log.d("ServerDEBUG", "entry: null");
+			return;
 		}
 		else {
 			Log.d("ServerDEBUG", "entry: " + entry.toString() + " with entry type: " + 
