@@ -59,6 +59,7 @@ public class Groups extends Activity {
 		if (resultCode == Activity.RESULT_OK) {
 			tl_group_list.removeAllViews();
 			populate();
+			
 		}
 	}
 
