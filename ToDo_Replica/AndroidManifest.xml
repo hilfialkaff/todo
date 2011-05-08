@@ -30,6 +30,8 @@
 		<activity android:name=".Preview"> </activity>
 		<activity android:name=".PreviewGroup"></activity>
 		<activity android:name=".Edit"></activity>
+		<activity android:name=".EditGroup"></activity>
+		<activity android:name=".EditContact"></activity>
 		
 		<activity android:name=".GoogleMaps"
 				  android:label="@string/app_name"

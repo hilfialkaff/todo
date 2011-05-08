@@ -60,6 +60,14 @@ public class AddGroup extends Activity {
 			initiateContact();
 	}
 
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+
+		if (resultCode == Activity.RESULT_OK) {
+			finish();
+		}
+	}
+	
 	private void initiateContact() {
 		ContentResolver cr = getContentResolver();
 		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
@@ -83,14 +91,4 @@ public class AddGroup extends Activity {
 		}
 	}
 
-	private void populateMembers(){
-		if (!candidate.isEmpty()){
-			for(Contact cand : candidate){
-				b_add_contact.append(cand.getName() + "\n");
-			}
-		}
-		else {
-			b_add_contact.setText("click to edit");
-		}
-	}
 }
