@@ -335,25 +335,21 @@ public class DatabaseHelper {
 	}
 	
 	public List<String> select_group_member(String name) {
-		List<Integer> list = new ArrayList<Integer>();
-		String selection = "name = " + name;
+		List<String> list = new ArrayList<String>();
+		String selection = "name = '" + name + "'";
 		Cursor cursor = this.db.query(TABLE_NAME_GROUP, null, selection, null, null, null, null);
 		if (cursor.moveToFirst()) {
 			do {
 				String member_s = cursor.getString(cursor.getColumnIndex("member"));
 				String[] member_sa = member_s.split(" ");
 				for(int i = 0; i < member_sa.length; i++)
-					list.add(Integer.parseInt(member_sa[i]));
+					list.add(member_sa[i]);
 			} while (cursor.moveToNext());
 		}
 		if (cursor != null || !cursor.isClosed()) {
 			cursor.close();
 		}
-		List<String> rtn = new ArrayList<String>();
-		for (int m_id : list){
-			rtn.add(this.db.query(TABLE_NAME_MEMBER, new String[]{"name"}, "m_id = '" + m_id + "'", null, null, null, null).getString(NAME_INDEX_M));
-		}
-		return rtn;
+		return list;
 	}
 	
 	public int select_group_id(String name) {
