@@ -56,7 +56,6 @@ public class Add extends Activity {
 		setContentView(R.layout.add);
 		
 		setTitle("Add ToDo");
-		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();

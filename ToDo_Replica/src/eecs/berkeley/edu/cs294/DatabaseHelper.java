@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
+import android.widget.TabHost;
 
 public class DatabaseHelper {
 	private static final String DATABASE_NAME = "noctis.db";
