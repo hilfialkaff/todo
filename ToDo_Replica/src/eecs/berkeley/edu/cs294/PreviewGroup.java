@@ -103,4 +103,13 @@ public class PreviewGroup extends Activity {
 		}
 		return false;
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+
+		if (resultCode == Activity.RESULT_OK) {
+			setResult(RESULT_OK);
+			finish();
+		}
+	}
 }

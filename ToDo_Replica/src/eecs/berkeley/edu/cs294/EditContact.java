@@ -52,6 +52,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 				}
 				System.out.println("members: " + members);
 				Bundle temp = getIntent().getExtras();
+
 				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), temp.getString("name"), temp.getString("description"), members, timestamp, Integer.toString(0));
 				
 				/* Push changes to the remote if applicable */
@@ -70,7 +71,6 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 							ServerConnection.UPDATE_REQUEST);
 				}
 
-				
 				setResult(RESULT_OK);
 				finish();
 			}

@@ -61,7 +61,7 @@ public class EditGroup extends Activity {
 					dialog.show();
 				}
 				else {
-					Intent intent = new Intent(v.getContext(), AddContact.class);
+					Intent intent = new Intent(v.getContext(), EditContact.class);
 					intent.putExtra("name", et_group_name.getText().toString());
 					intent.putExtra("description", et_group_description.getText().toString());
 					intent.putExtra("g_id", group.get(0));

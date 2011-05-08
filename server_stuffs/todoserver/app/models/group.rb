@@ -4,5 +4,6 @@ class Group < ActiveRecord::Base
 
   validates :name, :presence => true, :uniqueness => true
 
-  attr_accessible :name, :description => true
+  attr_accessible :name => true
+  attr_accessible :description => true
 end
