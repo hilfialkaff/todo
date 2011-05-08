@@ -41,6 +41,8 @@ public class SynchDatabase extends Activity {
 						currInvitation.getGroup(), currInvitation.getStatus(), currInvitation.getDescription(),
 						Long.toString(serverTimestamp), currInvitation.getRailsID());
 				
+				DatabaseHelper.recent_updates.add(String.format("Invited %s to %s", currInvitation.getRecipient(), currInvitation.getGroup()));
+
 				continue;
 			}
 			
@@ -68,6 +70,8 @@ public class SynchDatabase extends Activity {
 				
 				ToDo_Replica.dh.update_sent_invitation(sent_id, recipient, group, status, 
 						description, timestamp, railsID);
+				
+				DatabaseHelper.recent_updates.add(String.format("%s %sed your invitation to %s",recipient, status, group));
 			}
 		}
 		
@@ -111,6 +115,8 @@ public class SynchDatabase extends Activity {
 						currInvitation.getGroup(), Long.toString(serverTimestamp), 
 						currInvitation.getRailsID());
 				
+				DatabaseHelper.recent_updates.add(String.format("%s invites you to join %s", currInvitation.getSender(), currInvitation.getGroup()));
+
 				continue;
 			}
 			
@@ -137,6 +143,8 @@ public class SynchDatabase extends Activity {
 				
 				ToDo_Replica.dh.update_recv_invitation(recv_id, sender, group, timestamp, 
 						railsID);
+				
+				DatabaseHelper.recent_updates.add(String.format("%s invited you to %s",sender, group));
 			}
 		}
 		
@@ -179,6 +187,8 @@ public class SynchDatabase extends Activity {
 						currGroup.getDescription(), "", Long.toString(serverTimestamp),  
 						currGroup.getRailsID());
 				
+				DatabaseHelper.recent_updates.add(String.format("Group %s added", currGroup.getName()));
+
 				continue;
 			}
 			
@@ -205,6 +215,8 @@ public class SynchDatabase extends Activity {
 				
 				ToDo_Replica.dh.update_group(group_id, name, description, null, timestamp, 
 						railsID);
+				
+				DatabaseHelper.recent_updates.add(String.format("%s updated", name));
 			}
 		}
 		
@@ -245,6 +257,7 @@ public class SynchDatabase extends Activity {
 						currTodo.getTodoStatus(), currTodo.getTodoPriority(), 
 						Long.toString(serverTimestamp), currTodo.getTodoDeadline(), currTodo.getTodoRailsId());
 				
+				DatabaseHelper.recent_updates.add(String.format("Added todo: %s", currTodo.getTodoTitle()));
 				continue;
 			}
 			
@@ -274,6 +287,8 @@ public class SynchDatabase extends Activity {
 				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
 				
 				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, deadline, dateStr, null);
+				
+				DatabaseHelper.recent_updates.add(String.format("Changed todo: %s",title));
 			}
 		}
 		
@@ -329,6 +344,8 @@ public class SynchDatabase extends Activity {
 						null, group.get(DatabaseHelper.MEMBER_INDEX_G) + " " + 
 						currGroupMember.getRailsID(), null, null);
 				
+				DatabaseHelper.recent_updates.add(String.format("%s joined %s", currGroupMember.getName(), group.get(DatabaseHelper.NAME_INDEX_G)));
+				
 				continue;
 			}
 			
@@ -357,6 +374,8 @@ public class SynchDatabase extends Activity {
 								
 				ToDo_Replica.dh.update_member(m_id, name, number, email, group_id, timestamp, 
 						railsID);
+				
+				DatabaseHelper.recent_updates.add(String.format("Groupmember updated: %s", name));
 			}
 		}
 		
