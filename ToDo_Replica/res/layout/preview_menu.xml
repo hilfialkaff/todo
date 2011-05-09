@@ -1,0 +1,5 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/m_edit_todo"
+          android:icon="@drawable/menu_add"
+          android:title="Edit Todo" />
+</menu>
