@@ -206,6 +206,9 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int delete(List<String> entry) {
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
+		
+		Log.d("ServerDEBUG", "groupID: " + groupID);
+		
 		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 
