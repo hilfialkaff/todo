@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +43,17 @@ public class ToDo_Lists extends Activity {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(v.getContext(), Add.class);
+					startActivityForResult(intent, 0);
+				}
+			});
+		}
+		
+		final ImageButton ib_custom_add_group = (ImageButton) findViewById(R.id.ib_custom_add_group);
+		if (ib_custom_add_group != null) {
+			ib_custom_add_group.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), AddGroup.class);
 					startActivityForResult(intent, 0);
 				}
 			});
@@ -132,4 +145,21 @@ public class ToDo_Lists extends Activity {
 		}
 		return false;
 	};
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.todo_lists_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case R.id.m_add_todo:
+			startActivityForResult(new Intent(this, Add.class), 1);
+			return true;
+		}
+		return false;
+	}
 }

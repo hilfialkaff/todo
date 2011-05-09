@@ -134,15 +134,7 @@ public class InvitationWindow extends Activity {
 			row.addView(tv_recipient);
 			row.addView(tv_group);
 			row.addView(tv_status);
-			row.setContentDescription(recipient);
-			row.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent intent = new Intent(v.getContext(), InvitationConfirmation.class);
-					intent.putExtra("recipient_select", v.getContentDescription());
-					startActivityForResult(intent, 3);
-				}
-			});
+			
 			registerForContextMenu(row);
 			tl_outgoing.addView(row);
 		}

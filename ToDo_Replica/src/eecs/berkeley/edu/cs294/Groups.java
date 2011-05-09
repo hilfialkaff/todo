@@ -48,6 +48,17 @@ public class Groups extends Activity {
 			});
 		}
 
+		final ImageButton ib_custom_add_group = (ImageButton) findViewById(R.id.ib_custom_add_group);
+		if (ib_custom_add_group != null) {
+			ib_custom_add_group.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), AddGroup.class);
+					startActivityForResult(intent, 0);
+				}
+			});
+		}
+		
 		tl_group_list = (TableLayout) findViewById(R.id.tl_group_lists);
 
 		populate();
