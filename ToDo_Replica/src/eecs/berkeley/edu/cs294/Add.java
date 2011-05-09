@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,6 @@ public class Add extends Activity {
 
 	ArrayAdapter<String> adapter;
 
-	private Date date = new Date();
 	private int mYear, mMonth, mDay, mHour, mMinute;
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_DIALOG_ID = 1;
@@ -179,7 +179,8 @@ public class Add extends Activity {
 					status = "Complete";
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
-				timestamp = Long.toString(date.getTime());
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
 				deadline = mYear + " " + mMonth + " " + mDay + "," + mHour + " " + mMinute;
 				to_do_rails_id = "";
 
@@ -187,7 +188,7 @@ public class Add extends Activity {
 				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("title", title);
-				if(group_id.equalsIgnoreCase("1") == false) {
+				if(group_id.equalsIgnoreCase("None") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,6 @@ public class Edit extends Activity {
 
 	ArrayAdapter<String> adapter;
 
-	private Date date = new Date();
 	private int mYear, mMonth, mDay, mHour, mMinute;
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_DIALOG_ID = 1;
@@ -226,14 +226,18 @@ public class Edit extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
-				timestamp = Long.toString(date.getTime());
+
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
+				ToDo_Replica.dh.update_to_do(td_id, title, place, note, tag, group_id, status, priority, timestamp, "", "");
+				deadline = b_deadline_date + "," + b_deadline_time;
 				deadline = mYear + " " + mMonth + " " + mDay + "," + mHour + " " + mMinute;
 				to_do_rails_id = row.get(9);
 				ToDo_Replica.dh.update_to_do(td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
 								
 				/* Push changes to remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));				
-				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
+				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("None") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

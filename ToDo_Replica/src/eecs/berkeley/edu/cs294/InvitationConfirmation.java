@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,8 +63,9 @@ public class InvitationConfirmation extends Activity {
 		b_accept.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String dateStr = Long.toString(new Date().getTime());
-				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), dateStr, row.get(4));
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
+				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), timestamp, row.get(4));
 
 				/* Push changes to remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_recv_invitation("groupz", row.get(2));				
@@ -89,8 +91,9 @@ public class InvitationConfirmation extends Activity {
 		b_reject.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String dateStr = Long.toString(new Date().getTime());
-				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), dateStr, row.get(4));
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
+				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), timestamp, row.get(4));
 
 				/* Push changes to remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_recv_invitation("groupz", row.get(2));				

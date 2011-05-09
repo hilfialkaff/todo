@@ -71,7 +71,7 @@ public class SynchDatabase extends Activity {
 				ToDo_Replica.dh.update_sent_invitation(sent_id, recipient, group, status, 
 						description, timestamp, railsID);
 				
-				DatabaseHelper.recent_updates.add(String.format("%s %s your invitation to %s",recipient, status, group));
+				DatabaseHelper.recent_updates.add(String.format("Invitation to group %s for %s: %s",group, recipient, status));
 			}
 		}
 		
