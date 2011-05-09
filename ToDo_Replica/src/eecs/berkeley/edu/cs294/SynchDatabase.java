@@ -270,8 +270,12 @@ public class SynchDatabase extends Activity {
 			/* The entry hasn't existed in the local db yet */
 			if(entry.size() == 0) {
 				Log.d("ServerDEBUG", "Server entry not inside local db yet");
+				
+				String group_name = ToDo_Replica.dh.select_group("group_rails_id", 
+						currTodo.getTodoGroupId()).get(DatabaseHelper.NAME_INDEX_G);
+				
 				ToDo_Replica.dh.insert_to_do(currTodo.getTodoTitle(), currTodo.getTodoPlace(), 
-						currTodo.getTodoNote(), currTodo.getTodoTag(), currTodo.getTodoGroupId(), 
+						currTodo.getTodoNote(), currTodo.getTodoTag(), group_name, 
 						currTodo.getTodoStatus(), currTodo.getTodoPriority(), 
 						Long.toString(serverTimestamp), currTodo.getTodoDeadline(), currTodo.getTodoRailsId());
 				
