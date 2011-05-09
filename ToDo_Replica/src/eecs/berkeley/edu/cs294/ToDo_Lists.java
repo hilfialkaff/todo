@@ -91,8 +91,10 @@ public class ToDo_Lists extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
-		menu.add(0, ToDo_Replica.dh.select_to_do_primary_key(v.getContentDescription().toString()), 0, "edit");
-		menu.add(0, ToDo_Replica.dh.select_to_do_primary_key(v.getContentDescription().toString()), 1, "delete");
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_to_do("title", v.getContentDescription().toString()).
+				get(DatabaseHelper.TD_ID_INDEX_T)), 0, "edit");
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_to_do("title", v.getContentDescription().toString()).
+				get(DatabaseHelper.TD_ID_INDEX_T)), 1, "delete");
 	}
 
 	@Override

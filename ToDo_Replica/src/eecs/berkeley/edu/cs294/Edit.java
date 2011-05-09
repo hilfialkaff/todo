@@ -1,6 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -192,9 +191,6 @@ public class Edit extends Activity {
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
-		String temp[] = row.get(6).split(",");
-		b_deadline_date.setText(temp[0]);
-		b_deadline_time.setText(temp[1]);
 		
 		b_deadline_time.setOnClickListener(new OnClickListener() {
 			@Override
@@ -202,6 +198,18 @@ public class Edit extends Activity {
 				showDialog(TIME_DIALOG_ID);
 			}
 		});
+		
+		String temp[] = row.get(8).split(",");
+		String[] date_s = temp[0].split(" ");
+		String[] time_s = temp[1].split(" ");
+		mYear = Integer.parseInt(date_s[0]);
+		mMonth = Integer.parseInt(date_s[1]);
+		mDay = Integer.parseInt(date_s[2]);
+		
+		mHour = Integer.parseInt(time_s[0]);
+		mMinute = Integer.parseInt(time_s[1]);
+		
+		updateDisplay();
 
 		b_submit_1 = (Button) findViewById(R.id.b_submit_1);
 		b_submit_1.setOnClickListener(new OnClickListener() {
@@ -217,9 +225,8 @@ public class Edit extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
-				String dateStr = Long.toString(date.getTime());
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, dateStr, "", "");
 				timestamp = Long.toString(date.getTime());
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, timestamp, "", "");
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = row.get(9);
 
@@ -245,15 +252,6 @@ public class Edit extends Activity {
 				finish();
 			}
 		});
-
-		final Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
-		mHour = c.get(Calendar.HOUR_OF_DAY);
-		mMinute = c.get(Calendar.MINUTE);
-
-		updateDisplay();
 
 		mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
