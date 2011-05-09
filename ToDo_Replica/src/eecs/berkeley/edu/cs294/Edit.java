@@ -31,7 +31,8 @@ import android.widget.TimePicker;
 public class Edit extends Activity {
 	private String title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id;
 	private String array_spinner_group[];
-
+	int td_id;
+	
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_priority, s_deadline;
@@ -56,8 +57,8 @@ public class Edit extends Activity {
 		
 		setTitle("Edit ToDo");
 		Bundle extras = getIntent().getExtras();
-		final int pk = extras.getInt("pk_select");
-		final List<String> row = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));
+		td_id = extras.getInt("pk_select");
+		final List<String> row = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
@@ -226,14 +227,12 @@ public class Edit extends Activity {
 				else
 					status = "Complete";
 				timestamp = Long.toString(date.getTime());
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, timestamp, "", "");
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = row.get(9);
-
-				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
-				
+				ToDo_Replica.dh.update_to_do(td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
+								
 				/* Push changes to remote if applicable */
-				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));				
+				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));				
 				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();

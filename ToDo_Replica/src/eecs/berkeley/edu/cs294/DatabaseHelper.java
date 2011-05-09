@@ -198,7 +198,7 @@ public class DatabaseHelper {
 		return this.insertStmt_to_do.executeInsert();
 	}
 
-	public long update_to_do(int td_id, String title, String place, String note, String tag, int group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {
+	public long update_to_do(int td_id, String title, String place, String note, String tag, String group_id, String status, String priority, String timestamp, String deadline, String to_do_rails_id) {
 		ContentValues cv = new ContentValues();
 		if(title != null) {
 			cv.put("title", title);
@@ -212,7 +212,7 @@ public class DatabaseHelper {
 		if(tag != null) {
 			cv.put("tag", tag);
 		}
-		if(group_id >= 1) {
+		if(group_id != null) {
 			cv.put("group_id", group_id);
 		}
 		if(status != null) {
