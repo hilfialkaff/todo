@@ -1,7 +1,6 @@
 package eecs.berkeley.edu.cs294;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;

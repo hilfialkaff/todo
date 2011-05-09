@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -62,6 +63,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 	private Location location;
 	private GeoPoint my_location;
 	private int overlay_status = -1;
+	static String my_title;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -164,14 +166,16 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 
 		@Override
 		public boolean onTap(int index) {
-			DemoPopupWindow dw = new DemoPopupWindow(mapView);
-			dw.showLikeQuickAction(0, 30);
-
 			OverlayItem item = mOverlays.get(index);
 			AlertDialog.Builder dialog = new AlertDialog.Builder(mapView.getContext());
 			dialog.setTitle(item.getTitle());
 			dialog.setMessage(item.getSnippet());
 			//dialog.show();
+
+			my_title = item.getTitle();
+
+			DemoPopupWindow dw = new DemoPopupWindow(mapView);
+			dw.showLikeQuickAction(0, 30);
 
 			GeoPoint srcGeoPoint = new GeoPoint((int) my_location.getLatitudeE6(), (int) my_location.getLongitudeE6());
 			GeoPoint destGeoPoint = new GeoPoint((int) item.getPoint().getLatitudeE6(), (int) item.getPoint().getLongitudeE6());
@@ -327,6 +331,11 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 			e.printStackTrace();
 		}
 	}
+	public void callPreview() {
+		Intent intent = new Intent(this.getBaseContext(), Preview.class);
+		intent.putExtra("title_select", my_title);
+		startActivityForResult(intent, 3);
+	}
 
 	private static class DemoPopupWindow extends BetterPopupWindow implements OnClickListener {
 		public DemoPopupWindow(View anchor) {
@@ -342,7 +351,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 
 				View v = root.getChildAt(i);
 
-				
+
 				if(v instanceof TableRow) {
 					TableRow row = (TableRow) v;
 					for(int j = 0, jcount = row.getChildCount() ; j < jcount ; j++) {
@@ -360,7 +369,9 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 		@Override
 		public void onClick(View v) {
 			Button b = (Button) v;
-			Toast.makeText(this.anchor.getContext(), b.getText(), Toast.LENGTH_SHORT).show();
+			if(b.getText().toString().equals("Preview")) {
+
+			}
 			this.dismiss();
 		}
 	}
