@@ -67,7 +67,7 @@ public class ToDo_Lists extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
 
-		if (resultCode == Activity.RESULT_OK && (requestCode == 0 || requestCode == 4)) {
+		if (resultCode == Activity.RESULT_OK) {
 			tl_todo_lists.removeAllViews();
 			populate();
 		}
