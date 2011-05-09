@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,6 @@ public class Edit extends Activity {
 
 	ArrayAdapter<String> adapter;
 
-	private Date date = new Date();
 	private int mYear, mMonth, mDay, mHour, mMinute;
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_DIALOG_ID = 1;
@@ -217,9 +217,9 @@ public class Edit extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
-				String dateStr = Long.toString(date.getTime());
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, dateStr, "", "");
-				timestamp = Long.toString(date.getTime());
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, timestamp, "", "");
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = row.get(9);
 

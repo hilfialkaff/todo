@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,6 @@ public class Add extends Activity {
 
 	ArrayAdapter<String> adapter;
 
-	private Date date = new Date();
 	private int mYear, mMonth, mDay, mHour, mMinute;
 	static final int DATE_DIALOG_ID = 0;
 	static final int TIME_DIALOG_ID = 1;
@@ -180,7 +180,8 @@ public class Add extends Activity {
 				System.err.println(status);
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
-				timestamp = Long.toString(date.getTime());
+				Time time = new Time();
+				String timestamp = Long.toString(time.normalize(false));
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = "";
 
