@@ -36,7 +36,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 		setTitle("Edit Member");
 		
 		getListView().setOnItemClickListener(this);
-		adapter = new ResultAdapter(EditContact.this, R.layout.search_contact, AddGroup.candidate);
+		adapter = new ResultAdapter(EditContact.this, R.layout.search_contact, EditGroup.candidate);
 		setListAdapter(adapter);
 		
 		
@@ -53,7 +53,9 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 				System.out.println("members: " + members);
 				Bundle temp = getIntent().getExtras();
 
-				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), temp.getString("name"), temp.getString("description"), members, timestamp, null);
+				ToDo_Replica.dh.update_group(Integer.parseInt(temp.getString("g_id")), 
+						temp.getString("name"), temp.getString("description"), members, 
+						timestamp, null);
 				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_group("name", 
@@ -104,7 +106,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 			temp.setTag("minus");
 			selected.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
 			id.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
-			temp.setBackgroundResource(R.drawable.member_minus);
+			temp.setBackgroundResource(R.drawable.member_normal);
 		}
 	}     
 

@@ -26,7 +26,7 @@
 		<activity android:name=".AddGroup"></activity>
 		<activity android:name=".InvitationWindow"></activity>
 		<activity android:name=".InvitationConfirmation"></activity>
-
+		<activity android:name=".LastUpdates"></activity>
 		<activity android:name=".Preview"> </activity>
 		<activity android:name=".PreviewGroup"></activity>
 		<activity android:name=".Edit"></activity>

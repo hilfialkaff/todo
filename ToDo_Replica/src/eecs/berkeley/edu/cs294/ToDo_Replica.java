@@ -158,6 +158,9 @@ public class ToDo_Replica extends Activity {
 		case R.id.m_invitations:
 			startActivity(new Intent(this, InvitationWindow.class));
 			return true;
+		case R.id.m_updates:
+			startActivity(new Intent(this, LastUpdates.class));
+			return true;
 		}
 		return false;
 	}

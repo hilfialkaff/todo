@@ -77,7 +77,7 @@ public class InvitationConfirmation extends Activity {
 
 				if (netInfo.isConnected()) {
 					ServerConnection.pushRemote(newEntry, ServerConnection.RECV_INV_SERVER_UPDATE,
-							ServerConnection.UPDATE_REQUEST);
+							ServerConnection.ACCEPT_REQUEST);
 				}
 
 
