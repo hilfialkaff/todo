@@ -25,8 +25,8 @@ public class PushServerRecvInv extends Activity {
 		String xmlResponse;
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.my_recv_invs_link + 
-		ServerConnection.accept_link + entry.get(DatabaseHelper.RECV_RAILS_ID_INDEX_R) + 
+		ServerConnection.my_recv_invs_link + entry.get(DatabaseHelper.RECV_RAILS_ID_INDEX_R) +
+		ServerConnection.accept_link +  
 		"?inv_id=" + entry.get(DatabaseHelper.RECV_ID_INDEX_R) + "&user_name=" + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.NAME_INDEX_U);
 
@@ -67,8 +67,8 @@ public class PushServerRecvInv extends Activity {
 		String xmlResponse;
 		String url = ServerConnection.homeurl + ServerConnection.users_link + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
-		ServerConnection.my_recv_invs_link + 
-		ServerConnection.reject_link + entry.get(DatabaseHelper.RECV_RAILS_ID_INDEX_R) + 
+		ServerConnection.my_recv_invs_link + entry.get(DatabaseHelper.RECV_RAILS_ID_INDEX_R) +
+		ServerConnection.reject_link + 
 		"?inv_id=" + entry.get(DatabaseHelper.RECV_ID_INDEX_R) + "&user_name=" + 
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.NAME_INDEX_U);
 

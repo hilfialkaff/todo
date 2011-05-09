@@ -1,37 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/th_invitation_confirmation"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-<LinearLayout
-	android:id="@+id/ll_invitation_confirmation"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical">
-<TabWidget
-	android:id="@android:id/tabs"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content">
-</TabWidget>
-<FrameLayout
-	android:id="@android:id/tabcontent"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-<ScrollView
-	android:id="@+id/sv_invitation_confirmation"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:scrollbars="vertical">
 <TableLayout
-	android:id="@+id/tl_invitation_confirmation"
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:stretchColumns="0">
+	android:layout_height="fill_parent">
 	<TableRow
 		android:id="@+id/tr_sender_confirmation"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px"
+		android:gravity="center">
 		<TextView
 			android:id="@+id/tv_sender_confirmation1"
 			android:layout_width="wrap_content"
@@ -49,7 +27,10 @@
 	<TableRow
 		android:id="@+id/tr_group_confirmation"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px"
+		android:gravity="center">
 		<TextView
 			android:id="@+id/tv_group_confirmation1"
 			android:layout_width="wrap_content"
@@ -67,7 +48,10 @@
 	<TableRow
 		android:id="@+id/tr_desc_confirmation"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px"
+		android:gravity="center">
 		<TextView
 			android:id="@+id/tv_desc_confirmation1"
 			android:layout_width="wrap_content"
@@ -85,24 +69,23 @@
 	<TableRow
 		android:id="@+id/tr_accept_reject_confirmation"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px"
+		android:gravity="center">
 		<Button
 			android:id="@+id/b_accept_invitation"
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:text="Accept"
 			android:textSize="20px">
 		</Button>
 		<Button
 			android:id="@+id/b_reject_invitation"
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="Reject"
+			android:text=" Reject "
 			android:textSize="20px">
 		</Button>
 	</TableRow>
 </TableLayout>
-</ScrollView>
-</FrameLayout>
-</LinearLayout>
-</TabHost>

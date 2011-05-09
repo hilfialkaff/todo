@@ -53,7 +53,7 @@ public class ServerConnection extends Activity {
 	
 	static final String my_groups_link = "/groups?format=xml";
 	static final String my_sent_invs_link = "/sent_invitations";
-	static final String my_recv_invs_link = "/recv_invitations";
+	static final String my_recv_invs_link = "/recv_invitations/";
 	
 	static final String group_todos_link = "/tododetails?format=xml";
 	static final String group_members_link = "/users?format=xml";
@@ -217,10 +217,10 @@ public class ServerConnection extends Activity {
 		
 		case RECV_INV_SERVER_UPDATE:
 			switch(request_type) {
-			case CREATE_REQUEST:
+			case ACCEPT_REQUEST:
 				retCode = PushServerRecvInv.accept(entry);
 				break;
-			case UPDATE_REQUEST:
+			case REJECT_REQUEST:
 				retCode = PushServerRecvInv.reject(entry);
 				break;			
 			
