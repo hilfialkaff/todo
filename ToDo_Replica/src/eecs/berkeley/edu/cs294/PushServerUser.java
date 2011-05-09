@@ -77,6 +77,7 @@ public class PushServerUser extends Activity {
 
 		/* Parsing the response from the server */
 		HttpEntity entity = response.getEntity();
+		System.out.println("ENTITY: " + entity.getContentLength());
 		String stringResponse = ServerConnection.getResponse(entity);
 		
 		if (entity != null) {

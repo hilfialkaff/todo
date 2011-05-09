@@ -41,7 +41,10 @@ public class ServerConnection extends Activity {
 	static public final int TODO_SERVER_UPDATE = 3;
 	static public final int USER_SERVER_UPDATE = 4;
 	
-	static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
+	static final String homeurl = "http://128.32.45.144:3000/";
+	//static final String homeurl = "http://blazing-galaxy-902.heroku.com/";
+	//static final String homeurl = "http://10.0.2.2:3000/";	//use 10.0.2.2 for localhost ip
+
 	static final String users_link = "users/";
 	static final String groups_link = "/groups/";
 	static final String todolink = "/tododetails/";
@@ -269,6 +272,7 @@ public class ServerConnection extends Activity {
 		case USER_SERVER_UPDATE:
 			switch(request_type) {
 			case CREATE_REQUEST:
+				System.out.println("WAEKHAKFGKJSA" + entry.get(1));
 				retCode = PushServerUser.create(entry);
 				break;
 			case UPDATE_REQUEST:
@@ -367,7 +371,7 @@ public class ServerConnection extends Activity {
 			String railsID = tododetailObject.getString("id");
 			
 			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
-			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, 0, null, null, null, null, railsID);
+			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, null, null, null, null, null, railsID);
 		} catch (Exception e) {
 			Log.e("JSON E", ""+e);
 			e.printStackTrace();

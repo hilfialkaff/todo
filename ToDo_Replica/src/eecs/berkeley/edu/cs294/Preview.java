@@ -56,7 +56,7 @@ public class Preview extends Activity {
 			tv_group_2.setText(row.get(4));
 			tv_status_2.setText(row.get(5));
 			tv_priority_2.setText(row.get(6));
-			tv_deadline_2.setText(row.get(7));
+			tv_deadline_2.setText(row.get(8));
 		}
 	}
 }

@@ -177,12 +177,11 @@ public class Add extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
-				System.err.println(status);
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				Time time = new Time();
 				String timestamp = Long.toString(time.normalize(false));
-				deadline = b_deadline_date + "," + b_deadline_time;
+				deadline = mYear + " " + mMonth + " " + mDay + "," + mHour + " " + mMinute;
 				to_do_rails_id = "";
 
 				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
