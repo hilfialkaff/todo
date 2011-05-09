@@ -28,6 +28,8 @@
 	android:id="@+id/tl_incoming"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	android:layout_marginLeft="60px"
+	android:layout_marginRight="60px"
 	android:stretchColumns="0">
 </TableLayout>
 </ScrollView>
@@ -41,6 +43,8 @@
 	android:id="@+id/tl_outgoing"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	android:layout_marginLeft="60px"
+	android:layout_marginRight="60px"
 	android:stretchColumns="0">
 </TableLayout>
 </ScrollView>

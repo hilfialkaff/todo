@@ -35,9 +35,6 @@ public class InvitationConfirmation extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.invitation_confirmation);
 
-		th_invitation_confirmation = (TabHost) findViewById(R.id.th_invitation_confirmation);
-		th_invitation_confirmation.setup();
-
 		ToDo_Replica.dh = new DatabaseHelper(this);
 
 		tv_sender_confirmation2 = (TextView) findViewById(R.id.tv_sender_confirmation2);
@@ -55,7 +52,7 @@ public class InvitationConfirmation extends Activity {
 
 		tv_sender_confirmation2.setText(row.get(1));
 		tv_group_confirmation2.setText(row.get(2));
-		tv_desc_confirmation2.setText(row.get(3));
+		//tv_desc_confirmation2.setText(row.get(3));
 
 		b_accept = (Button) findViewById(R.id.b_accept_invitation);
 		b_reject = (Button) findViewById(R.id.b_reject_invitation);

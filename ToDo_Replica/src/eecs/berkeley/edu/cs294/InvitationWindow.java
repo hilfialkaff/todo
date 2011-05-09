@@ -66,6 +66,7 @@ public class InvitationWindow extends Activity {
 	}
 	
 	public void populateIncomingRequests(){
+		ServerConnection.pullSynchRecvInvitations();
 		List<String> senders = ToDo_Replica.dh.select_all_recv_invitations("sender");
 		List<String> groups = ToDo_Replica.dh.select_all_recv_invitations("groupz");
 
@@ -103,6 +104,7 @@ public class InvitationWindow extends Activity {
 	}
 	
 	public void populateOutgoingRequests(){
+		ServerConnection.pullSynchSentInvitations();
 		List<String> recipients = ToDo_Replica.dh.select_all_sent_invitations("recipient");
 		List<String> groups = ToDo_Replica.dh.select_all_sent_invitations("groupz");
 		List<String> statuses = ToDo_Replica.dh.select_all_sent_invitations("status");
@@ -118,13 +120,9 @@ public class InvitationWindow extends Activity {
 
 			TextView tv_recipient = new TextView(this);
 			tv_recipient.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));			
-			tv_recipient.setText(recipient);
+			tv_recipient.setText(group);
 			tv_recipient.setTextSize(20);
-			
-			TextView tv_group = new TextView(this);
-			tv_group.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			tv_group.setText(group);
-			tv_group.setTextSize(20);
+			tv_recipient.append(" : " + recipient);
 
 			TextView tv_status = new TextView(this);
 			tv_status.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -132,7 +130,6 @@ public class InvitationWindow extends Activity {
 			tv_status.setTextSize(20);
 			
 			row.addView(tv_recipient);
-			row.addView(tv_group);
 			row.addView(tv_status);
 			
 			registerForContextMenu(row);
@@ -149,7 +146,6 @@ public class InvitationWindow extends Activity {
 			tl_outgoing.removeAllViews();
 			populateIncomingRequests();
 			populateOutgoingRequests();
-			finish();
 		}
 	}
 }

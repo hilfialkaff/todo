@@ -29,8 +29,7 @@ public class PushServerSentInv extends Activity {
 		ToDo_Replica.dh.select_user().get(DatabaseHelper.USER_RAILS_ID_INDEX_U) + 
 		ServerConnection.my_sent_invs_link + "?group=" + 
 		entry.get(DatabaseHelper.GROUPZ_ID_INDEX_S) +"&recipient=" + 
-		entry.get(DatabaseHelper.RECIPIENT_ID_INDEX_S) + "&description=" + 
-		entry.get(DatabaseHelper.DESCRIPTION_INDEX_S) + "&status=" + 
+		entry.get(DatabaseHelper.RECIPIENT_ID_INDEX_S) + "&status=" + 
 		entry.get(DatabaseHelper.STATUS_INDEX_S);
 		
 		Log.d("ServerDEBUG", "POST to " + url);

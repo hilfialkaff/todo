@@ -4,44 +4,48 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:background="@android:drawable/alert_light_frame"
->	<TextView
+	android:layout_gravity="center_vertical">
+	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:id="@+id/tv_map_title"
-		android:text="todo_name_blablabla">
+		android:textSize="20px">
 	</TextView>
-	<TableRow>
-		<Button
+	<RadioGroup
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:id="@+id/b_map_one"
-			android:text="Preview"
-			android:minWidth="80dp"
-			android:minHeight="80dp"
-			 />
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:id="@+id/b_map_two"
-			android:text="b_map_two"
-			android:minWidth="80dp"
-			android:minHeight="80dp"
-			 />
-	</TableRow>
-	<TableRow>
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:id="@+id/b_map_three"
-			android:text="Three"
-			android:minHeight="80dp"
-			 />
-		<Button
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:id="@+id/b_map_four"
-			android:text="Four"
-			android:minHeight="80dp"
-			 />
-	</TableRow>
+			android:orientation="horizontal">
+			<RadioButton
+				android:id="@+id/rb_status_incomplete"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Incomplete"
+				android:textSize="20px"
+				android:checked="true"
+				android:textColor="#000000">
+			</RadioButton>
+			<RadioButton
+				android:id="@+id/rb_status_in_progress"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="In Progress"
+				android:textSize="20px"
+				android:textColor="#000000">
+			</RadioButton>
+			<RadioButton
+				android:id="@+id/rb_status_complete"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Complete"
+				android:textSize="20px"
+				android:textColor="#000000">
+			</RadioButton>
+		</RadioGroup>
+	<Button
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:id="@+id/b_map_one"
+		android:text="more"
+		android:minWidth="80dp"
+		android:minHeight="20dp"/>
 </TableLayout>

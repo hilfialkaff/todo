@@ -104,6 +104,7 @@ public class Groups extends Activity {
 		}
 	}
 
+	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
