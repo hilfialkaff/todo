@@ -76,7 +76,8 @@ public class Preview extends Activity {
 		switch(item.getItemId()){
 		case R.id.m_edit_todo:
 			Intent intent = new Intent(this, Edit.class);
-			intent.putExtra("pk_select", tv_title_2.getText().toString());
+			intent.putExtra("pk_select", ToDo_Replica.dh.select_to_do("title", tv_title_2.getText().toString()).
+					get(DatabaseHelper.TD_ID_INDEX_T));
 			startActivityForResult(intent, 1);
 			return true;
 		}

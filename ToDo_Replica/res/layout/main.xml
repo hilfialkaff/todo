@@ -12,25 +12,25 @@
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true">
 	</ImageView>
-
-	<Button
-		android:id="@+id/b_maps"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:paddingTop="32sp"
-		android:drawablePadding="-15sp"
-		android:text="Maps"
-		android:textColor="#FFFFFF">
-	</Button>
 	<Button
 		android:id="@+id/b_todo_lists"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:paddingTop="32sp"
 		android:drawablePadding="-15sp"
-		android:text="ToDo Lists"
+		android:text="Todo List"
 		android:textColor="#FFFFFF"
 		android:layout_centerHorizontal="true">
+	</Button>
+	<Button
+		android:id="@+id/b_maps"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:text="Todo Map"
+		android:textColor="#FFFFFF"
+		android:layout_toLeftOf="@+id/b_todo_lists">
 	</Button>
 	<Button
 		android:id="@+id/b_groups"
@@ -40,6 +40,26 @@
 		android:drawablePadding="-15sp"
 		android:textColor="#FFFFFF"
 		android:text="Groups"
-		android:layout_alignParentRight="true">
+		android:layout_toRightOf="@+id/b_todo_lists">
+	</Button>
+	<Button
+		android:id="@+id/b_invites"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:textColor="#FFFFFF"
+		android:text="Invites"
+		android:layout_toRightOf="@+id/b_groups">
+	</Button>
+	<Button
+		android:id="@+id/b_updates"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingTop="32sp"
+		android:drawablePadding="-15sp"
+		android:textColor="#FFFFFF"
+		android:text="Updates"
+		android:layout_toLeftOf="@+id/b_maps">
 	</Button>
 </RelativeLayout>
