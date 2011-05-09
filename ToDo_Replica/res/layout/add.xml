@@ -131,7 +131,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="Status"
-			android:textSize="20px">
+			android:textSize="20px"
+			android:layout_marginLeft="60px">
 		</TextView>
 	</TableRow>
 	<TableRow
@@ -140,7 +141,8 @@
 		<RadioGroup
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:layout_marginLeft="60px">
 			<RadioButton
 				android:id="@+id/rb_status_incomplete"
 				android:layout_width="wrap_content"
@@ -198,7 +200,8 @@
 	<TableRow
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingTop="13dp">
+		android:paddingTop="13dp"
+		android:layout_marginLeft="60px">
 		<TextView
 			android:id="@+id/tv_note"
 			android:layout_width="wrap_content"
@@ -209,7 +212,9 @@
 	</TableRow>
 	<TableRow
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px">
 		<EditText
 			android:id="@+id/et_note"
 			android:layout_width="wrap_content"
@@ -222,7 +227,8 @@
 	<TableRow
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingTop="13dp">
+		android:paddingTop="13dp"
+		android:layout_marginLeft="60px">
 		<TextView
 			android:id="@+id/tv_status"
 			android:layout_width="wrap_content"
@@ -233,7 +239,9 @@
 	</TableRow>
 	<TableRow
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="60px"
+		android:layout_marginRight="60px">
 		<AutoCompleteTextView
 			android:id="@+id/actv_tag"
 			android:layout_width="wrap_content"
@@ -246,7 +254,8 @@
 	<TableRow
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingTop="13dp">
+		android:paddingTop="13dp"
+		android:layout_marginLeft="60px">
 		<TextView
 			android:id="@+id/tv_priority"
 			android:layout_width="wrap_content"
@@ -261,7 +270,8 @@
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:layout_marginLeft="60px">
 			<Button
 				android:id="@+id/b_priority_low"
 				android:layout_width="wrap_content"
@@ -286,7 +296,8 @@
 	<TableRow
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:paddingTop="13dp">
+		android:paddingTop="13dp"
+		android:layout_marginLeft="60px">
 		<TextView
 			android:id="@+id/tv_deadline"
 			android:layout_width="wrap_content"
@@ -301,7 +312,8 @@
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:layout_marginLeft="60px">
 			<Button
 				android:id="@+id/b_deadline_date"
 				android:layout_width="wrap_content"
