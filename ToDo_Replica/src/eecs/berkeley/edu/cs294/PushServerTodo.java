@@ -25,7 +25,7 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int create(List<String> entry) {
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
-		String groupRailsID = ToDo_Replica.dh.select_group("g_id", groupID).get(
+		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		
 		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 
@@ -120,7 +120,7 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int update(List<String> entry) {		
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
-		String groupRailsID = ToDo_Replica.dh.select_group("g_id", groupID).get(
+		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 
 		groupRailsID + ServerConnection.todolink + 
@@ -136,11 +136,15 @@ public class PushServerTodo extends Activity {
 
 		/* Setting up the packet to be sent to server */
 		try {
+			String group_id = ToDo_Replica.dh.select_group("name", 
+					entry.get(DatabaseHelper.GROUP_ID_INDEX_T)).
+					get(DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
+			
 			details.put("title", entry.get(DatabaseHelper.TITLE_INDEX_T));
 			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX_T));
 			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX_T));
 			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX_T));
-			details.put("group-id", entry.get(DatabaseHelper.GROUP_ID_INDEX_T));
+			details.put("group-id", group_id);
 			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX_T));
 			details.put("priority", entry.get(DatabaseHelper.PRIORITY_INDEX_T));
 			details.put("deadline", entry.get(DatabaseHelper.DEADLINE_INDEX_T));
@@ -202,7 +206,7 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int delete(List<String> entry) {
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
-		String groupRailsID = ToDo_Replica.dh.select_group("g_id", groupID).get(
+		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 
 		groupRailsID + ServerConnection.todolink + 
