@@ -357,11 +357,16 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 
 				View v = root.getChildAt(i);
 				
-				if(v instanceof TextView) {
+				if(v instanceof Button) {
+					Button b = (Button) v;
+					b.setOnClickListener(this);
+				}
+				else if(v instanceof TextView) {
 					TextView title_tv = (TextView) v;
 					title_tv.setText(my_title);
 				}
 				
+				/*
 				if(v instanceof TableRow) {
 					TableRow row = (TableRow) v;
 					for(int j = 0, jcount = row.getChildCount() ; j < jcount ; j++) {
@@ -372,6 +377,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 						}
 					}
 				}
+				*/
 			}
 			this.setContentView(root);
 		}
@@ -379,12 +385,12 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 		@Override
 		public void onClick(View v) {
 			Button b = (Button) v;
-			if(b.getText().toString().equals("Preview")) {
+			if(b.getText().toString().equals("more")) {
 				Intent intent = new Intent(googleMaps, Preview.class);
 				intent.putExtra("title_select", my_title);
 				googleMaps.startActivityForResult(intent, 3);
 			}
-			else if(b.getText().toString().equals("Edit")) {
+			else if(b.getText().toString().equals("edit")) {
 				Intent intent = new Intent(googleMaps, Edit.class);
 				intent.putExtra("pk_select", ToDo_Replica.dh.select_to_do_primary_key(my_title));
 				googleMaps.startActivityForResult(intent, 4);
