@@ -237,7 +237,7 @@ public class Edit extends Activity {
 								
 				/* Push changes to remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));				
-				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
+				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("None") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

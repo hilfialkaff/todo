@@ -188,7 +188,7 @@ public class Add extends Activity {
 				
 				/* Push changes to the remote if applicable */
 				List<String> newEntry = ToDo_Replica.dh.select_to_do("title", title);
-				if(group_id.equalsIgnoreCase("1") == false) {
+				if(group_id.equalsIgnoreCase("None") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 
