@@ -101,9 +101,9 @@ public class Edit extends Activity {
 			public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 				String group_name =  parent.getItemAtPosition(pos).toString();
 				if(group_name.equalsIgnoreCase("None"))
-					group_id = Integer.toString(1);
+					group_id = "None";
 				else
-					group_id = Integer.toString(ToDo_Replica.dh.select_group_id(group_name));
+					group_id = group_name;
 			}
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
