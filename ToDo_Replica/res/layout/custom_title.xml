@@ -13,10 +13,18 @@
     	android:textStyle="bold">
 	</TextView> 
 	<ImageButton
-		android:id="@+id/ib_custom_add"
+		android:id="@+id/ib_custom_add_group"
 		android:layout_width="50px"
 		android:layout_height="50px"
 		android:layout_alignParentRight="true"
+		android:background="@drawable/menu_add_group"
+		android:layout_marginRight="25px">
+	</ImageButton>
+	<ImageButton
+		android:id="@+id/ib_custom_add"
+		android:layout_width="50px"
+		android:layout_height="50px"
+		android:layout_toLeftOf="@+id/ib_custom_add_group"
 		android:background="@drawable/menu_add"
 		android:layout_marginRight="25px">
 	</ImageButton>

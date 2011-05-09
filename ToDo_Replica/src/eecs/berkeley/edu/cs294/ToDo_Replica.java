@@ -94,6 +94,17 @@ public class ToDo_Replica extends Activity {
 			});
 		}
 
+		final ImageButton ib_custom_add_group = (ImageButton) findViewById(R.id.ib_custom_add_group);
+		if (ib_custom_add_group != null) {
+			ib_custom_add_group.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), AddGroup.class);
+					startActivityForResult(intent, 0);
+				}
+			});
+		}
+		
 		Button b_maps = (Button) findViewById(R.id.b_maps);
 		b_maps.setBackgroundResource(R.drawable.menu_maps);
 		b_maps.setOnClickListener(new OnClickListener() {

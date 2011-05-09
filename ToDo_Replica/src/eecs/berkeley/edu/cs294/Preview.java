@@ -3,7 +3,11 @@ package eecs.berkeley.edu.cs294;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
@@ -57,6 +61,34 @@ public class Preview extends Activity {
 			tv_status_2.setText(row.get(5));
 			tv_priority_2.setText(row.get(6));
 			tv_deadline_2.setText(row.get(8));
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.preview_menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case R.id.m_edit_todo:
+			Intent intent = new Intent(this, Edit.class);
+			intent.putExtra("pk_select", tv_title_2.getText().toString());
+			startActivityForResult(intent, 1);
+			return true;
+		}
+		return false;
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+
+		if (resultCode == Activity.RESULT_OK) {
+			setResult(RESULT_OK);
+			finish();
 		}
 	}
 }
