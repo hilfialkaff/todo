@@ -4,21 +4,26 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:background="@android:drawable/alert_light_frame"
->
+>	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:id="@+id/tv_map_title"
+		android:text="todo_name_blablabla">
+	</TextView>
 	<TableRow>
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:id="@+id/one"
-			android:text="One"
+			android:id="@+id/b_map_one"
+			android:text="Preview"
 			android:minWidth="80dp"
 			android:minHeight="80dp"
 			 />
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:id="@+id/two"
-			android:text="Two"
+			android:id="@+id/b_map_two"
+			android:text="b_map_two"
 			android:minWidth="80dp"
 			android:minHeight="80dp"
 			 />
@@ -27,14 +32,14 @@
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:id="@+id/three"
+			android:id="@+id/b_map_three"
 			android:text="Three"
 			android:minHeight="80dp"
 			 />
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:id="@+id/four"
+			android:id="@+id/b_map_four"
 			android:text="Four"
 			android:minHeight="80dp"
 			 />

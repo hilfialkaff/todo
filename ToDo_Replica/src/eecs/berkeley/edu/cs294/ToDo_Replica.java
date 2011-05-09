@@ -31,16 +31,16 @@ public class ToDo_Replica extends Activity {
 		final boolean customTitle = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		dh = new DatabaseHelper(this);
-		
+
 		/* Group "None" always exists and not shared */
 		if(dh.select_group("name", "None").size() == 0) {
 			dh.insert_group("None", "User Private Group", "", "", "0");
 		}
-		
+
 		setContentView(R.layout.main);
 		if (customTitle)
 			getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
-		
+
 		if(dh.select_user().size() == 0) {
 			Intent intent = new Intent(ToDo_Replica.this, StartScreen.class);
 			startActivity(intent);
@@ -48,7 +48,7 @@ public class ToDo_Replica extends Activity {
 
 		/* Timer code */
 		/********************************************************************/
-		
+
 		Timer serverTimer = new Timer("serverTimer", true);
 		TimerTask serverTimerTask = new TimerTask() {
 			public void run() {
@@ -62,7 +62,7 @@ public class ToDo_Replica extends Activity {
 
 				else if (netInfo.isConnected()) {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
-					
+
 					while(dh.select_user().size() == 0);
 					// ServerConnection.pullAllRemote();
 				}
@@ -71,9 +71,9 @@ public class ToDo_Replica extends Activity {
 
 		// TODO: Need to be un-hardcoded
 		serverTimer.scheduleAtFixedRate(serverTimerTask, 30000, 30000);
-		
+
 		/********************************************************************/
-		
+
 
 		final TextView tv_custom_title = (TextView) findViewById(R.id.tv_custom_title);
 		if (tv_custom_title != null)
@@ -104,7 +104,7 @@ public class ToDo_Replica extends Activity {
 				}
 			});
 		}
-		
+
 		Button b_maps = (Button) findViewById(R.id.b_maps);
 		b_maps.setBackgroundResource(R.drawable.menu_maps);
 		b_maps.setOnClickListener(new OnClickListener() {
@@ -133,10 +133,28 @@ public class ToDo_Replica extends Activity {
 				startActivityForResult(intent, 2);
 			}
 		});
+		Button b_updates = (Button) findViewById(R.id.b_updates);
+		b_updates.setBackgroundResource(R.drawable.menu_sync);
+		b_updates.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), LastUpdates.class);
+				startActivityForResult(intent, 3);
+			}
+		});
+		Button b_invites = (Button) findViewById(R.id.b_invites);
+		b_invites.setBackgroundResource(R.drawable.menu_pending_request);
+		b_invites.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), InvitationWindow.class);
+				startActivityForResult(intent, 4);
+			}
+		});
 
 		ImageView iv_background = (ImageView) findViewById(R.id.iv_background);
 		iv_background.setBackgroundResource(R.drawable.chocobo);
-		
+
 		//TextView tv_cloud1 = (TextView) findViewById(R.id.tv_cloud1);
 		//tv_cloud1.setBackgroundResource(R.drawable.gradient);
 		/** Temp stuffs */
@@ -165,12 +183,6 @@ public class ToDo_Replica extends Activity {
 			intent.setData(Uri.parse("mailto:" + "dicz.hack@gmail.com, filbert.hansel@gmail.com, hilfialkaff@gmail.com"));
 			intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ToDo Feedback");
 			startActivity(intent); 
-			return true;
-		case R.id.m_invitations:
-			startActivity(new Intent(this, InvitationWindow.class));
-			return true;
-		case R.id.m_updates:
-			startActivity(new Intent(this, LastUpdates.class));
 			return true;
 		}
 		return false;
