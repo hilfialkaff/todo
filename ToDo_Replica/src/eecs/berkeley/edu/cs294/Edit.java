@@ -227,7 +227,7 @@ public class Edit extends Activity {
 				else
 					status = "Complete";
 				timestamp = Long.toString(date.getTime());
-				deadline = b_deadline_date + "," + b_deadline_time;
+				deadline = mYear + " " + mMonth + " " + mDay + "," + mHour + " " + mMinute;
 				to_do_rails_id = row.get(9);
 				ToDo_Replica.dh.update_to_do(td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
 								
