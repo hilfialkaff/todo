@@ -179,6 +179,7 @@ public class Add extends Activity {
 				note = et_note.getText().toString();
 				tag = actv_tag.getText().toString();
 				Time time = new Time();
+				time.setToNow();
 				String timestamp = Long.toString(time.normalize(false));
 				deadline = mYear + " " + mMonth + " " + mDay + "," + mHour + " " + mMinute;
 				to_do_rails_id = "";

@@ -45,6 +45,7 @@ public class AddContact extends ListActivity implements OnItemLongClickListener 
 			@Override
 			public void onClick(View v) {	
 				Time time = new Time();
+        time.setToNow();
 				String timestamp = Long.toString(time.normalize(false));
 				String members = "";
 				Bundle temp = getIntent().getExtras();

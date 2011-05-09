@@ -20,6 +20,9 @@ Todoserver::Application.routes.draw do
     end
   end
 
+  resources :tododetails do
+  end
+
   get "users/:id/unsubscribe" => "users#unsubscribe"
 
   get "/users/:user_id/recv_invitations/:inv_id/accept" => "recv_invitations#accept"

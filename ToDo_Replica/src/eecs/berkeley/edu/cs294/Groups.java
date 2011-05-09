@@ -107,9 +107,9 @@ public class Groups extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		menu.setHeaderTitle(v.getContentDescription());
-		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("title", v.getContentDescription().toString()).
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("name", v.getContentDescription().toString()).
 				get(DatabaseHelper.GROUP_ID_INDEX_G)), 0, "leave group");
-		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("title", v.getContentDescription().toString()).
+		menu.add(0, Integer.parseInt(ToDo_Replica.dh.select_group("name", v.getContentDescription().toString()).
 				get(DatabaseHelper.GROUP_ID_INDEX_G)), 1, "delete group");
 	}
 

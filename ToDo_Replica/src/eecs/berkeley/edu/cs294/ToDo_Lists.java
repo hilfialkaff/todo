@@ -123,8 +123,10 @@ public class ToDo_Lists extends Activity {
 			/* Push changes to remote if applicable */
 			List<String> oldEntry = ToDo_Replica.dh.select_to_do("td_id", 
 					todo_ids.get(menuItem.getItemId() - 1));
+			
 			Log.d("DEBUG", oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T));
-			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
+			
+			if (oldEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("None") == false) {
 				ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 				NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 

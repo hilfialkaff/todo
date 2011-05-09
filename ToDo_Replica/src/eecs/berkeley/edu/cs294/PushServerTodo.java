@@ -122,8 +122,7 @@ public class PushServerTodo extends Activity {
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
 		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
-		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 
-		groupRailsID + ServerConnection.todolink + 
+		String url = ServerConnection.homeurl + "tododetails/" + 
 		entry.get(DatabaseHelper.TO_DO_RAILS_ID_INDEX_T); 
 		
 		Log.d("ServerDEBUG", "PUT to " + url);
@@ -144,7 +143,6 @@ public class PushServerTodo extends Activity {
 			details.put("place", entry.get(DatabaseHelper.PLACE_INDEX_T));
 			details.put("note", entry.get(DatabaseHelper.NOTE_INDEX_T));
 			details.put("tag", entry.get(DatabaseHelper.TAG_INDEX_T));
-			details.put("group-id", group_id);
 			details.put("status", entry.get(DatabaseHelper.STATUS_INDEX_T));
 			details.put("priority", entry.get(DatabaseHelper.PRIORITY_INDEX_T));
 			details.put("deadline", entry.get(DatabaseHelper.DEADLINE_INDEX_T));
@@ -206,6 +204,9 @@ public class PushServerTodo extends Activity {
 	 */
 	public static int delete(List<String> entry) {
 		String groupID = entry.get(DatabaseHelper.GROUP_ID_INDEX_T);
+		
+		Log.d("ServerDEBUG", "groupID: " + groupID);
+		
 		String groupRailsID = ToDo_Replica.dh.select_group("name", groupID).get(
 				DatabaseHelper.GROUP_RAILS_ID_INDEX_G);
 		String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + 

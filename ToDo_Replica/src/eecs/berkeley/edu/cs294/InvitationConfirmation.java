@@ -64,6 +64,7 @@ public class InvitationConfirmation extends Activity {
 			@Override
 			public void onClick(View v) {
 				Time time = new Time();
+        time.setToNow();
 				String timestamp = Long.toString(time.normalize(false));
 				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), timestamp, row.get(4));
 
@@ -92,6 +93,7 @@ public class InvitationConfirmation extends Activity {
 			@Override
 			public void onClick(View v) {
 				Time time = new Time();
+        time.setToNow();
 				String timestamp = Long.toString(time.normalize(false));
 				ToDo_Replica.dh.update_recv_invitation(Integer.parseInt(row.get(0)), row.get(1), row.get(2), timestamp, row.get(4));
 
