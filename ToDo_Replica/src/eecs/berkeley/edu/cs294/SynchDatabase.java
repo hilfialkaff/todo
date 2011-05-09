@@ -242,8 +242,7 @@ public class SynchDatabase extends Activity {
 	 * Synchronize local database w/ changes from the server
 	 */
 	public static void SynchTodos(ArrayList<MyTodo> todoList) {
-		
-		Log.d("ServerDEBUG", "SynchGroupMembers");
+		Log.d("ServerDEBUG", "SynchTodos");
 		
 		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("to_do_rails_id");
 		List<String> deletedGroupsID = ToDo_Replica.dh.select_all_to_do("group_id");
@@ -309,8 +308,13 @@ public class SynchDatabase extends Activity {
 	private static void pruneLocalTodos(List<String> deletedRailsID, 
 			List<String> deletedGroupsID)  
 	{
-		for(Iterator<String> it = deletedRailsID.iterator(); it.hasNext();) {
-			String railsID = it.next();
+		for(int i = 0; i < deletedGroupsID.size(); i++) {
+			if(deletedGroupsID.get(i).equalsIgnoreCase("None")) {
+				continue;
+			}
+			
+			String railsID = deletedRailsID.get(i);
+			
 			Log.d("ServerDEBUG", "deleting todo with id: " + railsID);
 			ToDo_Replica.dh.delete_to_do("to_do_rails_id", railsID);
 		}	

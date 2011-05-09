@@ -231,7 +231,7 @@ public class DatabaseHelper {
 			cv.put("to_do_rails_id", to_do_rails_id);
 		}
 
-		Log.d("DbDEBUG", "UPDATE title: " + title + " place: " + place + " note: " + note + 
+		Log.d("DbDEBUG", "UPDATE pk: " + td_id + "title: " + title + " place: " + place + " note: " + note + 
 				" tag: " + tag + " group_id: " + group_id + " status: " + status + 
 				" priority: " + priority + " timestamp: " + timestamp + " deadline: " + deadline +  " to_do_rails_id: " + to_do_rails_id);
 

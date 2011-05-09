@@ -64,7 +64,7 @@ public class ToDo_Replica extends Activity {
 					Log.d("DEBUG", "---------- Connected to internet ----------");
 					
 					while(dh.select_user().size() == 0);
-					ServerConnection.pullAllRemote();
+					// ServerConnection.pullAllRemote();
 				}
 			}
 		};
