@@ -42,6 +42,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -63,7 +64,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 	private Location location;
 	private GeoPoint my_location;
 	private int overlay_status = -1;
-	static String my_title;
+	static String my_title = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 
 		drawable = this.getResources().getDrawable(R.drawable.pushpin);
 		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),drawable.getIntrinsicHeight());
-		itemizedOverlay = new CustomItemizedOverlay(drawable, mapView);
+		itemizedOverlay = new CustomItemizedOverlay(drawable, mapView, GoogleMaps.this);
 
 		mapOverlays = mapView.getOverlays();
 
@@ -105,7 +106,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 		if(itemizedOverlay.size() != 0)
 			mapOverlays.add(itemizedOverlay);
 	}
-
+	
 	private void populate() {
 		List<String[]> todos = ToDo_Replica.dh.select_to_do_title_place();
 		if(!todos.isEmpty()) {
@@ -135,14 +136,20 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 	public class CustomItemizedOverlay extends ItemizedOverlay<OverlayItem>  {
 		private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 		private MapView mapView;
-
+		private GoogleMaps googleMaps;
+		
+		public GoogleMaps getGoogleMaps() {
+			return this.googleMaps;
+		}
+		
 		public CustomItemizedOverlay(Drawable defaultMarker) {
 			super(boundCenterBottom(defaultMarker));	
 		}
 
-		public CustomItemizedOverlay(Drawable defaultMarker, MapView mapView) {
+		public CustomItemizedOverlay(Drawable defaultMarker, MapView mapView, GoogleMaps googleMaps) {
 			super(boundCenterBottom(defaultMarker));
 			this.mapView = mapView;
+			this.googleMaps = googleMaps;
 		}
 
 		public void addOverlay(OverlayItem overlay) {
@@ -172,11 +179,11 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 			dialog.setMessage(item.getSnippet());
 			//dialog.show();
 
-			my_title = item.getTitle();
+			my_title = item.getSnippet();
 
-			DemoPopupWindow dw = new DemoPopupWindow(mapView);
+			DemoPopupWindow dw = new DemoPopupWindow(mapView, getGoogleMaps());
 			dw.showLikeQuickAction(0, 30);
-
+			
 			GeoPoint srcGeoPoint = new GeoPoint((int) my_location.getLatitudeE6(), (int) my_location.getLongitudeE6());
 			GeoPoint destGeoPoint = new GeoPoint((int) item.getPoint().getLatitudeE6(), (int) item.getPoint().getLongitudeE6());
 
@@ -190,6 +197,7 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 					i--;
 				}
 			}
+			
 			mapView.invalidate();
 			DrawPath(srcGeoPoint, destGeoPoint, Color.GREEN, mapView);
 			mc.animateTo(destGeoPoint);
@@ -331,15 +339,13 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 			e.printStackTrace();
 		}
 	}
-	public void callPreview() {
-		Intent intent = new Intent(this.getBaseContext(), Preview.class);
-		intent.putExtra("title_select", my_title);
-		startActivityForResult(intent, 3);
-	}
 
 	private static class DemoPopupWindow extends BetterPopupWindow implements OnClickListener {
-		public DemoPopupWindow(View anchor) {
+		GoogleMaps googleMaps;
+		
+		public DemoPopupWindow(View anchor, GoogleMaps googleMaps) {
 			super(anchor);
+			this.googleMaps = googleMaps;
 		}
 
 		@Override
@@ -350,8 +356,12 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 			for(int i = 0, icount = root.getChildCount() ; i < icount ; i++) {
 
 				View v = root.getChildAt(i);
-
-
+				
+				if(v instanceof TextView) {
+					TextView title_tv = (TextView) v;
+					title_tv.setText(my_title);
+				}
+				
 				if(v instanceof TableRow) {
 					TableRow row = (TableRow) v;
 					for(int j = 0, jcount = row.getChildCount() ; j < jcount ; j++) {
@@ -370,7 +380,14 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 		public void onClick(View v) {
 			Button b = (Button) v;
 			if(b.getText().toString().equals("Preview")) {
-
+				Intent intent = new Intent(googleMaps, Preview.class);
+				intent.putExtra("title_select", my_title);
+				googleMaps.startActivityForResult(intent, 3);
+			}
+			else if(b.getText().toString().equals("Edit")) {
+				Intent intent = new Intent(googleMaps, Edit.class);
+				intent.putExtra("pk_select", ToDo_Replica.dh.select_to_do_primary_key(my_title));
+				googleMaps.startActivityForResult(intent, 4);
 			}
 			this.dismiss();
 		}

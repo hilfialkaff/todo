@@ -4,11 +4,11 @@
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:background="@android:drawable/alert_light_frame"
->	<TextView
+	android:layout_gravity="center_vertical">
+	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:id="@+id/tv_map_title"
-		android:text="todo_name_blablabla">
+		android:id="@+id/tv_map_title">
 	</TextView>
 	<TableRow>
 		<Button
@@ -23,7 +23,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:id="@+id/b_map_two"
-			android:text="b_map_two"
+			android:text="Edit"
 			android:minWidth="80dp"
 			android:minHeight="80dp"
 			 />
@@ -33,14 +33,14 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:id="@+id/b_map_three"
-			android:text="Three"
+			android:text="Null"
 			android:minHeight="80dp"
 			 />
 		<Button
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:id="@+id/b_map_four"
-			android:text="Four"
+			android:text="Null"
 			android:minHeight="80dp"
 			 />
 	</TableRow>
