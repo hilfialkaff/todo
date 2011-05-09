@@ -6,7 +6,7 @@
     	  android:icon="@drawable/menu_pending_request"
     	  android:title="Invitations" />
    	<item android:id="@+id/m_updates"
-          android:icon="@drawable/menu_feedback"
+          android:icon="@drawable/menu_sync"
           android:title="Updates" />
     <item android:id="@+id/m_feedback"
           android:icon="@drawable/menu_feedback"

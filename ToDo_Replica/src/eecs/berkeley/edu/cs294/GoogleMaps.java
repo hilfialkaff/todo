@@ -339,8 +339,10 @@ public class GoogleMaps extends MapActivity implements LocationListener, OnTouch
 			ViewGroup root = (ViewGroup) inflater.inflate(R.layout.popup_grid_layout, null);
 
 			for(int i = 0, icount = root.getChildCount() ; i < icount ; i++) {
+
 				View v = root.getChildAt(i);
 
+				
 				if(v instanceof TableRow) {
 					TableRow row = (TableRow) v;
 					for(int j = 0, jcount = row.getChildCount() ; j < jcount ; j++) {
