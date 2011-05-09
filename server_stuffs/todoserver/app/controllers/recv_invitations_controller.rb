@@ -13,7 +13,7 @@ class RecvInvitationsController < ApplicationController
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
 
-    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(@user.name)
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(params[:user_name])
     if @sender_inv.nil? == false:
       @sender_inv.update_attributes(:status => "Accepted")
     end
@@ -44,7 +44,7 @@ class RecvInvitationsController < ApplicationController
 
     @invitation = @user.recv_invitations.find(params[:inv_id])
 
-    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(@user.name)
+    @sender_inv = User.find_by_name(@invitation.sender).sent_invitations.find_by_recipient(params[:user_name])
     if @sender_inv.nil? == false:
       @sender_inv.update_attributes(:status => "Rejected")
     end

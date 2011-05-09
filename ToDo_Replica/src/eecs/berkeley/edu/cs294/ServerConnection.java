@@ -217,10 +217,10 @@ public class ServerConnection extends Activity {
 		
 		case RECV_INV_SERVER_UPDATE:
 			switch(request_type) {
-			case CREATE_REQUEST:
+			case ACCEPT_REQUEST:
 				retCode = PushServerRecvInv.accept(entry);
 				break;
-			case UPDATE_REQUEST:
+			case REJECT_REQUEST:
 				retCode = PushServerRecvInv.reject(entry);
 				break;			
 			
