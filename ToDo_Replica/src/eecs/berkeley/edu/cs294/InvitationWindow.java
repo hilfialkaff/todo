@@ -47,7 +47,7 @@ public class InvitationWindow extends Activity {
 		
 		th_invitation = (TabHost) findViewById(R.id.th_invitation);
 		th_invitation.setup();
-		
+
 		tl_outgoing = (TableLayout) findViewById(R.id.tl_outgoing);
 		tl_incoming = (TableLayout) findViewById(R.id.tl_incoming);
 		
