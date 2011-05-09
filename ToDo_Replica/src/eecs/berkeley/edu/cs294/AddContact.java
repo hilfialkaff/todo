@@ -177,7 +177,7 @@ public class AddContact extends ListActivity implements OnItemLongClickListener 
 			temp.setTag("minus");
 			selected.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
 			id.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
-			temp.setBackgroundResource(R.drawable.member_minus);
+			temp.setBackgroundResource(R.drawable.member_normal);
 		}
 		return false;
 	}

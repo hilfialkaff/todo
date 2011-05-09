@@ -147,4 +147,17 @@ public class InvitationWindow extends Activity {
 			tl_outgoing.addView(row);
 		}
 	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+
+		if (resultCode == Activity.RESULT_OK) {
+			setResult(RESULT_OK);
+			tl_incoming.removeAllViews();
+			tl_outgoing.removeAllViews();
+			populateIncomingRequests();
+			populateOutgoingRequests();
+			finish();
+		}
+	}
 }

@@ -36,7 +36,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 		setTitle("Edit Member");
 		
 		getListView().setOnItemClickListener(this);
-		adapter = new ResultAdapter(EditContact.this, R.layout.search_contact, AddGroup.candidate);
+		adapter = new ResultAdapter(EditContact.this, R.layout.search_contact, EditGroup.candidate);
 		setListAdapter(adapter);
 		
 		
@@ -106,7 +106,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 			temp.setTag("minus");
 			selected.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
 			id.remove(Integer.parseInt(((TextView)arg1.findViewById(R.id.tv_id)).getText().toString()));
-			temp.setBackgroundResource(R.drawable.member_minus);
+			temp.setBackgroundResource(R.drawable.member_normal);
 		}
 	}     
 
