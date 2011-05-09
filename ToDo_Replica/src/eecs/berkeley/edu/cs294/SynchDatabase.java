@@ -287,7 +287,7 @@ public class SynchDatabase extends Activity {
 				String place = currTodo.getTodoPlace();
 				String note = currTodo.getTodoNote();
 				String tag = currTodo.getTodoTag();
-				int group = Integer.parseInt(currTodo.getTodoGroupId());
+				String group = currTodo.getTodoGroupId();
 				String status = currTodo.getTodoStatus();
 				String priority = currTodo.getTodoPriority();
 				String dateStr = Long.toString(serverTimestamp);

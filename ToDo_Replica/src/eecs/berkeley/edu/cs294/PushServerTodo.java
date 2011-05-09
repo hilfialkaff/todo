@@ -105,7 +105,7 @@ public class PushServerTodo extends Activity {
 			String railsID = tododetailObject.getString("id");
 			
 			int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
-			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, 0, null, null, null, null, railsID);
+			ToDo_Replica.dh.update_to_do(pk, null, null, null, null, null, null, null, null, null, railsID);
 		} catch (Exception e) {
 			Log.e("JSON E", ""+e);
 			e.printStackTrace();

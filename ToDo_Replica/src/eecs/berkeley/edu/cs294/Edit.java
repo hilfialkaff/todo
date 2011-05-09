@@ -1,6 +1,5 @@
 package eecs.berkeley.edu.cs294;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +31,8 @@ import android.widget.TimePicker;
 public class Edit extends Activity {
 	private String title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id;
 	private String array_spinner_group[];
-
+	int td_id;
+	
 	EditText et_title, et_place, et_note;
 	AutoCompleteTextView actv_tag;
 	Spinner s_group, s_priority, s_deadline;
@@ -57,8 +57,8 @@ public class Edit extends Activity {
 		
 		setTitle("Edit ToDo");
 		Bundle extras = getIntent().getExtras();
-		final int pk = extras.getInt("pk_select");
-		final List<String> row = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));
+		td_id = extras.getInt("pk_select");
+		final List<String> row = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));
 
 		th_add = (TabHost) findViewById(R.id.th_add);
 		th_add.setup();
@@ -192,9 +192,6 @@ public class Edit extends Activity {
 				showDialog(DATE_DIALOG_ID);
 			}
 		});
-		String temp[] = row.get(6).split(",");
-		b_deadline_date.setText(temp[0]);
-		b_deadline_time.setText(temp[1]);
 		
 		b_deadline_time.setOnClickListener(new OnClickListener() {
 			@Override
@@ -202,6 +199,18 @@ public class Edit extends Activity {
 				showDialog(TIME_DIALOG_ID);
 			}
 		});
+		
+		String temp[] = row.get(8).split(",");
+		String[] date_s = temp[0].split(" ");
+		String[] time_s = temp[1].split(" ");
+		mYear = Integer.parseInt(date_s[0]);
+		mMonth = Integer.parseInt(date_s[1]);
+		mDay = Integer.parseInt(date_s[2]);
+		
+		mHour = Integer.parseInt(time_s[0]);
+		mMinute = Integer.parseInt(time_s[1]);
+		
+		updateDisplay();
 
 		b_submit_1 = (Button) findViewById(R.id.b_submit_1);
 		b_submit_1.setOnClickListener(new OnClickListener() {
@@ -217,16 +226,13 @@ public class Edit extends Activity {
 					status = "In Progress";
 				else
 					status = "Complete";
-				String dateStr = Long.toString(date.getTime());
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, 0, status, priority, dateStr, "", "");
 				timestamp = Long.toString(date.getTime());
 				deadline = b_deadline_date + "," + b_deadline_time;
 				to_do_rails_id = row.get(9);
-
-				ToDo_Replica.dh.insert_to_do(title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
-				
+				ToDo_Replica.dh.update_to_do(td_id, title, place, note, tag, group_id, status, priority, timestamp, deadline, to_do_rails_id);
+								
 				/* Push changes to remote if applicable */
-				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(pk));				
+				List<String> newEntry = ToDo_Replica.dh.select_to_do("td_id", Integer.toString(td_id));				
 				if(newEntry.get(DatabaseHelper.GROUP_ID_INDEX_T).equalsIgnoreCase("1") == false) {
 					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
 					NetworkInfo netInfo = connManager.getActiveNetworkInfo();
@@ -245,15 +251,6 @@ public class Edit extends Activity {
 				finish();
 			}
 		});
-
-		final Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
-		mHour = c.get(Calendar.HOUR_OF_DAY);
-		mMinute = c.get(Calendar.MINUTE);
-
-		updateDisplay();
 
 		mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
