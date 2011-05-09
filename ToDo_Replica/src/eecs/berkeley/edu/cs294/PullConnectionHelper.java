@@ -139,7 +139,7 @@ public class PullConnectionHelper extends Activity {
 		for(Iterator<MyGroup> it = groupList.iterator(); it.hasNext();) {
 			String groupID = it.next().getRailsID();		
 			String xmlResponse;
-			String url = ServerConnection.homeurl + ServerConnection.groups_link + groupID + 
+			String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + groupID + 
 			ServerConnection.group_todos_link;
 
 			try
@@ -184,7 +184,7 @@ public class PullConnectionHelper extends Activity {
 			String groupID = it.next().getRailsID();		
 			String xmlResponse;
 
-			String url = ServerConnection.homeurl + ServerConnection.groups_link + groupID + 
+			String url = ServerConnection.homeurl + ServerConnection.tmp_groups_link + groupID + 
 			ServerConnection.group_members_link;
 
 			try

@@ -45,6 +45,7 @@ public class EditContact extends ListActivity implements AdapterView.OnItemClick
 			@Override
 			public void onClick(View v) {	
 				Time time = new Time();
+        time.setToNow();
 				String timestamp = Long.toString(time.normalize(false));
 				String members = "";
 				for(int i = 0; i < id.size(); i++) {

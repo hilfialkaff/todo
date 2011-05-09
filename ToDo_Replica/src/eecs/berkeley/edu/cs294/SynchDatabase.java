@@ -247,10 +247,21 @@ public class SynchDatabase extends Activity {
 		List<String> deletedRailsID = ToDo_Replica.dh.select_all_to_do("to_do_rails_id");
 		List<String> deletedGroupsID = ToDo_Replica.dh.select_all_to_do("group_id");
 		
+		for(int i = 0; i < deletedGroupsID.size(); i++) {
+			if(deletedGroupsID.get(i).equalsIgnoreCase("None")) {
+				continue;
+			}
+			
+			String railsID = deletedRailsID.get(i);
+			
+			Log.d("ServerDEBUG", "todo with rails id: " + railsID);
+		}
+		
 		for(Iterator<MyTodo> it = todoList.iterator(); it.hasNext();) {
 			MyTodo currTodo = it.next();
 			
 			int currID = Integer.parseInt(currTodo.getTodoRailsId());
+			Log.d("ServerDEBUG", "todo with rails id: " + currID);
 			Time time = new Time();
 			Assert.assertTrue(time.parse(currTodo.getTodoTimestamp()));
 			long serverTimestamp = time.normalize(false);
@@ -293,7 +304,7 @@ public class SynchDatabase extends Activity {
 				String deadline = currTodo.getTodoDeadline();
 				int pk = Integer.parseInt(entry.get(DatabaseHelper.TD_ID_INDEX_T));
 				
-				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, deadline, dateStr, null);
+				ToDo_Replica.dh.update_to_do(pk, title, place, note, tag, group, status, priority, dateStr, deadline, null);
 				
 				DatabaseHelper.recent_updates.add(String.format("Changed todo: %s",title));
 			}
@@ -308,8 +319,8 @@ public class SynchDatabase extends Activity {
 	private static void pruneLocalTodos(List<String> deletedRailsID, 
 			List<String> deletedGroupsID)  
 	{
-		for(int i = 0; i < deletedGroupsID.size(); i++) {
-			if(deletedGroupsID.get(i).equalsIgnoreCase("None")) {
+		for(int i = 0; i < deletedRailsID.size(); i++) {
+			if(deletedRailsID.get(i).equalsIgnoreCase("")) {
 				continue;
 			}
 			
